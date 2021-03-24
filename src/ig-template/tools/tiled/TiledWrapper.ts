@@ -58,6 +58,10 @@ export class TiledWrapper {
 
         this.tileHeight = this.worldMap.tileheight;
         this.tileWidth = this.worldMap.tilewidth;
+
+        this.canvas.width = worldMap.width * this.tileWidth;
+        this.canvas.height = worldMap.height * this.tileHeight;
+
         this.tileSets = worldMap.tilesets.map((tileSet) => {
             const jsonId = this.getJsonId(tileSet.source);
 
@@ -218,8 +222,9 @@ export class TiledWrapper {
             this.isHoveringOverClickBox = false;
         }
 
-        this.canvas.onmouseup = (event: MouseEvent) => {
+        this.canvas.onclick = (event: MouseEvent) => {
             event.preventDefault();
+            console.log("click;")
 
             // get the mouse position
             const [mouseX, mouseY] = this.getCursorPosition(event);

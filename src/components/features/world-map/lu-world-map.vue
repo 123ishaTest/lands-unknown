@@ -1,8 +1,8 @@
 <template>
   <igt-feature>
     I'm a world-map
-    <div class="overflow-hidden">
-      <canvas id="world-canvas" width="1000" height="1000" class="border-2 pixelated"
+    <div class="overflow-hidden h-96 w-96">
+      <canvas id="world-canvas" class="border-2 pixelated"
               :class="{'cursor-pointer': showPointer}"></canvas>
     </div>
   </igt-feature>
@@ -12,6 +12,7 @@
 import IgtFeature from "@/components/util/igt-feature";
 import {TiledWrapper} from "@/ig-template/tools/tiled/TiledWrapper";
 import worldMap from '@/assets/tiled/maps/overworld.json'
+import Panzoom from '@panzoom/panzoom'
 
 export default {
   name: "lu-world-map",
@@ -23,6 +24,7 @@ export default {
       path: [],
       currentStep: 0,
       isWalking: false,
+      panzoom: null,
     }
   },
   computed: {
@@ -44,26 +46,39 @@ export default {
         }
     )
 
+    this.panzoom = Panzoom(this.tiledWrapper.canvas, {
+      // maxScale: 5,
+      disableZoom: false,
+      minScale: 0.20,
+      maxScale: 5,
+      contain: 'outside',
+      canvas: true,
+    })
+    this.tiledWrapper.canvas.parentElement.addEventListener('wheel', this.panzoom.zoomWithWheel)
+
+    this.panzoom.zoom(1);
+
+
     this.path = [
-      [17, 11],
-      [17, 12],
-      [17, 13],
-      [17, 14],
-      [18, 14],
-      [19, 14],
-      [20, 14],
-      [20, 15],
-      [21, 15],
-      [21, 16],
-      [22, 16],
-      [23, 16],
-      [23, 17],
-      [23, 18],
-      [24, 18],
-      [25, 18],
-      [25, 17],
-      [26, 17],
-      [27, 17],
+      [50 + 17, 50 + 11],
+      [50 + 17, 50 + 12],
+      [50 + 17, 50 + 13],
+      [50 + 17, 50 + 14],
+      [50 + 18, 50 + 14],
+      [50 + 19, 50 + 14],
+      [50 + 20, 50 + 14],
+      [50 + 20, 50 + 15],
+      [50 + 21, 50 + 15],
+      [50 + 21, 50 + 16],
+      [50 + 22, 50 + 16],
+      [50 + 23, 50 + 16],
+      [50 + 23, 50 + 17],
+      [50 + 23, 50 + 18],
+      [50 + 24, 50 + 18],
+      [50 + 25, 50 + 18],
+      [50 + 25, 50 + 17],
+      [50 + 26, 50 + 17],
+      [50 + 27, 50 + 17],
     ]
 
 
