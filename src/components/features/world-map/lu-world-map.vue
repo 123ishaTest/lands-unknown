@@ -1,9 +1,10 @@
 <template>
   <igt-feature>
     I'm a world-map
-    <canvas id="world-canvas" width="1000" height="1000" class="border-2" style="image-rendering: pixelated;"
-            :class="{'cursor-pointer': showPointer}"></canvas>
-    <div v-html="renderedCanvas"></div>
+    <div class="overflow-hidden">
+      <canvas id="world-canvas" width="1000" height="1000" class="border-2 pixelated"
+              :class="{'cursor-pointer': showPointer}"></canvas>
+    </div>
   </igt-feature>
 </template>
 
@@ -19,7 +20,6 @@ export default {
   data() {
     return {
       tiledWrapper: null,
-      renderedCanvas: {},
       path: [],
       currentStep: 0,
       isWalking: false,
@@ -78,5 +78,9 @@ export default {
 </script>
 
 <style scoped>
-
+.pixelated {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
+}
 </style>
