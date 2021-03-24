@@ -1,7 +1,7 @@
 <template>
   <igt-feature>
     I'm a world-map
-    <canvas id="world-canvas" width="2000" height="2000" class="border-2"
+    <canvas id="world-canvas" width="1000" height="1000" class="border-2" style="image-rendering: pixelated;"
             :class="{'cursor-pointer': showPointer}"></canvas>
     <div v-html="renderedCanvas"></div>
   </igt-feature>
