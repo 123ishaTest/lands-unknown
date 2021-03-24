@@ -18,6 +18,7 @@ export class TiledWrapper {
     worldMap: TiledMap;
     clickBoxes: ClickBox[] = [];
     canvas: HTMLCanvasElement
+    playerCanvas: HTMLCanvasElement
     ctx: CanvasRenderingContext2D;
 
     tileHeight: number;
@@ -41,9 +42,11 @@ export class TiledWrapper {
     playerImage: HTMLImageElement;
     playerImagedLoaded = false;
 
-    constructor(worldMap: TiledMap, canvas: HTMLCanvasElement, onInitialized: Function, onClickBoxClicked: Function) {
+    constructor(worldMap: TiledMap, canvas: HTMLCanvasElement, playerCanvas: HTMLCanvasElement, onInitialized: Function, onClickBoxClicked: Function) {
         this.worldMap = worldMap;
         this.canvas = canvas;
+        this.playerCanvas = playerCanvas;
+
         this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
 
         this.onInitialized = onInitialized;
@@ -61,6 +64,9 @@ export class TiledWrapper {
 
         this.canvas.width = worldMap.width * this.tileWidth;
         this.canvas.height = worldMap.height * this.tileHeight;
+
+        this.playerCanvas.width = worldMap.width * this.tileWidth;
+        this.playerCanvas.height = worldMap.height * this.tileHeight;
 
         this.tileSets = worldMap.tilesets.map((tileSet) => {
             const jsonId = this.getJsonId(tileSet.source);
@@ -98,12 +104,13 @@ export class TiledWrapper {
     }
 
     renderPlayer(x: number, y: number) {
-        this.render();
-        this.ctx.drawImage(this.playerImage, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = "red";
-        this.ctx.rect(x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight);
-        this.ctx.stroke();
+        const ctx = this.playerCanvas.getContext("2d") as CanvasRenderingContext2D;
+        ctx.clearRect(0, 0, this.playerCanvas.width, this.playerCanvas.height);
+        ctx.drawImage(this.playerImage, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.rect(x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight);
+        ctx.stroke();
     }
 
     getJsonId(source: string): string {
@@ -129,7 +136,7 @@ export class TiledWrapper {
     }
 
     getCursorPosition(event: MouseEvent) {
-        const rect = this.canvas.getBoundingClientRect()
+        const rect = this.playerCanvas.getBoundingClientRect()
         const x = event.clientX - rect.left
         const y = event.clientY - rect.top
         return [x, y];
@@ -211,7 +218,7 @@ export class TiledWrapper {
             this.renderLayer(this.worldMap.layers[i])
         }
 
-        this.canvas.onmousemove = (event: MouseEvent) => {
+        this.playerCanvas.onmousemove = (event: MouseEvent) => {
             const [mouseX, mouseY] = this.getCursorPosition(event);
             for (const clickBox of this.clickBoxes) {
                 if (this.isPointInRectangle(mouseX, mouseY, clickBox.x, clickBox.y, clickBox.width, clickBox.height)) {
@@ -222,8 +229,7 @@ export class TiledWrapper {
             this.isHoveringOverClickBox = false;
         }
 
-        this.canvas.onclick = (event: MouseEvent) => {
-            event.preventDefault();
+        this.playerCanvas.onclick = (event: MouseEvent) => {
             console.log("click;")
 
             // get the mouse position

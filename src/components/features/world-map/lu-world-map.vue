@@ -1,8 +1,15 @@
 <template>
   <igt-feature>
     I'm a world-map
-    <div class="overflow-hidden h-96 w-96">
+    <!--    <div class="overflow-hidden h-96 w-96">-->
+
+    <!--    </div>-->
+
+    <div id="canvas-stack">
       <canvas id="world-canvas" class="border-2 pixelated"
+              style="z-index: 1"
+              :class="{'cursor-pointer': showPointer}"></canvas>
+      <canvas id="player-canvas" class="pixelated" style="z-index:3"
               :class="{'cursor-pointer': showPointer}"></canvas>
     </div>
   </igt-feature>
@@ -24,7 +31,8 @@ export default {
       path: [],
       currentStep: 0,
       isWalking: false,
-      panzoom: null,
+      worldPanZoom: null,
+      playerPanZoom: null,
     }
   },
   computed: {
@@ -36,6 +44,7 @@ export default {
     this.tiledWrapper = new TiledWrapper(
         worldMap,
         document.getElementById('world-canvas'),
+        document.getElementById('player-canvas'),
         () => {
           this.tiledWrapper.render();
           this.tiledWrapper.renderPlayer(this.path[this.currentStep][0], this.path[this.currentStep][1])
@@ -46,17 +55,19 @@ export default {
         }
     )
 
-    this.panzoom = Panzoom(this.tiledWrapper.canvas, {
-      // maxScale: 5,
+    const panZoomOptions = {
       disableZoom: false,
       minScale: 0.20,
       maxScale: 5,
       contain: 'outside',
       canvas: true,
-    })
-    this.tiledWrapper.canvas.parentElement.addEventListener('wheel', this.panzoom.zoomWithWheel)
+    };
+    this.worldPanZoom = Panzoom(this.tiledWrapper.canvas, panZoomOptions)
+    this.playerPanZoom = Panzoom(this.tiledWrapper.playerCanvas, panZoomOptions)
+    this.tiledWrapper.canvas.parentElement.addEventListener('wheel', this.worldPanZoom.zoomWithWheel)
+    this.tiledWrapper.playerCanvas.parentElement.addEventListener('wheel', this.playerPanZoom.zoomWithWheel)
 
-    this.panzoom.zoom(1);
+    this.worldPanZoom.zoom(1);
 
 
     this.path = [
@@ -97,5 +108,16 @@ export default {
   image-rendering: -moz-crisp-edges;
   image-rendering: pixelated;
   -ms-interpolation-mode: nearest-neighbor;
+}
+
+#canvas-stack {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  border: 2px solid black;
+}
+
+canvas {
+  position: absolute;
 }
 </style>
