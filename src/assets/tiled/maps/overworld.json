@@ -92,9 +92,57 @@
          "width":50,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":12,
+         "name":"Hitboxes",
+         "objects":[
+                {
+                 "height":158.666666666667,
+                 "id":1,
+                 "name":"Market One",
+                 "properties":[
+                        {
+                         "name":"marketId",
+                         "type":"string",
+                         "value":"market-one"
+                        }],
+                 "rotation":0,
+                 "type":"market",
+                 "visible":true,
+                 "width":174,
+                 "x":447.333333333333,
+                 "y":174.666666666667
+                }, 
+                {
+                 "height":19,
+                 "id":4,
+                 "name":"",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Arial",
+                     "halign":"center",
+                     "pixelsize":20,
+                     "text":"This is a market",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":172.104166666667,
+                 "x":448.28125,
+                 "y":140.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":12,
- "nextobjectid":1,
+ "nextlayerid":14,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2021.02.15",
