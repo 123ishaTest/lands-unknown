@@ -1,7 +1,8 @@
 <template>
   <igt-feature>
     I'm a world-map
-    <canvas id="world-canvas" width="2000" height="2000" class="border-2" :class="{'cursor-pointer': showPointer}"></canvas>
+    <canvas id="world-canvas" width="2000" height="2000" class="border-2"
+            :class="{'cursor-pointer': showPointer}"></canvas>
     <div v-html="renderedCanvas"></div>
   </igt-feature>
 </template>
@@ -30,13 +31,10 @@ export default {
     this.tiledWrapper = new TiledWrapper(
         worldMap,
         document.getElementById('world-canvas'),
+        () => {
+          this.tiledWrapper.render();
+        }
     )
-
-    // TODO change to some callback
-    setTimeout(() => {
-      this.tiledWrapper.render();
-    }, 50)
-
   }
 }
 </script>

@@ -1,13 +1,19 @@
 import {ClickBox} from "@/ig-template/tools/tiled/ClickBoxes/ClickBox";
 import {LayerType} from "@/ig-template/tools/tiled/types/layers/LayerType";
-import * as TileSets from "@/assets/tiled/tilesets";
-import * as Images from "@/assets/tiled/images";
 import {TiledMap} from "@/ig-template/tools/tiled/types/TiledMap";
 import {TileSet} from "@/ig-template/tools/tiled/types/TileSet";
 import {TileLayer} from "@/ig-template/tools/tiled/types/layers/TileLayer";
 import {TiledLayer} from "@/ig-template/tools/tiled/types/layers/TiledLayer";
 import {ObjectGroup} from "@/ig-template/tools/tiled/types/layers/ObjectGroup";
 
+import * as TileSets from "@/assets/tiled/tilesets";
+import * as Images from "@/assets/tiled/images";
+
+/**
+ * Wrapper to work with Tiled maps.
+ * Support is very limited at the moment. It can render tiles and areas as clickboxes.
+ * Text is also shown, but not all properties are supported.
+ */
 export class TiledWrapper {
     worldMap: TiledMap;
     clickBoxes: ClickBox[] = [];
@@ -21,11 +27,19 @@ export class TiledWrapper {
 
     isHoveringOverClickBox: boolean = false;
 
-    constructor(worldMap: TiledMap, canvas: HTMLCanvasElement) {
+    tileSetsLoaded = 0;
+
+    /**
+     * Called when all images are loaded. Don't render before this
+     */
+    onInitialized: Function
+
+    constructor(worldMap: TiledMap, canvas: HTMLCanvasElement, onInitialized: Function) {
         this.worldMap = worldMap;
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
-        console.log(this.ctx)
+
+        this.onInitialized = onInitialized;
 
         this.tileHeight = this.worldMap.tileheight;
         this.tileWidth = this.worldMap.tilewidth;
@@ -38,6 +52,12 @@ export class TiledWrapper {
             // @ts-ignore
             imageCache.src = Images[jsonId]
 
+            imageCache.onload = () => {
+                this.tileSetsLoaded++;
+                if (this.tileSetsLoaded === this.tileSets.length) {
+                    this.onInitialized();
+                }
+            }
             return {
                 imageCache: imageCache,
                 firstgid: tileSet.firstgid,
@@ -83,8 +103,6 @@ export class TiledWrapper {
             const object = layer.objects[i];
 
             if (object.text) {
-                console.log(`${object.text.pixelsize}px ${object.text.fontfamily}`);
-
                 this.ctx.font = `${object.text.pixelsize}px ${object.text.fontfamily}`;
                 this.ctx.textAlign = 'center'
                 this.ctx.textBaseline = 'middle'
@@ -172,12 +190,9 @@ export class TiledWrapper {
 
             // get the mouse position
             const [mouseX, mouseY] = this.getCursorPosition(event);
-            console.log("mouse", mouseX, mouseY)
             // iterate each shape in the shapes array
             for (let i = 0; i < this.clickBoxes.length; i++) {
                 const clickBox = this.clickBoxes[i];
-
-                console.log(mouseX, mouseY, clickBox.x, clickBox.y, clickBox.width, clickBox.height)
                 if (this.isPointInRectangle(mouseX, mouseY, clickBox.x, clickBox.y, clickBox.width, clickBox.height)) {
                     console.log(clickBox);
                 }
