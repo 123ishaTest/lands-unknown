@@ -33,13 +33,28 @@ export class TiledWrapper {
      * Called when all images are loaded. Don't render before this
      */
     onInitialized: Function
+    /**
+     * Called when a ClickBox is clicked
+     */
+    onClickBoxClicked: Function
 
-    constructor(worldMap: TiledMap, canvas: HTMLCanvasElement, onInitialized: Function) {
+    playerImage: HTMLImageElement;
+    playerImagedLoaded = false;
+
+    constructor(worldMap: TiledMap, canvas: HTMLCanvasElement, onInitialized: Function, onClickBoxClicked: Function) {
         this.worldMap = worldMap;
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
 
         this.onInitialized = onInitialized;
+        this.onClickBoxClicked = onClickBoxClicked;
+
+        this.playerImage = new Image();
+        this.playerImage.onload = () => {
+            this.playerImagedLoaded = true;
+            this.checkIfReady()
+        }
+        this.playerImage.src = Images.character;
 
         this.tileHeight = this.worldMap.tileheight;
         this.tileWidth = this.worldMap.tilewidth;
@@ -54,9 +69,7 @@ export class TiledWrapper {
 
             imageCache.onload = () => {
                 this.tileSetsLoaded++;
-                if (this.tileSetsLoaded === this.tileSets.length) {
-                    this.onInitialized();
-                }
+                this.checkIfReady();
             }
             return {
                 imageCache: imageCache,
@@ -67,6 +80,26 @@ export class TiledWrapper {
             };
         });
 
+    }
+
+    checkIfReady() {
+        if (this.tileSetsLoaded !== this.tileSets.length) {
+            return false;
+        }
+        if (!this.playerImagedLoaded) {
+            return false;
+        }
+
+        this.onInitialized();
+    }
+
+    renderPlayer(x: number, y: number) {
+        this.render();
+        this.ctx.drawImage(this.playerImage, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = "red";
+        this.ctx.rect(x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight);
+        this.ctx.stroke();
     }
 
     getJsonId(source: string): string {
@@ -111,6 +144,7 @@ export class TiledWrapper {
             }
             if (object.properties) {
                 this.ctx.beginPath();
+                this.ctx.strokeStyle = "black";
                 this.ctx.rect(object.x, object.y, object.width, object.height);
                 this.ctx.stroke();
                 this.clickBoxes.push(object)
@@ -156,7 +190,6 @@ export class TiledWrapper {
     }
 
     renderLayer(layer: TiledLayer) {
-        console.log(`Rendering layer ${layer.name} of type ${layer.type}`);
         switch (layer.type as LayerType) {
             case LayerType.TileLayer:
                 this.renderTileLayer(layer as TileLayer);
@@ -185,7 +218,7 @@ export class TiledWrapper {
             this.isHoveringOverClickBox = false;
         }
 
-        this.canvas.onmousedown = (event: MouseEvent) => {
+        this.canvas.onmouseup = (event: MouseEvent) => {
             event.preventDefault();
 
             // get the mouse position
@@ -194,6 +227,7 @@ export class TiledWrapper {
             for (let i = 0; i < this.clickBoxes.length; i++) {
                 const clickBox = this.clickBoxes[i];
                 if (this.isPointInRectangle(mouseX, mouseY, clickBox.x, clickBox.y, clickBox.width, clickBox.height)) {
+                    this.onClickBoxClicked(clickBox);
                     console.log(clickBox);
                 }
             }

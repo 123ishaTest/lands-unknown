@@ -20,6 +20,9 @@ export default {
     return {
       tiledWrapper: null,
       renderedCanvas: {},
+      path: [],
+      currentStep: 0,
+      isWalking: false,
     }
   },
   computed: {
@@ -33,8 +36,43 @@ export default {
         document.getElementById('world-canvas'),
         () => {
           this.tiledWrapper.render();
+          this.tiledWrapper.renderPlayer(this.path[this.currentStep][0], this.path[this.currentStep][1])
+
+        },
+        () => {
+          this.isWalking = true;
         }
     )
+
+    this.path = [
+      [17, 11],
+      [17, 12],
+      [17, 13],
+      [17, 14],
+      [18, 14],
+      [19, 14],
+      [20, 14],
+      [20, 15],
+      [21, 15],
+      [21, 16],
+      [22, 16],
+      [23, 16],
+      [23, 17],
+      [23, 18],
+      [24, 18],
+      [25, 18],
+      [25, 17],
+      [26, 17],
+      [27, 17],
+    ]
+
+
+    setInterval(() => {
+      if (this.isWalking) {
+        this.tiledWrapper.renderPlayer(this.path[this.currentStep][0], this.path[this.currentStep][1])
+        this.currentStep = Math.min(this.currentStep + 1, this.path.length - 1);
+      }
+    }, 500)
   }
 }
 </script>
