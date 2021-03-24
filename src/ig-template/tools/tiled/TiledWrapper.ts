@@ -42,6 +42,9 @@ export class TiledWrapper {
     playerImage: HTMLImageElement;
     playerImagedLoaded = false;
 
+
+    currentScale: number = 1;
+
     constructor(worldMap: TiledMap, canvas: HTMLCanvasElement, playerCanvas: HTMLCanvasElement, onInitialized: Function, onClickBoxClicked: Function) {
         this.worldMap = worldMap;
         this.canvas = canvas;
@@ -137,8 +140,8 @@ export class TiledWrapper {
 
     getCursorPosition(event: MouseEvent) {
         const rect = this.playerCanvas.getBoundingClientRect()
-        const x = event.clientX - rect.left
-        const y = event.clientY - rect.top
+        const x = (event.clientX - rect.left) / this.currentScale;
+        const y = (event.clientY - rect.top) / this.currentScale;
         return [x, y];
     }
 

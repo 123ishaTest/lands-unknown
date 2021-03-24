@@ -64,7 +64,7 @@ export default {
 
     const panZoomOptions = {
       disableZoom: false,
-      minScale: 0.20,
+      minScale: 0.8,
       maxScale: 5,
       contain: 'outside',
       canvas: true,
@@ -72,6 +72,9 @@ export default {
     this.worldPanZoom = Panzoom(this.tiledWrapper.canvas, panZoomOptions)
     this.playerPanZoom = Panzoom(this.tiledWrapper.playerCanvas, panZoomOptions)
     this.tiledWrapper.canvas.parentElement.addEventListener('wheel', this.worldPanZoom.zoomWithWheel)
+    this.tiledWrapper.canvas.parentElement.addEventListener('wheel', () => {
+      this.tiledWrapper.currentScale = this.worldPanZoom.getScale();
+    })
     this.tiledWrapper.playerCanvas.parentElement.addEventListener('wheel', this.playerPanZoom.zoomWithWheel)
 
     this.worldPanZoom.zoom(1);
