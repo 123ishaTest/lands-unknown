@@ -1,10 +1,11 @@
 <template>
   <igt-feature>
-    <div id="canvas-stack" class="w-full relative h-96">
+    <div id="canvas-stack" class="w-full relative"
+         :style="'height:' + stackHeight + 'px;'">
       <canvas id="world-canvas" class="border-2 pixelated absolute"
               style="z-index: 1"
               :class="{'cursor-pointer': showPointer}"></canvas>
-      <canvas id="player-canvas" class="pixelated absolute" style="z-index:3"
+      <canvas id="player-canvas" class="pixelated absolute" style="z-index:2"
               :class="{'cursor-pointer': showPointer}"></canvas>
     </div>
   </igt-feature>
@@ -28,6 +29,7 @@ export default {
       isWalking: false,
       worldPanZoom: null,
       playerPanZoom: null,
+      stackHeight: this.updateStackHeight(),
     }
   },
   computed: {
@@ -35,7 +37,17 @@ export default {
       return this.tiledWrapper && this.tiledWrapper.isHoveringOverClickBox;
     }
   },
+  methods: {
+    updateStackHeight() {
+      this.stackHeight = window.innerHeight - 200;
+    }
+  },
   mounted() {
+    window.onresize = () => {
+      this.updateStackHeight();
+    }
+    this.updateStackHeight();
+
     this.tiledWrapper = new TiledWrapper(
         worldMap,
         document.getElementById('world-canvas'),
