@@ -1,15 +1,10 @@
 <template>
   <igt-feature>
-    I'm a world-map
-    <!--    <div class="overflow-hidden h-96 w-96">-->
-
-    <!--    </div>-->
-
-    <div id="canvas-stack">
-      <canvas id="world-canvas" class="border-2 pixelated"
+    <div id="canvas-stack" class="w-full relative h-96">
+      <canvas id="world-canvas" class="border-2 pixelated absolute"
               style="z-index: 1"
               :class="{'cursor-pointer': showPointer}"></canvas>
-      <canvas id="player-canvas" class="pixelated" style="z-index:3"
+      <canvas id="player-canvas" class="pixelated absolute" style="z-index:3"
               :class="{'cursor-pointer': showPointer}"></canvas>
     </div>
   </igt-feature>
@@ -110,14 +105,5 @@ export default {
   -ms-interpolation-mode: nearest-neighbor;
 }
 
-#canvas-stack {
-  width: 500px;
-  height: 500px;
-  position: relative;
-  border: 2px solid black;
-}
 
-canvas {
-  position: absolute;
-}
 </style>
