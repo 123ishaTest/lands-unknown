@@ -141,20 +141,20 @@
          "objects":[
                 {
                  "height":0,
-                 "id":13,
+                 "id":15,
                  "name":"",
                  "polyline":[
                         {
-                         "x":0,
-                         "y":0
+                         "x":-48,
+                         "y":48
                         }, 
                         {
-                         "x":0,
-                         "y":16
+                         "x":-32,
+                         "y":48
                         }, 
                         {
-                         "x":0,
-                         "y":32
+                         "x":-16,
+                         "y":48
                         }, 
                         {
                          "x":0,
@@ -234,7 +234,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":14,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",
