@@ -8,6 +8,8 @@ import {ObjectGroup} from "@/ig-template/tools/tiled/types/layers/ObjectGroup";
 
 import * as TileSets from "@/assets/tiled/tilesets";
 import * as Images from "@/assets/tiled/images";
+import {WorldPosition} from "@/ig-template/tools/tiled/WorldPosition";
+import {WorldPath} from "@/ig-template/tools/tiled/WorldPath";
 
 /**
  * Wrapper to work with Tiled maps.
@@ -29,6 +31,8 @@ export class TiledWrapper {
     isHoveringOverClickBox: boolean = false;
 
     tileSetsLoaded = 0;
+
+    paths: WorldPath[] = [];
 
     /**
      * Called when all images are loaded. Don't render before this
@@ -92,7 +96,26 @@ export class TiledWrapper {
                 ...TileSets[jsonId],
             };
         });
+        const pathLayer = this.worldMap.layers.find(layer => {
+            return layer.name === "Paths"
+        }) as ObjectGroup;
+        this.paths = pathLayer.objects.map(object => {
 
+            const points = object.polyline?.map(position => {
+                return this.globalToTilePosition({
+                    x: position.x + object.x,
+                    y: position.y + object.y,
+                });
+            }) ?? [];
+            return new WorldPath(points);
+        });
+    }
+
+    globalToTilePosition(global: WorldPosition): WorldPosition {
+        return {
+            x: Math.floor(global.x / this.tileWidth),
+            y: Math.floor(global.y / this.tileHeight),
+        }
     }
 
     checkIfReady() {
@@ -233,8 +256,6 @@ export class TiledWrapper {
         }
 
         this.playerCanvas.onclick = (event: MouseEvent) => {
-            console.log("click;")
-
             // get the mouse position
             const [mouseX, mouseY] = this.getCursorPosition(event);
             // iterate each shape in the shapes array
@@ -242,7 +263,6 @@ export class TiledWrapper {
                 const clickBox = this.clickBoxes[i];
                 if (this.isPointInRectangle(mouseX, mouseY, clickBox.x, clickBox.y, clickBox.width, clickBox.height)) {
                     this.onClickBoxClicked(clickBox);
-                    console.log(clickBox);
                 }
             }
         }

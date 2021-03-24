@@ -24,7 +24,6 @@ export default {
   data() {
     return {
       tiledWrapper: null,
-      path: [],
       currentStep: 0,
       isWalking: false,
       worldPanZoom: null,
@@ -54,8 +53,6 @@ export default {
         document.getElementById('player-canvas'),
         () => {
           this.tiledWrapper.render();
-          this.tiledWrapper.renderPlayer(this.path[this.currentStep][0], this.path[this.currentStep][1])
-
         },
         () => {
           this.isWalking = true;
@@ -79,34 +76,11 @@ export default {
 
     this.worldPanZoom.zoom(1);
 
-
-    this.path = [
-      [50 + 17, 50 + 11],
-      [50 + 17, 50 + 12],
-      [50 + 17, 50 + 13],
-      [50 + 17, 50 + 14],
-      [50 + 18, 50 + 14],
-      [50 + 19, 50 + 14],
-      [50 + 20, 50 + 14],
-      [50 + 20, 50 + 15],
-      [50 + 21, 50 + 15],
-      [50 + 21, 50 + 16],
-      [50 + 22, 50 + 16],
-      [50 + 23, 50 + 16],
-      [50 + 23, 50 + 17],
-      [50 + 23, 50 + 18],
-      [50 + 24, 50 + 18],
-      [50 + 25, 50 + 18],
-      [50 + 25, 50 + 17],
-      [50 + 26, 50 + 17],
-      [50 + 27, 50 + 17],
-    ]
-
-
     setInterval(() => {
       if (this.isWalking) {
-        this.tiledWrapper.renderPlayer(this.path[this.currentStep][0], this.path[this.currentStep][1])
-        this.currentStep = Math.min(this.currentStep + 1, this.path.length - 1);
+        const position = this.tiledWrapper.paths[0].getWorldPosition(this.currentStep)
+        this.tiledWrapper.renderPlayer(position.x, position.y);
+        this.currentStep += 0.05
       }
     }, 500)
   }

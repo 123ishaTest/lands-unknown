@@ -1,4 +1,5 @@
 import {ObjectProperty} from "@/ig-template/tools/tiled/types/objects/ObjectProperty";
+import {WorldPosition} from "@/ig-template/tools/tiled/WorldPosition";
 
 export interface TiledObject {
     height: number;
@@ -15,6 +16,7 @@ export interface TiledObject {
         valign?: string;
         wrap?: boolean;
     };
+    polyline?: WorldPosition[];
     rotation: number;
     type: string;
     visible: boolean;
