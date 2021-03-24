@@ -9,7 +9,7 @@ export class TravelAction extends AbstractAction {
     reverse: boolean;
 
     constructor(road: Road, reverse: boolean, worldMap: WorldMap) {
-        super(``, 10, 1);
+        super(``, 1, 0);
         this._worldMap = worldMap;
         this.road = road;
         this.reverse = reverse;
@@ -17,8 +17,9 @@ export class TravelAction extends AbstractAction {
     }
 
     gainReward(): boolean {
+        console.log("completed");
         this._worldMap.setLocation(this.to);
-        return true;
+        return false;
     }
 
     get from() {

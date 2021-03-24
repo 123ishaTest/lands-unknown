@@ -13,13 +13,16 @@ import {Town} from "@/ig-template/features/world-map/towns/Town";
 export class WorldBuilder {
 
     static createWorld(): WorldMap {
+
+
+        // TODO generate from Tiled
         const roads = [
-            this.createRoad(RoadId.OldTownRoad, "Old Town Road", new TownLocationIdentifier(TownId.SmallTown), new TownLocationIdentifier(TownId.ToonTown), 50),
+            this.createRoad(RoadId.OldTownRoad, "Old Town Road", new TownLocationIdentifier(TownId.FisherMan), new TownLocationIdentifier(TownId.Market), 50),
         ];
 
         const towns = [
-            this.createTown(TownId.ToonTown, "Toon Town", TownTier.Town),
-            this.createTown(TownId.SmallTown, "Small Town", TownTier.Town),
+            this.createTown(TownId.Market, "Toon Town", TownTier.Town),
+            this.createTown(TownId.FisherMan, "Small Town", TownTier.Town),
             this.createTown(TownId.AwesomeTown, "Awesome Town", TownTier.Town),
         ];
 

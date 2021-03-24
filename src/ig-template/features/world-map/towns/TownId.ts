@@ -1,5 +1,5 @@
 export enum TownId {
-    SmallTown = "small-town",
-    ToonTown = "toon-town",
+    FisherMan = "fisherman",
+    Market = "market",
     AwesomeTown = "awesome-town",
 }

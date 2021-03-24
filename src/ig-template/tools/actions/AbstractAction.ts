@@ -11,10 +11,13 @@ export abstract class AbstractAction {
     isStarted: boolean = false;
     currentProgress: number = 0;
 
+    isFinished: boolean = false;
+
     requirement: Requirement;
 
     // One iteration done
     private _onCompletion = new SimpleEventDispatcher<AbstractAction>();
+    private _onFinished = new SimpleEventDispatcher<AbstractAction>();
 
     protected constructor(description: string, duration: number, repeat: number = Infinity, requirement: Requirement = new NoRequirement()) {
         this.description = description;
@@ -24,9 +27,10 @@ export abstract class AbstractAction {
     }
 
     perform(delta: number): void {
-        if (!this.isStarted) {
+        if (!this.isStarted || this.isFinished) {
             return;
         }
+
 
         this.currentProgress += delta;
 
@@ -40,12 +44,16 @@ export abstract class AbstractAction {
     }
 
     complete(): void {
+        if (this.isFinished) {
+            console.warn("Cannot complete action that is already finished");
+            return;
+        }
         this._onCompletion.dispatch(this);
         const canRepeat: boolean = this.gainReward();
         if (canRepeat && this.repeat > 0) {
             this.repeatAction();
         } else {
-            this.stop();
+            this.finish();
         }
     }
 
@@ -82,9 +90,15 @@ export abstract class AbstractAction {
         return true;
     }
 
+    finish(): void {
+        this.isFinished = true;
+        this._onFinished.dispatch(this);
+    }
+
     stop() {
         this.currentProgress = 0;
         this.isStarted = false;
+        console.log("stopping")
     }
 
     /**
@@ -95,5 +109,9 @@ export abstract class AbstractAction {
 
     public get onCompletion(): ISimpleEvent<AbstractAction> {
         return this._onCompletion.asEvent();
+    }
+
+    public get onFinished(): ISimpleEvent<AbstractAction> {
+        return this._onFinished.asEvent();
     }
 }

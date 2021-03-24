@@ -1,5 +1,12 @@
 <template>
   <igt-feature>
+    <div class="flex flex-row">
+      <div :key="action.description" v-for="action in adventurer.actionQueue">
+        {{action.description}} - {{action.getProgress()}}
+      </div>
+
+    </div>
+    <p>Location {{ currentLocation }}</p>
     <div id="canvas-stack" class="w-full relative"
          :style="'height:' + stackHeight + 'px;'">
       <canvas id="world-canvas" class="border-2 pixelated absolute"
@@ -12,10 +19,13 @@
 </template>
 
 <script>
+import {App} from "@/App.ts"
+
 import IgtFeature from "@/components/util/igt-feature";
 import {TiledWrapper} from "@/ig-template/tools/tiled/TiledWrapper";
 import worldMap from '@/assets/tiled/maps/overworld.json'
 import Panzoom from '@panzoom/panzoom'
+import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 
 export default {
   name: "lu-world-map",
@@ -23,15 +33,20 @@ export default {
 
   data() {
     return {
+      worldMap: App.game.features.worldMap,
+      adventurer: App.game.features.adventurer,
       tiledWrapper: null,
       currentStep: 0,
-      isWalking: false,
       worldPanZoom: null,
       playerPanZoom: null,
       stackHeight: this.updateStackHeight(),
     }
   },
   computed: {
+
+    currentLocation() {
+      return this.worldMap.playerLocation;
+    },
     showPointer() {
       return this.tiledWrapper && this.tiledWrapper.isHoveringOverClickBox;
     }
@@ -54,8 +69,9 @@ export default {
         () => {
           this.tiledWrapper.render();
         },
-        () => {
-          this.isWalking = true;
+        (clickBox) => {
+          const townId = clickBox.properties[0].value;
+          this.worldMap.moveToLocation(new TownLocationIdentifier(townId));
         }
     )
 
@@ -76,13 +92,6 @@ export default {
 
     this.worldPanZoom.zoom(1);
 
-    setInterval(() => {
-      if (this.isWalking) {
-        const position = this.tiledWrapper.paths[0].getWorldPosition(this.currentStep)
-        this.tiledWrapper.renderPlayer(position.x, position.y);
-        this.currentStep += 0.05
-      }
-    }, 500)
   }
 }
 </script>

@@ -99,7 +99,7 @@
                         {
                          "name":"marketId",
                          "type":"string",
-                         "value":"market-one"
+                         "value":"market"
                         }],
                  "rotation":0,
                  "type":"market",
@@ -219,6 +219,17 @@
                         {
                          "x":160,
                          "y":96
+                        }],
+                 "properties":[
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"fisherman"
+                        }, 
+                        {
+                         "name":"to",
+                         "type":"string",
+                         "value":"market"
                         }],
                  "rotation":0,
                  "type":"",

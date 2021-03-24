@@ -27,7 +27,7 @@ export class WorldMap extends Feature {
 
         this.locations = [...roads, ...towns];
 
-        this.playerLocation = new TownLocationIdentifier(TownId.SmallTown);
+        this.playerLocation = new TownLocationIdentifier(TownId.FisherMan);
     }
 
 
@@ -55,8 +55,8 @@ export class WorldMap extends Feature {
             console.log(`There is no road from ${startingLocation} to ${target}`);
             return false;
         }
-
-        const reverse = road.from !== startingLocation;
+        // console.log("success");
+        const reverse = road.from === startingLocation;
 
         this._adventurer.addAction(new TravelAction(road, reverse, this));
         return true;
@@ -88,6 +88,12 @@ export class WorldMap extends Feature {
         // TODO(@Isha) improve efficiency, this is why you went to uni.
         for (const road of this.roads) {
             // Bidirectional roads
+            // console.log(`${road.from} - ${road.to} - ${from} - ${to}`);
+            // console.log("road.from", road.from);
+            // console.log("road.to", road.to);
+            // console.log("from", from);
+            // console.log("from", to);
+            // console.log(road);
             if (road.from.equals(from) && road.to.equals(to) || road.from.equals(to) && road.to.equals(from)) {
                 return road;
             }
