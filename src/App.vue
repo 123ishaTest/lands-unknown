@@ -5,11 +5,15 @@
 
       <igt-sidebar-category name="Features"></igt-sidebar-category>
 
+      <igt-tab name="World Map" :selected="true">
+        <lu-world-map></lu-world-map>
+      </igt-tab>
+
       <igt-tab name="Example">
         <igt-example-feature></igt-example-feature>
       </igt-tab>
 
-      <igt-tab name="Inventory" :selected="true">
+      <igt-tab name="Inventory">
         <igt-inventory></igt-inventory>
       </igt-tab>
 
@@ -68,9 +72,11 @@ import IgtRedeemableCodes from "@/components/features/codes/igt-redeemable-codes
 import IgtExampleFeature from "@/components/features/example/igt-example-feature";
 import IgtSpecialEvents from "@/components/features/special-events/igt-special-events";
 import IgtInventory from "@/components/features/inventory/igt-inventory";
+import LuWorldMap from "@/components/features/world-map/lu-world-map";
 
 export default {
   components: {
+    LuWorldMap,
     IgtInventory,
     IgtSpecialEvents,
     IgtExampleFeature,

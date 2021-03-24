@@ -1,0 +1,201 @@
+{ "columns":23,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"",
+         "target":"."
+        }
+    },
+ "image":"..\/images\/rts.png",
+ "imageheight":144,
+ "imagewidth":368,
+ "margin":0,
+ "name":"rts",
+ "spacing":0,
+ "tilecount":207,
+ "tiledversion":"2021.02.15",
+ "tileheight":16,
+ "tiles":[
+        {
+         "id":4,
+         "probability":0.0299999993294477
+        }, 
+        {
+         "id":15,
+         "probability":0.00999999977648258
+        }, 
+        {
+         "id":16,
+         "probability":0.00999999977648258
+        }, 
+        {
+         "id":38,
+         "probability":0.00999999977648258
+        }, 
+        {
+         "id":39,
+         "probability":0.00999999977648258
+        }, 
+        {
+         "id":73,
+         "probability":0.00999999977648258
+        }, 
+        {
+         "id":80,
+         "probability":200
+        }],
+ "tilewidth":16,
+ "type":"tileset",
+ "version":1.5,
+ "wangsets":[
+        {
+         "colors":[
+                {
+                 "color":"#ff0000",
+                 "name":"",
+                 "probability":0.5,
+                 "tile":-1
+                }, 
+                {
+                 "color":"#00ff00",
+                 "name":"",
+                 "probability":0.5,
+                 "tile":-1
+                }],
+         "name":"Ground",
+         "tile":0,
+         "type":"edge",
+         "wangtiles":[
+                {
+                 "tileid":0,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":1,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }]
+        }, 
+        {
+         "colors":[
+                {
+                 "color":"#ff0000",
+                 "name":"",
+                 "probability":1,
+                 "tile":-1
+                }, 
+                {
+                 "color":"#00ff00",
+                 "name":"",
+                 "probability":1,
+                 "tile":-1
+                }],
+         "name":"Scenery",
+         "tile":74,
+         "type":"edge",
+         "wangtiles":[
+                {
+                 "tileid":4,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":73,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":74,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":75,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":76,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":77,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":78,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":80,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":96,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":97,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":102,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":119,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }, 
+                {
+                 "tileid":125,
+                 "wangid":[2, 0, 2, 0, 2, 0, 2, 0]
+                }]
+        }, 
+        {
+         "colors":[
+                {
+                 "color":"#ff0000",
+                 "name":"",
+                 "probability":1,
+                 "tile":-1
+                }, 
+                {
+                 "color":"#00ff00",
+                 "name":"",
+                 "probability":1,
+                 "tile":-1
+                }],
+         "name":"Forest",
+         "tile":94,
+         "type":"edge",
+         "wangtiles":[
+                {
+                 "tileid":69,
+                 "wangid":[1, 0, 1, 0, 1, 0, 1, 0]
+                }, 
+                {
+                 "tileid":70,
+                 "wangid":[1, 0, 1, 0, 1, 0, 1, 0]
+                }, 
+                {
+                 "tileid":71,
+                 "wangid":[1, 0, 1, 0, 1, 0, 1, 0]
+                }, 
+                {
+                 "tileid":72,
+                 "wangid":[1, 0, 1, 0, 1, 0, 1, 0]
+                }, 
+                {
+                 "tileid":92,
+                 "wangid":[1, 0, 1, 0, 1, 0, 1, 0]
+                }, 
+                {
+                 "tileid":93,
+                 "wangid":[1, 0, 1, 0, 1, 0, 1, 0]
+                }, 
+                {
+                 "tileid":94,
+                 "wangid":[1, 0, 1, 0, 1, 0, 1, 0]
+                }, 
+                {
+                 "tileid":95,
+                 "wangid":[1, 0, 1, 0, 1, 0, 1, 0]
+                }]
+        }]
+}
