@@ -47,7 +47,7 @@ export class WorldBuilder {
             const to = this.getPropertyValue(properties, "to")
             const id = `${from}-${to}` as WorldLocationId;
             const baseDuration = this.getPropertyValue(properties, "baseDuration")
-            console.log(from, to, baseDuration)
+
             const points = object.polyline?.map(position => {
                 return this.globalToTilePosition({
                     x: position.x + object.x,
@@ -56,9 +56,6 @@ export class WorldBuilder {
             }) ?? [];
             return new Road(new RoadLocationIdentifier(id), "Road", new TownLocationIdentifier(from), new TownLocationIdentifier(to), points, baseDuration);
         });
-
-        console.log(paths)
-
 
         return paths;
     }

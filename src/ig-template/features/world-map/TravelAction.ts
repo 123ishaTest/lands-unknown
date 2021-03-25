@@ -18,7 +18,6 @@ export class TravelAction extends AbstractAction {
     }
 
     gainReward(): boolean {
-        console.log("completed");
         this._worldMap.setLocation(this.to);
         return false;
     }

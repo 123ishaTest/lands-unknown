@@ -19,7 +19,6 @@ export class Road extends WorldLocation {
         this.points = points;
 
         this.duration = baseDuration * this.points.length;
-        console.log("duration", this.duration)
     }
 
     getWorldPosition(progress: number): WorldPosition {
