@@ -56,7 +56,7 @@ export class WorldMap extends Feature {
             return false;
         }
         // console.log("success");
-        const reverse = road.from === startingLocation;
+        const reverse = road.to.equals(startingLocation);
 
         this._adventurer.addAction(new TravelAction(road, reverse, this));
         return true;

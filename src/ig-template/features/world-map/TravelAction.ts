@@ -24,7 +24,12 @@ export class TravelAction extends AbstractAction {
     }
 
     getWorldPosition(): WorldPosition {
-        return this.road.getWorldPosition(this.getProgress().getPercentage());
+        if (this.reverse) {
+            return this.road.getWorldPosition(1 - this.getProgress().getPercentage());
+        } else {
+            return this.road.getWorldPosition(this.getProgress().getPercentage());
+
+        }
     }
 
     get from() {

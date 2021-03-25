@@ -2,7 +2,7 @@
   <igt-feature>
     <div class="flex flex-row">
       <div :key="action.description" v-for="action in adventurer.actionQueue">
-        {{ action.description }} - {{ action.getProgress() }}
+        {{ action.description }} - {{ action.getProgress() }} {{ action.reverse }}
       </div>
 
     </div>
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     updateStackHeight() {
-      this.stackHeight = window.innerHeight - 200;
+      this.stackHeight = window.innerHeight - 300;
     }
   },
   watch: {

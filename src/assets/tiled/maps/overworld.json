@@ -97,7 +97,7 @@
                  "name":"Market One",
                  "properties":[
                         {
-                         "name":"marketId",
+                         "name":"id",
                          "type":"string",
                          "value":"market"
                         }],
@@ -127,6 +127,23 @@
                  "width":172.104166666667,
                  "x":1248.28125,
                  "y":940.5
+                }, 
+                {
+                 "height":158.667,
+                 "id":17,
+                 "name":"Fisherman",
+                 "properties":[
+                        {
+                         "name":"id",
+                         "type":"string",
+                         "value":"fisherman"
+                        }],
+                 "rotation":0,
+                 "type":"market",
+                 "visible":true,
+                 "width":174,
+                 "x":956,
+                 "y":932
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -255,7 +272,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":16,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",
