@@ -10,7 +10,7 @@ export class TravelAction extends AbstractAction {
     reverse: boolean;
 
     constructor(road: Road, reverse: boolean, worldMap: WorldMap) {
-        super(``, 10, 0);
+        super(``, road.duration, 0);
         this._worldMap = worldMap;
         this.road = road;
         this.reverse = reverse;
