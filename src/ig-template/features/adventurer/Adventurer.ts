@@ -10,7 +10,7 @@ export class Adventurer extends Feature {
     _worldMap: WorldMap = {} as unknown as WorldMap;
 
     actionQueue: AbstractAction[] = [];
-    maxActions: number = 3;
+    maxActions: number = 10;
 
 
     constructor() {
