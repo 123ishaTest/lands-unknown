@@ -9,6 +9,7 @@ import {Adventurer} from "@/ig-template/features/adventurer/Adventurer";
 import {Features} from "@/ig-template/Features";
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
+import {Dijkstra} from "@/ig-template/features/world-map/Dijkstra";
 
 export class WorldMap extends Feature {
     _adventurer: Adventurer = undefined as unknown as Adventurer;
@@ -48,15 +49,22 @@ export class WorldMap extends Feature {
             return false;
         }
 
-        const road = this.getConnectionRoad(startingLocation, target);
-        if (road == null) {
+        const path = this.getPath(startingLocation, target);
+        if (path == null) {
             console.log(`There is no road from ${startingLocation} to ${target}`);
             return false;
         }
-        // console.log("success");
-        const reverse = road.to.equals(startingLocation);
 
-        this._adventurer.addAction(new TravelAction(road, reverse, this));
+        let lastSource = startingLocation;
+
+        for (let i = 0; i < path.length; i++) {
+            const road = path[i];
+            const reverse = road.to.equals(lastSource);
+            const newAction = new TravelAction(road, reverse, this);
+            this._adventurer.addAction(newAction);
+            lastSource = newAction.from;
+
+        }
         return true;
     }
 
@@ -79,24 +87,13 @@ export class WorldMap extends Feature {
     }
 
     areConnected(from: WorldLocationIdentifier, to: WorldLocationIdentifier): boolean {
-        return this.getConnectionRoad(from, to) !== null;
+        return this.getPath(from, to) !== null;
     }
 
-    getConnectionRoad(from: WorldLocationIdentifier, to: WorldLocationIdentifier): Road | null {
-        // TODO(@Isha) improve efficiency, this is why you went to uni.
-        for (const road of this.roads) {
-            // Bidirectional roads
-            // console.log(`${road.from} - ${road.to} - ${from} - ${to}`);
-            // console.log("road.from", road.from);
-            // console.log("road.to", road.to);
-            // console.log("from", from);
-            // console.log("from", to);
-            // console.log(road);
-            if (road.from.equals(from) && road.to.equals(to) || road.from.equals(to) && road.to.equals(from)) {
-                return road;
-            }
-        }
-        return null;
+    getPath(from: WorldLocationIdentifier, to: WorldLocationIdentifier): Road[] | null {
+        const dijkstra = new Dijkstra(this.roads);
+        return dijkstra.solve(from, to);
+
     }
 
     load(): void {

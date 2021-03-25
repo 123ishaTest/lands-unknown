@@ -8,16 +8,18 @@ import {WorldPosition} from "@/ig-template/tools/tiled/WorldPosition";
 export class Road extends WorldLocation {
     from: WorldLocationIdentifier;
     to: WorldLocationIdentifier;
-    baseDifficulty: number;
+    duration: number;
 
     points: WorldPosition[];
 
-    constructor(identifier: RoadLocationIdentifier, displayName: string, from: WorldLocationIdentifier, to: WorldLocationIdentifier, points: WorldPosition[], baseDifficulty: number, requirement: Requirement = new NoRequirement()) {
+    constructor(identifier: RoadLocationIdentifier, displayName: string, from: WorldLocationIdentifier, to: WorldLocationIdentifier, points: WorldPosition[], baseDuration: number, requirement: Requirement = new NoRequirement()) {
         super(identifier, displayName, requirement);
         this.from = from;
         this.to = to;
         this.points = points;
-        this.baseDifficulty = baseDifficulty;
+
+        this.duration = baseDuration * this.points.length;
+        console.log("duration", this.duration)
     }
 
     getWorldPosition(progress: number): WorldPosition {
