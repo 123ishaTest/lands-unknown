@@ -45,7 +45,7 @@ export class WorldBuilder {
             const properties = object.properties as ObjectProperty[];
             const from = this.getPropertyValue(properties, "from")
             const to = this.getPropertyValue(properties, "to")
-            const id = this.getPropertyValue(properties, "id") as WorldLocationId;
+            const id = `${from}-${to}`as WorldLocationId;
             const baseDuration = this.getPropertyValue(properties, "baseDuration")
             console.log(from, to, baseDuration)
             const points = object.polyline?.map(position => {

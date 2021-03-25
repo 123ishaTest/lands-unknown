@@ -236,26 +236,6 @@
                         {
                          "x":96,
                          "y":112
-                        }, 
-                        {
-                         "x":112,
-                         "y":112
-                        }, 
-                        {
-                         "x":128,
-                         "y":112
-                        }, 
-                        {
-                         "x":128,
-                         "y":96
-                        }, 
-                        {
-                         "x":144,
-                         "y":96
-                        }, 
-                        {
-                         "x":160,
-                         "y":96
                         }],
                  "properties":[
                         {
@@ -269,14 +249,9 @@
                          "value":"fisherman"
                         }, 
                         {
-                         "name":"id",
-                         "type":"string",
-                         "value":"fisherman-market"
-                        }, 
-                        {
                          "name":"to",
                          "type":"string",
-                         "value":"market"
+                         "value":"northern-cross-roads"
                         }],
                  "rotation":0,
                  "type":"",
@@ -284,6 +259,58 @@
                  "width":0,
                  "x":1080,
                  "y":984
+                }, 
+                {
+                 "height":0,
+                 "id":19,
+                 "name":"",
+                 "polyline":[
+                        {
+                         "x":-48,
+                         "y":48
+                        }, 
+                        {
+                         "x":-32,
+                         "y":48
+                        }, 
+                        {
+                         "x":-16,
+                         "y":48
+                        }, 
+                        {
+                         "x":-16,
+                         "y":32
+                        }, 
+                        {
+                         "x":0,
+                         "y":32
+                        }, 
+                        {
+                         "x":16,
+                         "y":32
+                        }],
+                 "properties":[
+                        {
+                         "name":"baseDuration",
+                         "type":"float",
+                         "value":4
+                        }, 
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"market"
+                        }, 
+                        {
+                         "name":"to",
+                         "type":"string",
+                         "value":"northern-cross-roads"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1224,
+                 "y":1048
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -292,7 +319,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":19,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",

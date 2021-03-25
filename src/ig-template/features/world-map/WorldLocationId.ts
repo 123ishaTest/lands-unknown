@@ -3,10 +3,12 @@ export enum WorldLocationId {
     FisherMan = 'fisherman',
     Market = 'market',
     Lumberjack = 'lumberjack',
-    NorthernCrossroad = 'northern-crossroad',
-    SouthernCrossroad = 'southern-crossroad',
+    NorthernCrossRoad = 'northern-cross-road',
+    SouthernCrossRoad = 'southern-cross-road',
 
     // Roads
-    FisherManToMarket = "fisherman-market",
+    FisherManNorthernCrossRoad = "fisherman-northern-cross-road",
+    MarketNorthernCrossRoad = "market-northern-cross-road",
+    LumberjackNorthernCrossRoad = "lumberjack-northern-cross-road",
 
 }
