@@ -10,7 +10,7 @@
     <p>Location {{ currentLocation }}</p>
     <div id="canvas-stack" class="w-full relative"
          :style="'height:' + stackHeight + 'px;'">
-      <canvas id="world-canvas" class="border-2 pixelated absolute"
+      <canvas id="world-canvas" class="pixelated absolute"
               style="z-index: 1"
               :class="{'cursor-pointer': showPointer}"></canvas>
       <canvas id="player-canvas" class="pixelated absolute" style="z-index:2"
