@@ -51,7 +51,6 @@ export class Dijkstra {
                 return null;
             }
 
-            console.log("u", u)
             Q = Q.filter(identifier => {
                 return !identifier.equals(u);
             })
@@ -59,13 +58,10 @@ export class Dijkstra {
 
             const neighbourRoads = this.getNeighbourRoads(u);
 
-            console.log("neighbours", neighbourRoads);
-
             neighbourRoads.forEach(road => {
                 const v = road.from.equals(u) ? road.to : road.from;
                 const newLength = distance[u.id] + road.duration;
                 if (newLength < distance[v.id]) {
-                    console.log("updating")
                     distance[v.id] = newLength;
                     previous[v.id] = road;
                 }
@@ -84,12 +80,10 @@ export class Dijkstra {
                 break;
             }
 
-            console.log("pushing", road);
             path.push(road);
             end = road.from.equals(end) ? road.to : road.from;
 
         }
-        console.log(path);
         return path.reverse();
     }
 
