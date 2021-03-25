@@ -1,8 +1,9 @@
 <template>
   <igt-feature>
-    <div class="flex flex-row">
-      <div :key="action.description" v-for="action in adventurer.actionQueue">
-        {{ action.description }} - {{ action.getProgress() }} {{ action.reverse }}
+    <div class="flex flex-col">
+      <div :key="action.description + '-' + index" v-for="(action, index) in adventurer.actionQueue">
+        {{ action.description }}
+        <igt-progress-bar v-if="index === 0" :percentage="action.getProgress().getPercentage()"></igt-progress-bar>
       </div>
 
     </div>
@@ -27,10 +28,11 @@ import worldMap from '@/assets/tiled/maps/overworld.json'
 import Panzoom from '@panzoom/panzoom'
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
+import IgtProgressBar from "@/components/util/igt-progress-bar";
 
 export default {
   name: "lu-world-map",
-  components: {IgtFeature},
+  components: {IgtProgressBar, IgtFeature},
 
   data() {
     return {
@@ -74,7 +76,6 @@ export default {
       if (newPosition.x === 0 && newPosition.y === 0) {
         return;
       }
-      console.log(newPosition.x, newPosition.y)
       this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y);
     }
 

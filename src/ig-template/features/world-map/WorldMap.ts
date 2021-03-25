@@ -40,9 +40,7 @@ export class WorldMap extends Feature {
      * @param target to move to
      */
     moveToLocation(target: WorldLocationIdentifier): boolean {
-        // TODO take queue into account
-        // const startingLocation = App.game.player.getPlayerLocationAtEndOfQueue();
-        const startingLocation = this.playerLocation;
+        const startingLocation = this._adventurer.getPlayerLocationAtEndOfQueue();
 
 
         if (startingLocation.equals(target)) {

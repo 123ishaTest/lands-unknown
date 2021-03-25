@@ -14,7 +14,7 @@ export class TravelAction extends AbstractAction {
         this._worldMap = worldMap;
         this.road = road;
         this.reverse = reverse;
-        this.description = `Travel from ${this.from} to ${this.to}`
+        this.description = `Travel from ${this.from.id} to ${this.to.id}`
     }
 
     gainReward(): boolean {

@@ -129,7 +129,7 @@
                  "y":940.5
                 }, 
                 {
-                 "height":158.667,
+                 "height":96,
                  "id":17,
                  "name":"Fisherman",
                  "properties":[
@@ -141,9 +141,29 @@
                  "rotation":0,
                  "type":"market",
                  "visible":true,
-                 "width":174,
-                 "x":956,
-                 "y":932
+                 "width":112,
+                 "x":980,
+                 "y":972
+                }, 
+                {
+                 "height":19,
+                 "id":18,
+                 "name":"",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Arial",
+                     "halign":"center",
+                     "pixelsize":20,
+                     "text":"Fisherman",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":172.104,
+                 "x":952,
+                 "y":940
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -272,7 +292,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":18,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",
