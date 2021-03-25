@@ -76,7 +76,21 @@ export default {
       if (newPosition.x === 0 && newPosition.y === 0) {
         return;
       }
-      this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y);
+      const roads = this.worldMap.roads
+      const queue = this.adventurer.actionQueue;
+      const isPlanned = this.worldMap.roads.map(road => {
+        const action = queue.find(action => {
+          if (action instanceof TravelAction) {
+            if (action.road.identifier.equals(road.identifier)) {
+              return true;
+            }
+          }
+          return false
+        })
+        return action != null;
+
+      })
+      this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, roads, isPlanned);
     }
 
   },
@@ -92,6 +106,7 @@ export default {
         document.getElementById('player-canvas'),
         () => {
           this.tiledWrapper.render();
+          this.tiledWrapper.renderPlayer(-1, -1, this.worldMap.roads, new Array(this.worldMap.roads.length).fill(false));
         },
         (clickBox) => {
           const townId = clickBox.properties[0].value;

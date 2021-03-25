@@ -92,7 +92,7 @@
          "name":"Hitboxes",
          "objects":[
                 {
-                 "height":158.666666666667,
+                 "height":48,
                  "id":1,
                  "name":"Docks",
                  "properties":[
@@ -104,9 +104,9 @@
                  "rotation":0,
                  "type":"town",
                  "visible":true,
-                 "width":174,
-                 "x":1420,
-                 "y":1332
+                 "width":96,
+                 "x":1440,
+                 "y":1392
                 }, 
                 {
                  "height":19,
@@ -142,8 +142,8 @@
                  "type":"town",
                  "visible":true,
                  "width":112,
-                 "x":980,
-                 "y":972
+                 "x":976,
+                 "y":976
                 }, 
                 {
                  "height":19,
@@ -179,8 +179,8 @@
                  "type":"town",
                  "visible":true,
                  "width":112,
-                 "x":904,
-                 "y":1316
+                 "x":896,
+                 "y":1312
                 }, 
                 {
                  "height":158.667,
@@ -196,8 +196,25 @@
                  "type":"town",
                  "visible":true,
                  "width":174,
-                 "x":1243.33,
-                 "y":970.667
+                 "x":1248,
+                 "y":976
+                }, 
+                {
+                 "height":48,
+                 "id":32,
+                 "name":"Castle",
+                 "properties":[
+                        {
+                         "name":"id",
+                         "type":"string",
+                         "value":"castle"
+                        }],
+                 "rotation":0,
+                 "type":"town",
+                 "visible":true,
+                 "width":96,
+                 "x":1152,
+                 "y":1472
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -933,7 +950,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":32,
+ "nextobjectid":33,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",

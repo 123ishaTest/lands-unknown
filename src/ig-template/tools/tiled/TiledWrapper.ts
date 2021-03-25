@@ -9,6 +9,7 @@ import {ObjectGroup} from "@/ig-template/tools/tiled/types/layers/ObjectGroup";
 import * as TileSets from "@/assets/tiled/tilesets";
 import * as Images from "@/assets/tiled/images";
 import {WorldPosition} from "@/ig-template/tools/tiled/WorldPosition";
+import {Road} from "@/ig-template/features/world-map/roads/Road";
 
 /**
  * Wrapper to work with Tiled maps.
@@ -113,9 +114,26 @@ export class TiledWrapper {
         this.onInitialized();
     }
 
-    renderPlayer(x: number, y: number) {
+    renderPlayer(x: number, y: number, roads: Road[], isPlanned: boolean[]) {
         const ctx = this.playerCanvas.getContext("2d") as CanvasRenderingContext2D;
         ctx.clearRect(0, 0, this.playerCanvas.width, this.playerCanvas.height);
+
+        // Paths
+        ctx.lineWidth = 2;
+        roads.forEach((road, index) => {
+            ctx.strokeStyle = isPlanned[index] ? 'red' : 'black';
+
+            ctx.beginPath();
+
+            road.points.forEach(position => {
+                const x = (position.x + 0.5) * this.tileWidth;
+                const y = (position.y + 0.5) * this.tileHeight;
+                ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+        });
+
+        // Player
         ctx.drawImage(this.playerImage, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)
         ctx.beginPath();
         ctx.strokeStyle = "red";
