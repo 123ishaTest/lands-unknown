@@ -3,12 +3,12 @@ import {WorldLocationIdentifier} from "@/ig-template/features/world-map/WorldLoc
 import {Town} from "@/ig-template/features/world-map/towns/Town";
 import {WorldLocation} from "@/ig-template/features/world-map/WorldLocation";
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
-import {TownId} from "@/ig-template/features/world-map/towns/TownId";
 import {Road} from "@/ig-template/features/world-map/roads/Road";
 import {WorldSaveData} from "@/ig-template/features/world-map/WorldSaveData";
 import {Adventurer} from "@/ig-template/features/adventurer/Adventurer";
 import {Features} from "@/ig-template/Features";
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
+import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
 
 export class WorldMap extends Feature {
     _adventurer: Adventurer = undefined as unknown as Adventurer;
@@ -27,7 +27,7 @@ export class WorldMap extends Feature {
 
         this.locations = [...roads, ...towns];
 
-        this.playerLocation = new TownLocationIdentifier(TownId.FisherMan);
+        this.playerLocation = new TownLocationIdentifier(WorldLocationId.FisherMan);
     }
 
 

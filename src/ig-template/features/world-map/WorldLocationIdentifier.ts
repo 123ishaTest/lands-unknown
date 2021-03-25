@@ -1,12 +1,11 @@
 import {WorldLocationType} from "@/ig-template/features/world-map/WorldLocationType";
-import {RoadId} from "@/ig-template/features/world-map/roads/RoadId";
-import {TownId} from "@/ig-template/features/world-map/towns/TownId";
+import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
 
 export abstract class WorldLocationIdentifier {
     type: WorldLocationType;
-    id: RoadId | TownId;
+    id: WorldLocationId;
 
-    protected constructor(type: WorldLocationType, id: RoadId | TownId) {
+    protected constructor(type: WorldLocationType, id: WorldLocationId) {
         this.type = type;
         this.id = id;
     }
