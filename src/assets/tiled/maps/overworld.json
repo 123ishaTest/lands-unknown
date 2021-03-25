@@ -222,9 +222,19 @@
                         }],
                  "properties":[
                         {
+                         "name":"baseDuration",
+                         "type":"float",
+                         "value":10
+                        }, 
+                        {
                          "name":"from",
                          "type":"string",
                          "value":"fisherman"
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"string",
+                         "value":"fisherman-market"
                         }, 
                         {
                          "name":"to",

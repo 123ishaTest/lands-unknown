@@ -1,6 +1,7 @@
 import {AbstractAction} from "@/ig-template/tools/actions/AbstractAction";
 import {WorldMap} from "@/ig-template/features/world-map/WorldMap";
 import {Road} from "@/ig-template/features/world-map/roads/Road";
+import {WorldPosition} from "@/ig-template/tools/tiled/WorldPosition";
 
 export class TravelAction extends AbstractAction {
     _worldMap: WorldMap;
@@ -9,7 +10,7 @@ export class TravelAction extends AbstractAction {
     reverse: boolean;
 
     constructor(road: Road, reverse: boolean, worldMap: WorldMap) {
-        super(``, 1, 0);
+        super(``, 10, 0);
         this._worldMap = worldMap;
         this.road = road;
         this.reverse = reverse;
@@ -20,6 +21,10 @@ export class TravelAction extends AbstractAction {
         console.log("completed");
         this._worldMap.setLocation(this.to);
         return false;
+    }
+
+    getWorldPosition(): WorldPosition {
+        return this.road.getWorldPosition(this.getProgress().getPercentage());
     }
 
     get from() {

@@ -2,7 +2,7 @@ import {TiledLayer} from "@/ig-template/tools/tiled/types/layers/TiledLayer";
 
 export interface TiledMap {
     compressionlevel: number;
-    editorsettings:
+    editorsettings?:
         {
             export:
                 {

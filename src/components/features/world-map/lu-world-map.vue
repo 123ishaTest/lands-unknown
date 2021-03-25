@@ -2,7 +2,7 @@
   <igt-feature>
     <div class="flex flex-row">
       <div :key="action.description" v-for="action in adventurer.actionQueue">
-        {{action.description}} - {{action.getProgress()}}
+        {{ action.description }} - {{ action.getProgress() }}
       </div>
 
     </div>
@@ -26,6 +26,7 @@ import {TiledWrapper} from "@/ig-template/tools/tiled/TiledWrapper";
 import worldMap from '@/assets/tiled/maps/overworld.json'
 import Panzoom from '@panzoom/panzoom'
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
+import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 
 export default {
   name: "lu-world-map",
@@ -43,7 +44,18 @@ export default {
     }
   },
   computed: {
-
+    playerPosition() {
+      if (this.firstActionIsTravel) {
+        return this.adventurer.actionQueue[0].getWorldPosition()
+      }
+      return {x: 0, y: 0};
+    },
+    firstActionIsTravel() {
+      if (this.adventurer.actionQueue.length === 0) {
+        return false;
+      }
+      return this.adventurer.actionQueue[0] instanceof TravelAction;
+    },
     currentLocation() {
       return this.worldMap.playerLocation;
     },
@@ -55,6 +67,17 @@ export default {
     updateStackHeight() {
       this.stackHeight = window.innerHeight - 200;
     }
+  },
+  watch: {
+    playerPosition(newPosition) {
+      // TODO refresh less often
+      if (newPosition.x === 0 && newPosition.y === 0) {
+        return;
+      }
+      console.log(newPosition.x, newPosition.y)
+      this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y);
+    }
+
   },
   mounted() {
     window.onresize = () => {

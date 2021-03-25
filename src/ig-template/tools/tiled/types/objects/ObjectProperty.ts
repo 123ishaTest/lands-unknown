@@ -1,5 +1,5 @@
 export interface ObjectProperty {
     name: string;
-    type: any;
+    type: string;
     value: any;
 }
