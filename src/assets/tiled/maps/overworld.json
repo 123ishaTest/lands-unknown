@@ -612,12 +612,12 @@
                         {
                          "name":"from",
                          "type":"string",
-                         "value":"castle"
+                         "value":"eastern-cross-roads"
                         }, 
                         {
                          "name":"to",
                          "type":"string",
-                         "value":"eastern-cross-roads"
+                         "value":"castle"
                         }],
                  "rotation":0,
                  "type":"",
