@@ -7,6 +7,7 @@ import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
 import {ItemAmount} from "@/ig-template/features/items/ItemAmount";
 import {Experience} from "@/lands-unknown/features/skills/Experience";
 import {SkillId} from "@/lands-unknown/features/skills/SkillId";
+import {SkillLevelRequirement} from "@/lands-unknown/features/skills/SkillLevelRequirement";
 
 export class ActionList extends Feature {
     _features = undefined as unknown as Features
@@ -25,6 +26,12 @@ export class ActionList extends Feature {
         return new SkillAction(ActionId.MineStone, "Mine Stone", 3,
             'fa-gem', this._features.skills, this._features.inventory, this._features.itemList,
             [], [new ItemAmount(ItemId.Stone)], [new Experience(4, SkillId.Mining)]);
+    }
+
+    get mineIron(): SkillAction {
+        return new SkillAction(ActionId.MineIron, "Mine Iron", 5,
+            'fa-gem', this._features.skills, this._features.inventory, this._features.itemList,
+            [], [new ItemAmount(ItemId.IronOre)], [new Experience(4, SkillId.Mining)], new SkillLevelRequirement(this._features.skills.mining, 5));
     }
 
     get fish(): SkillAction {

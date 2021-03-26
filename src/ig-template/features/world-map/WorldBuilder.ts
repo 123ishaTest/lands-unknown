@@ -65,15 +65,16 @@ export class WorldBuilder {
         const towns = [
             new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town),
             new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town, [
-                ActionId.Fish
+                ActionId.Fish,
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town),
             new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town, [
-                ActionId.CutWood
+                ActionId.CutWood,
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Docks), "Docks", TownTier.Town),
             new Town(new TownLocationIdentifier(WorldLocationId.Quarry), "Quarry", TownTier.Town, [
-                ActionId.MineStone
+                ActionId.MineStone,
+                ActionId.MineIron,
             ]),
         ];
 

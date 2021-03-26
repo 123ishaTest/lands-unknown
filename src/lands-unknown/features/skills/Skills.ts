@@ -7,12 +7,19 @@ export class Skills extends Feature {
 
     skills: Skill[];
 
+    mining: Skill;
+    woodCutting: Skill;
+    fishing: Skill;
+
     constructor() {
         super('skills');
+        this.mining = new Skill("Mining", SkillId.Mining, 'bg-gray-600');
+        this.woodCutting = new Skill("Woodcutting", SkillId.Woodcutting, 'bg-green-600');
+        this.fishing = new Skill("Fishing", SkillId.Fishing, 'bg-blue-600');
         this.skills = [
-            new Skill("Mining", SkillId.Mining, 'bg-gray-600'),
-            new Skill("Woodcutting", SkillId.Woodcutting, 'bg-green-600'),
-            new Skill("Fishing", SkillId.Fishing, 'bg-blue-600'),
+            this.mining,
+            this.woodCutting,
+            this.fishing,
         ];
     }
 
