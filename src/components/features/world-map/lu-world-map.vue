@@ -1,20 +1,15 @@
 <template>
   <igt-feature>
-    <div class="flex flex-col">
-      <div :key="action.description + '-' + index" v-for="(action, index) in adventurer.actionQueue">
-        {{ action.description }}
-        <igt-progress-bar v-if="index === 0" :percentage="action.getProgress().getPercentage()"></igt-progress-bar>
+    <div class="flex flex-row">
+      <div id="canvas-stack" class="w-full relative"
+           :style="'height:' + stackHeight + 'px;'">
+        <canvas id="world-canvas" class="pixelated absolute z-10"
+                :class="{'cursor-pointer': showPointer}"></canvas>
+        <canvas id="player-canvas" class="pixelated absolute z-20"
+                :class="{'cursor-pointer': showPointer}"></canvas>
       </div>
 
-    </div>
-    <p>Location {{ currentLocation }}</p>
-    <div id="canvas-stack" class="w-full relative"
-         :style="'height:' + stackHeight + 'px;'">
-      <canvas id="world-canvas" class="pixelated absolute"
-              style="z-index: 1"
-              :class="{'cursor-pointer': showPointer}"></canvas>
-      <canvas id="player-canvas" class="pixelated absolute" style="z-index:2"
-              :class="{'cursor-pointer': showPointer}"></canvas>
+      <lu-action-queue class="flex-init" :adventurer="adventurer"></lu-action-queue>
     </div>
   </igt-feature>
 </template>
@@ -28,11 +23,11 @@ import worldMap from '@/assets/tiled/maps/overworld.json'
 import Panzoom from '@panzoom/panzoom'
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
-import IgtProgressBar from "@/components/util/igt-progress-bar";
+import LuActionQueue from "@/components/features/adventurer/lu-action-queue";
 
 export default {
   name: "lu-world-map",
-  components: {IgtProgressBar, IgtFeature},
+  components: {LuActionQueue, IgtFeature},
 
   data() {
     return {
@@ -67,7 +62,7 @@ export default {
   },
   methods: {
     updateStackHeight() {
-      this.stackHeight = window.innerHeight - 300;
+      this.stackHeight = window.innerHeight - 200;
     }
   },
   watch: {
