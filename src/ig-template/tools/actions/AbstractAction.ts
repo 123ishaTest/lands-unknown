@@ -5,6 +5,9 @@ import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
 
 export abstract class AbstractAction {
     description: string;
+
+    abstract icon: string;
+
     duration: number;
     repeat: number; // 0, x, Infinity (until error)
 

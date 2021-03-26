@@ -4,7 +4,7 @@ import {ItemList} from "@/ig-template/features/items/ItemList";
 import {ItemId} from "@/ig-template/features/items/ItemId";
 
 export class GainItemAction extends AbstractAction {
-
+    icon = "fa-question";
     itemId: ItemId;
 
     _inventory: Inventory;

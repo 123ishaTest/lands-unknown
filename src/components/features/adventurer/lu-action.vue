@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-col">
       <div class="flex flex-row items-center justify-between">
-        <span class="fa" :class="icon"></span>
+        <span class="fa text-center" :class="action.icon"></span>
         <span class="text-xs p-2">{{ action.description }}
               <span v-if="action.repeat > 0">({{ action.repeat }})</span>
         </span>
@@ -17,7 +17,6 @@
 <script>
 import {AbstractAction} from "@/ig-template/tools/actions/AbstractAction";
 import IgtProgressBar from "@/components/util/igt-progress-bar";
-import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 
 export default {
   name: "lu-action",
@@ -35,15 +34,6 @@ export default {
       type: AbstractAction,
       required: true
     },
-  },
-  computed: {
-    // TODO abstract properly
-    icon() {
-      if (this.action instanceof TravelAction) {
-        return 'fa-route';
-      }
-      return 'fa-question';
-    }
   },
   methods: {
     cancel() {
