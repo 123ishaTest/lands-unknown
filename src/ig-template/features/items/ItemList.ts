@@ -6,6 +6,7 @@ import {ItemWithData} from "@/ig-template/features/items/instances/ItemWithData"
 import {EmptyItem} from "@/ig-template/features/items/instances/EmptyItem";
 import {RawFish} from "@/ig-template/features/items/instances/RawFish";
 import {CookedFish} from "@/ig-template/features/items/instances/CookedFish";
+import {Wood} from "@/ig-template/features/items/instances/Wood";
 
 export class ItemList extends Feature {
 
@@ -35,6 +36,10 @@ export class ItemList extends Feature {
 
     get rawFish(): RawFish {
         return new RawFish();
+    }
+
+    get wood(): Wood {
+        return new Wood();
     }
     get cookedFish(): CookedFish {
         return new CookedFish();

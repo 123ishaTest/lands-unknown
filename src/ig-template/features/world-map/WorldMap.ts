@@ -39,6 +39,8 @@ export class WorldMap extends Feature {
 
         // Populate locations with actions here
         this.getTown(WorldLocationId.FisherMan).addAction(new GainItemAction(ItemId.RawFish, "Fish", 3, features.inventory, features.itemList));
+
+        this.getTown(WorldLocationId.Lumberjack).addAction(new GainItemAction(ItemId.Wood, "Cut Wood", 3, features.inventory, features.itemList));
     }
 
     /**
