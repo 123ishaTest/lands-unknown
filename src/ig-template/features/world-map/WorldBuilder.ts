@@ -11,6 +11,7 @@ import {ObjectGroup} from "@/ig-template/tools/tiled/types/layers/ObjectGroup";
 import {TiledMap} from "@/ig-template/tools/tiled/types/TiledMap";
 import {ObjectProperty} from "@/ig-template/tools/tiled/types/objects/ObjectProperty";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
+import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
 
 export class WorldBuilder {
 
@@ -63,11 +64,17 @@ export class WorldBuilder {
 
         const towns = [
             new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town),
-            new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town, [
+                ActionId.Fish
+            ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town),
-            new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town, [
+                ActionId.CutWood
+            ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Docks), "Docks", TownTier.Town),
-            new Town(new TownLocationIdentifier(WorldLocationId.Quarry), "Quarry", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Quarry), "Quarry", TownTier.Town, [
+                ActionId.MineStone
+            ]),
         ];
 
         return new WorldMap(roads, towns);

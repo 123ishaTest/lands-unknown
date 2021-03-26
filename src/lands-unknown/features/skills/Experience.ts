@@ -4,8 +4,8 @@ export class Experience {
     skill: SkillId;
     exp: number;
 
-    constructor(skill: SkillId, exp: number) {
-        this.skill = skill;
+    constructor(exp: number, skill: SkillId) {
         this.exp = exp;
+        this.skill = skill;
     }
 }

@@ -10,13 +10,11 @@ import {Features} from "@/ig-template/Features";
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
 import {Dijkstra} from "@/ig-template/features/world-map/Dijkstra";
-import {ItemId} from "@/ig-template/features/items/ItemId";
-import {WoodCuttingAction} from "@/ig-template/tools/actions/WoodCuttingAction";
-import {FishingAction} from "@/ig-template/tools/actions/FishingAction";
-import {MiningAction} from "@/ig-template/tools/actions/MiningAction";
+import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
 
 export class WorldMap extends Feature {
     _adventurer: Adventurer = undefined as unknown as Adventurer;
+    _actionList: ActionList = undefined as unknown as ActionList;
 
     playerLocation: WorldLocationIdentifier;
 
@@ -38,13 +36,14 @@ export class WorldMap extends Feature {
 
     initialize(features: Features) {
         this._adventurer = features.adventurer;
+        this._actionList = features.actionList;
+    }
 
-        // Populate locations with actions here
-        this.getTown(WorldLocationId.FisherMan).addAction(new FishingAction(ItemId.RawFish, "Fish", 3, features.inventory, features.itemList));
 
-        this.getTown(WorldLocationId.Lumberjack).addAction(new WoodCuttingAction(ItemId.Wood, "Cut Wood", 3, features.inventory, features.itemList));
-
-        this.getTown(WorldLocationId.Quarry).addAction(new MiningAction(ItemId.Stone, "Mine Stone", 3, 10, features.inventory, features.itemList, features.skills));
+    start() {
+        this.locations.forEach(location => {
+            location.initializeActions(this._actionList);
+        })
     }
 
     /**
