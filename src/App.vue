@@ -9,29 +9,14 @@
         <lu-world-map></lu-world-map>
       </igt-tab>
 
-      <igt-tab name="Example">
-        <igt-example-feature></igt-example-feature>
-      </igt-tab>
-
       <igt-tab name="Inventory">
         <igt-inventory></igt-inventory>
-      </igt-tab>
-
-      <igt-tab name="Wallet">
-        <igt-wallet></igt-wallet>
-      </igt-tab>
-
-      <igt-tab name="Special Events">
-        <igt-special-events></igt-special-events>
       </igt-tab>
 
       <igt-tab name="Achievements">
         <igt-achievements :achievements-feature="game.features.achievements"></igt-achievements>
       </igt-tab>
 
-      <igt-tab name="Redeemable Codes">
-        <igt-redeemable-codes></igt-redeemable-codes>
-      </igt-tab>
 
       <igt-tab name="Settings">
         <igt-settings></igt-settings>
@@ -62,15 +47,11 @@ import {App} from "@/App.ts"
 import IgtSidebar from "@/components/util/sidebar/igt-sidebar-layout";
 import IgtTab from "@/components/util/igt-tab";
 import IgtAchievements from "@/components/features/achievements/igt-achievements";
-import IgtWallet from "@/components/features/wallet/igt-wallet";
 import IgtNotifications from "@/components/util/igt-notifications";
 import IgtDeveloperPanel from "@/components/developer-panel/igt-developer-panel";
 import IgtSidebarCategory from "@/components/util/sidebar/igt-sidebar-category";
 import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-external-link";
 import IgtSettings from "@/components/features/settings/igt-settings";
-import IgtRedeemableCodes from "@/components/features/codes/igt-redeemable-codes";
-import IgtExampleFeature from "@/components/features/example/igt-example-feature";
-import IgtSpecialEvents from "@/components/features/special-events/igt-special-events";
 import IgtInventory from "@/components/features/inventory/igt-inventory";
 import LuWorldMap from "@/components/features/world-map/lu-world-map";
 
@@ -78,12 +59,9 @@ export default {
   components: {
     LuWorldMap,
     IgtInventory,
-    IgtSpecialEvents,
-    IgtExampleFeature,
-    IgtRedeemableCodes,
     IgtSettings,
     IgtSidebarExternalLink,
-    IgtSidebarCategory, IgtDeveloperPanel, IgtNotifications, IgtWallet, IgtAchievements, IgtTab, IgtSidebar
+    IgtSidebarCategory, IgtDeveloperPanel, IgtNotifications, IgtAchievements, IgtTab, IgtSidebar
   },
   data() {
     return {
