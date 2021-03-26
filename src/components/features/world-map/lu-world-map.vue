@@ -95,10 +95,17 @@ export default {
     }
     this.updateStackHeight();
 
+    const worldCanvas = document.getElementById('world-canvas');
+    const playerCanvas = document.getElementById('player-canvas');
+
+    if (!worldCanvas || !playerCanvas) {
+      console.warn("Could not load canvases");
+      return;
+    }
     this.tiledWrapper = new TiledWrapper(
         worldMap,
-        document.getElementById('world-canvas'),
-        document.getElementById('player-canvas'),
+        worldCanvas,
+        playerCanvas,
         () => {
           this.tiledWrapper.render();
           this.tiledWrapper.renderPlayer(-1, -1, this.worldMap.roads, new Array(this.worldMap.roads.length).fill(false));
