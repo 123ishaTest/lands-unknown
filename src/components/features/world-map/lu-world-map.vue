@@ -1,10 +1,20 @@
 <template>
   <igt-feature>
+    <span>Location: {{ worldMap.playerLocation }} End: {{ adventurer.getPlayerLocationAtEndOfQueue() }}</span>
+
     <div class="flex flex-row">
+      <lu-location-highlight
+          @travel="travel"
+          @action="performAction"
+          class="absolute" :location="highlightedLocation">
+
+      </lu-location-highlight>
+
       <div id="canvas-stack" class="w-full relative"
            :style="'height:' + stackHeight + 'px;'">
         <canvas id="world-canvas" class="pixelated absolute z-10"
-                :class="{'cursor-pointer': showPointer}"></canvas>
+                :class="{'cursor-pointer': showPointer}">
+        </canvas>
         <canvas id="player-canvas" class="pixelated absolute z-20"
                 :class="{'cursor-pointer': showPointer}"></canvas>
       </div>
@@ -24,13 +34,15 @@ import Panzoom from '@panzoom/panzoom'
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 import LuActionQueue from "@/components/features/adventurer/lu-action-queue";
+import LuLocationHighlight from "@/components/features/world-map/lu-location-highlight";
 
 export default {
   name: "lu-world-map",
-  components: {LuActionQueue, IgtFeature},
+  components: {LuLocationHighlight, LuActionQueue, IgtFeature},
 
   data() {
     return {
+      highlightedLocation: null,
       worldMap: App.game.features.worldMap,
       adventurer: App.game.features.adventurer,
       tiledWrapper: null,
@@ -61,6 +73,20 @@ export default {
     }
   },
   methods: {
+    travel(identifier) {
+      this.worldMap.moveToLocation(identifier);
+    },
+    performAction(action, repeat, location) {
+      if (!this.adventurer.getPlayerLocationAtEndOfQueue().equals(location)) {
+        this.travel(location);
+      }
+      this.adventurer.addAction(action, repeat);
+    },
+    showHighlight(identifier) {
+      const location = this.worldMap.getLocation(identifier)
+      this.highlightedLocation = location;
+      console.log(location);
+    },
     updateStackHeight() {
       this.stackHeight = window.innerHeight - 200;
     }
@@ -113,7 +139,7 @@ export default {
         },
         (clickBox) => {
           const townId = clickBox.properties[0].value;
-          this.worldMap.moveToLocation(new TownLocationIdentifier(townId));
+          this.showHighlight(new TownLocationIdentifier(townId));
         }
     )
 

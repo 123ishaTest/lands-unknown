@@ -6,6 +6,8 @@ import {Inventory} from "@/ig-template/features/inventory/Inventory";
 import {ItemList} from "@/ig-template/features/items/ItemList";
 
 export class RecipeAction extends AbstractAction {
+    icon = "fa-cauldron";
+
     duration: number;
     input: ItemAmount[];
     output: ItemAmount[];

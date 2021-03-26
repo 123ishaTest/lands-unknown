@@ -10,6 +10,10 @@ import {Features} from "@/ig-template/Features";
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
 import {Dijkstra} from "@/ig-template/features/world-map/Dijkstra";
+import {ItemId} from "@/ig-template/features/items/ItemId";
+import {WoodCuttingAction} from "@/ig-template/tools/actions/WoodCuttingAction";
+import {FishingAction} from "@/ig-template/tools/actions/FishingAction";
+import {MiningAction} from "@/ig-template/tools/actions/MiningAction";
 
 export class WorldMap extends Feature {
     _adventurer: Adventurer = undefined as unknown as Adventurer;
@@ -34,6 +38,13 @@ export class WorldMap extends Feature {
 
     initialize(features: Features) {
         this._adventurer = features.adventurer;
+
+        // Populate locations with actions here
+        this.getTown(WorldLocationId.FisherMan).addAction(new FishingAction(ItemId.RawFish, "Fish", 3, features.inventory, features.itemList));
+
+        this.getTown(WorldLocationId.Lumberjack).addAction(new WoodCuttingAction(ItemId.Wood, "Cut Wood", 3, features.inventory, features.itemList));
+
+        this.getTown(WorldLocationId.Quarry).addAction(new MiningAction(ItemId.Stone, "Mine Stone", 3, features.inventory, features.itemList));
     }
 
     /**
@@ -69,6 +80,10 @@ export class WorldMap extends Feature {
 
     getCurrentLocation(): WorldLocation | null {
         return this.getLocation(this.playerLocation)
+    }
+
+    getTown(id: WorldLocationId): Town {
+        return this.getLocation(new TownLocationIdentifier(id)) as Town;
     }
 
     getLocation(id: WorldLocationIdentifier) {

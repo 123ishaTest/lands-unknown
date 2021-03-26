@@ -4,6 +4,7 @@ import {Road} from "@/ig-template/features/world-map/roads/Road";
 import {WorldPosition} from "@/ig-template/tools/tiled/WorldPosition";
 
 export class TravelAction extends AbstractAction {
+    icon = "fa-route";
     _worldMap: WorldMap;
     road: Road;
 
