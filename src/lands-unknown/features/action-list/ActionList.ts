@@ -34,6 +34,12 @@ export class ActionList extends Feature {
             [], [new ItemAmount(ItemId.IronOre)], [new Experience(4, SkillId.Mining)], new SkillLevelRequirement(this._features.skills.mining, 5));
     }
 
+    get smeltIron(): SkillAction {
+        return new SkillAction(ActionId.SmeltIron, "Smelt Iron", 5,
+            'fa-hammer-war', this._features.skills, this._features.inventory, this._features.itemList,
+            [new ItemAmount(ItemId.IronOre)], [new ItemAmount(ItemId.IronBar)], [new Experience(4, SkillId.Smithing)]);
+    }
+
     get fish(): SkillAction {
         return new SkillAction(ActionId.Fish, "Fish", 3,
             'fa-fish', this._features.skills, this._features.inventory, this._features.itemList,

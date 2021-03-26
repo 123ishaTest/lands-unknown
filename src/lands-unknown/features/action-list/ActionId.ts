@@ -3,4 +3,5 @@ export enum ActionId {
     MineIron = 'mineIron',
     Fish = 'fish',
     CutWood = 'cutWood',
+    SmeltIron = 'smeltIron',
 }

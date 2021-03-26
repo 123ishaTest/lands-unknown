@@ -1,5 +1,6 @@
 export enum SkillId {
     Mining,
     Fishing,
-    Woodcutting
+    Woodcutting,
+    Smithing,
 }

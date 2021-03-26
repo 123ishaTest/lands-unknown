@@ -63,7 +63,9 @@ export class WorldBuilder {
         const roads = this.parsePaths();
 
         const towns = [
-            new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town, [
+                ActionId.SmeltIron,
+            ]),
             new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town, [
                 ActionId.Fish,
             ]),

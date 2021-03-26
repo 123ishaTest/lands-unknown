@@ -10,4 +10,5 @@ export enum ItemId {
     Stone = "stone",
     CookedFish = "cookedFish",
     IronOre = "ironOre",
+    IronBar = "ironBar",
 }
