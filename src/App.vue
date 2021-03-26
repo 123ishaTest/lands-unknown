@@ -31,10 +31,7 @@
       <igt-sidebar-category name="Socials"></igt-sidebar-category>
       <igt-sidebar-external-link name="Discord" link="https://discord.gg/WUYDqct2Ef"
                                  image="socials/discord.png"></igt-sidebar-external-link>
-      <igt-sidebar-external-link name="Documentation"
-                                 link="https://123ishatest.github.io/incremental-game-template-website/"
-                                 image="socials/docusaurus.svg"></igt-sidebar-external-link>
-      <igt-sidebar-external-link name="GitHub" link="https://github.com/123ishaTest/incremental-game-template"
+      <igt-sidebar-external-link name="GitHub" link="https://github.com/123ishaTest/lands-unknown"
                                  image="socials/github.png"></igt-sidebar-external-link>
     </igt-sidebar>
 
