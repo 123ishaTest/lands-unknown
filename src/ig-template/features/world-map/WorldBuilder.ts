@@ -1,8 +1,6 @@
 import {WorldMap} from "@/ig-template/features/world-map/WorldMap";
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 import {TownTier} from "@/ig-template/features/world-map/towns/TownTier";
-import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
-import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {RoadLocationIdentifier} from "@/ig-template/features/world-map/roads/RoadLocationIdentifier";
 import {Road} from "@/ig-template/features/world-map/roads/Road";
 import {Town} from "@/ig-template/features/world-map/towns/Town";
@@ -64,15 +62,14 @@ export class WorldBuilder {
         const roads = this.parsePaths();
 
         const towns = [
-            this.createTown(WorldLocationId.Market, "Toon Town", TownTier.Town),
-            this.createTown(WorldLocationId.FisherMan, "Small Town", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Docks), "Docks", TownTier.Town),
         ];
 
         return new WorldMap(roads, towns);
-    }
-
-    static createTown(id: WorldLocationId, displayName: string, tier: TownTier, requirement: Requirement = new NoRequirement()): Town {
-        return new Town(new TownLocationIdentifier(id), displayName, tier, requirement);
     }
 
 }
