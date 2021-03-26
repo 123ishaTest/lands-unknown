@@ -20,7 +20,7 @@ export abstract class AbstractExpLevel {
         const oldLevel: number = this.getLevel();
         this.exp += amount;
         const newLevel: number = this.getLevel();
-        if (newLevel > oldLevel) {
+        if(newLevel > oldLevel) {
             this._onLevelUp.dispatch(this);
         }
     }
