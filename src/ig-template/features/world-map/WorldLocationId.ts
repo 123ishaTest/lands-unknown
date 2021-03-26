@@ -3,6 +3,7 @@ export enum WorldLocationId {
     FisherMan = 'fisherman',
     Market = 'market',
     Lumberjack = 'lumberjack',
+    Quarry = 'quarry',
     Castle = 'castle',
     Docks = 'docks',
 

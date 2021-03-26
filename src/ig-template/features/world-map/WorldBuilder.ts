@@ -67,6 +67,7 @@ export class WorldBuilder {
             new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town),
             new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town),
             new Town(new TownLocationIdentifier(WorldLocationId.Docks), "Docks", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Quarry), "Quarry", TownTier.Town),
         ];
 
         return new WorldMap(roads, towns);
