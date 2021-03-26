@@ -102,6 +102,7 @@ export default {
       console.warn("Could not load canvases");
       return;
     }
+
     this.tiledWrapper = new TiledWrapper(
         worldMap,
         worldCanvas,
