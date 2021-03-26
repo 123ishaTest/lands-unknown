@@ -24,6 +24,21 @@ export default {
     }
   },
 
+  mounted() {
+    this.skills.skills.forEach(skill => {
+      skill.onLevelUp.subscribe(skill => {
+        this.$notify(
+            {
+              title: `${skill.name} Level up`,
+              text: `You are now level ${skill.getLevel()}`,
+              type: "success",
+              group: "top-left",
+            },
+            4000
+        );
+      });
+    });
+  }
 }
 </script>
 

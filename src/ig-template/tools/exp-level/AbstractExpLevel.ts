@@ -9,7 +9,7 @@ export abstract class AbstractExpLevel {
     exp: number;
     maxLevel: number;
 
-    private _onLevelUp = new SimpleEventDispatcher<AbstractExpLevel>();
+    protected _onLevelUp = new SimpleEventDispatcher<AbstractExpLevel>();
 
     protected constructor(maxLevel: number, baseExp: number) {
         this.exp = baseExp;
