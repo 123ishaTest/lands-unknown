@@ -1,4 +1,5 @@
 import {Progress} from "@/ig-template/tools/requirements/Progress";
+import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 
 /**
  * Abstract class to calculate basic level behaviour.
@@ -8,13 +9,20 @@ export abstract class AbstractExpLevel {
     exp: number;
     maxLevel: number;
 
+    private _onLevelUp = new SimpleEventDispatcher<AbstractExpLevel>();
+
     protected constructor(maxLevel: number, baseExp: number) {
         this.exp = baseExp;
         this.maxLevel = maxLevel
     }
 
     gainExperience(amount: number): void {
+        const oldLevel: number = this.getLevel();
         this.exp += amount;
+        const newLevel: number = this.getLevel();
+        if (newLevel > oldLevel) {
+            this._onLevelUp.dispatch(this);
+        }
     }
 
     getLevel(): number {
@@ -39,4 +47,11 @@ export abstract class AbstractExpLevel {
 
     abstract getExpNeededForLevel(level: number): number;
 
+    /**
+     * Emitted whenever enough xp is gained to level up
+     * @private
+     */
+    public get onLevelUp(): ISimpleEvent<AbstractExpLevel> {
+        return this._onLevelUp.asEvent();
+    }
 }
