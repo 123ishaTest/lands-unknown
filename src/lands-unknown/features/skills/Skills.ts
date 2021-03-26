@@ -10,9 +10,9 @@ export class Skills extends Feature {
     constructor() {
         super('skills');
         this.skills = [
-            new Skill("Mining", SkillId.Mining),
-            new Skill("Woodcutting", SkillId.Woodcutting),
-            new Skill("Fishing", SkillId.Fishing),
+            new Skill("Mining", SkillId.Mining, 'bg-gray-600'),
+            new Skill("Woodcutting", SkillId.Woodcutting, 'bg-green-600'),
+            new Skill("Fishing", SkillId.Fishing, 'bg-blue-600'),
         ];
     }
 
@@ -20,6 +20,10 @@ export class Skills extends Feature {
         return this.skills.find(skill => {
             return skill.id === id;
         })
+    }
+
+    gainExperience(id: SkillId, amount: number) {
+        this.getSkill(id)?.gainExperience(amount);
     }
 
     load(data: SkillsSaveData): void {

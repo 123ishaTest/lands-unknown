@@ -44,7 +44,7 @@ export class WorldMap extends Feature {
 
         this.getTown(WorldLocationId.Lumberjack).addAction(new WoodCuttingAction(ItemId.Wood, "Cut Wood", 3, features.inventory, features.itemList));
 
-        this.getTown(WorldLocationId.Quarry).addAction(new MiningAction(ItemId.Stone, "Mine Stone", 3, features.inventory, features.itemList));
+        this.getTown(WorldLocationId.Quarry).addAction(new MiningAction(ItemId.Stone, "Mine Stone", 3, 10, features.inventory, features.itemList, features.skills));
     }
 
     /**

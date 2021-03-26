@@ -2,9 +2,10 @@
   <igt-feature>
     Skills
     <hr>
-    <div class="m-2 p-2" :key="skill.id" v-for="skill in skills.skills">
-      {{ skill.name }}
-      <igt-exp-level :exp-level="skill"></igt-exp-level>
+    <div class="flex flex-col">
+      <div class="m-2 p-2" :key="skill.id" v-for="skill in skills.skills">
+        <lu-skill :skill="skill"></lu-skill>
+      </div>
     </div>
   </igt-feature>
 </template>
@@ -12,11 +13,11 @@
 <script>
 import {App} from "@/App.ts"
 import IgtFeature from "@/components/util/igt-feature";
-import IgtExpLevel from "@/components/tools/exp-level/igt-exp-level";
+import LuSkill from "@/components/features/skills/lu-skill";
 
 export default {
   name: "igt-skills",
-  components: {IgtExpLevel, IgtFeature},
+  components: {LuSkill, IgtFeature},
   data() {
     return {
       skills: App.game.features.skills,
