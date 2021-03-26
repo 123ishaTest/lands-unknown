@@ -1,8 +1,12 @@
 <template>
   <igt-feature>
+    <p>Location: {{ worldMap.playerLocation }}</p>
+    <p>End: {{ adventurer.getPlayerLocationAtEndOfQueue() }}</p>
+
     <div class="flex flex-row">
       <lu-location-highlight
           @travel="travel"
+          @action="performAction"
           class="absolute" :location="highlightedLocation">
 
       </lu-location-highlight>
@@ -72,6 +76,12 @@ export default {
   methods: {
     travel(identifier) {
       this.worldMap.moveToLocation(identifier);
+    },
+    performAction(action, repeat, location) {
+      if (!this.adventurer.getPlayerLocationAtEndOfQueue().equals(location)) {
+        this.travel(location);
+      }
+      this.adventurer.addAction(action, repeat);
     },
     showHighlight(identifier) {
       const location = this.worldMap.getLocation(identifier)

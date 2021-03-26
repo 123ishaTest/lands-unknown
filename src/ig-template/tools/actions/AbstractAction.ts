@@ -98,7 +98,6 @@ export abstract class AbstractAction {
     stop() {
         this.currentProgress = 0;
         this.isStarted = false;
-        console.log("stopping")
     }
 
     /**

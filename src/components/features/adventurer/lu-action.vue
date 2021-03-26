@@ -3,11 +3,12 @@
     <div class="flex flex-col">
       <div class="flex flex-row items-center justify-between">
         <span class="fa" :class="icon"></span>
-        <span class="text-xs p-2">{{ action.description }}</span>
+        <span class="text-xs p-2">{{ action.description }}
+              <span v-if="action.repeat > 0">({{ action.repeat }})</span>
+        </span>
         <span class="fa fa-times text-red-400 cursor-pointer" @click="cancel"></span>
 
       </div>
-      <span v-if="action.repeat > 0">Repeat {{ action.repeat }} times</span>
       <igt-progress-bar v-if="isActive" :percentage="action.getProgress().getPercentage()"></igt-progress-bar>
     </div>
   </div>

@@ -5,6 +5,7 @@ import {AbstractAction} from "@/ig-template/tools/actions/AbstractAction";
 import {WorldLocationIdentifier} from "@/ig-template/features/world-map/WorldLocationIdentifier";
 import {WorldMap} from "@/ig-template/features/world-map/WorldMap";
 import {Features} from "@/ig-template/Features";
+import {clone} from "lodash-es";
 
 export class Adventurer extends Feature {
     _worldMap: WorldMap = {} as unknown as WorldMap;
@@ -24,6 +25,9 @@ export class Adventurer extends Feature {
                 if (!couldStart) {
                     this.removeFirstAction();
                 }
+            }
+            if (this.actionQueue[0].isFinished) {
+                this.removeFirstAction();
             }
         }
 
@@ -62,7 +66,9 @@ export class Adventurer extends Feature {
         this.actionQueue = this.actionQueue.slice(0, index);
     }
 
-    addAction(action: AbstractAction, repeat: number = -1) {
+    addAction(a: AbstractAction, repeat: number = -1) {
+        const action = clone(a);
+
         if (repeat !== -1) {
             action.repeat = repeat;
         }
@@ -83,8 +89,6 @@ export class Adventurer extends Feature {
         //     return;
         // }
 
-        // TODO add onFinished.
-        action.onFinished.subscribe(() => this.removeFirstAction());
         this.actionQueue.push(action);
     }
 
