@@ -8,6 +8,7 @@ import {Inventory} from "@/ig-template/features/inventory/Inventory";
 import {ItemList} from "@/ig-template/features/items/ItemList";
 import {Adventurer} from "@/ig-template/features/adventurer/Adventurer";
 import {WorldMap} from "@/ig-template/features/world-map/WorldMap";
+import {Skills} from "@/lands-unknown/features/skills/Skills";
 
 export interface Features {
     wallet: Wallet;
@@ -15,6 +16,7 @@ export interface Features {
     codes: RedeemableCodes;
     inventory: Inventory;
     itemList: ItemList;
+    skills: Skills;
     worldMap: WorldMap;
     adventurer: Adventurer;
     specialEvents: SpecialEvents;
