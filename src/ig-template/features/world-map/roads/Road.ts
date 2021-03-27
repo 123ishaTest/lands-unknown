@@ -13,7 +13,7 @@ export class Road extends WorldLocation {
     points: WorldPosition[];
 
     constructor(identifier: RoadLocationIdentifier, displayName: string, from: WorldLocationIdentifier, to: WorldLocationIdentifier, points: WorldPosition[], baseDuration: number, requirement: Requirement = new NoRequirement()) {
-        super(identifier, displayName, [], [], requirement);
+        super(identifier, displayName, {x: 0, y: 0}, [], [], requirement);
         this.from = from;
         this.to = to;
         this.points = points;
