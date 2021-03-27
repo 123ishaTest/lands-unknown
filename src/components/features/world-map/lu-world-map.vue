@@ -66,7 +66,7 @@ export default {
       return this.adventurer.actionQueue[0] instanceof TravelAction;
     },
     currentLocation() {
-      return this.worldMap.playerLocation;
+      return this.worldMap.getCurrentLocation();
     },
     showPointer() {
       return this.tiledWrapper && this.tiledWrapper.isHoveringOverClickBox;
@@ -92,26 +92,36 @@ export default {
     }
   },
   watch: {
+    currentLocation(newLocation) {
+      this.tiledWrapper.renderPlayer(newLocation.worldPosition.x, newLocation.worldPosition.y, this.worldMap.roads, new Array(this.worldMap.roads.length).fill(false));
+    },
     playerPosition(newPosition) {
       // TODO refresh less often
       if (newPosition.x === 0 && newPosition.y === 0) {
         return;
       }
-      const roads = this.worldMap.roads
+
       const queue = this.adventurer.actionQueue;
+      const roads = this.worldMap.roads
+      let shouldRender = false;
       const isPlanned = this.worldMap.roads.map(road => {
         const action = queue.find(action => {
           if (action instanceof TravelAction) {
+            if (action.isFinished) {
+              return false;
+            }
             if (action.road.identifier.equals(road.identifier)) {
+              shouldRender = true;
               return true;
             }
           }
           return false
         })
         return action != null;
-
       })
-      this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, roads, isPlanned);
+      if (shouldRender) {
+        this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, roads, isPlanned);
+      }
     }
 
   },

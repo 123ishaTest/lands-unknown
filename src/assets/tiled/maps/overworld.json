@@ -248,7 +248,7 @@
                 {
                  "height":0,
                  "id":44,
-                 "name":"docks",
+                 "name":"fisherman",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -304,6 +304,54 @@
                  "width":0,
                  "x":1400,
                  "y":1240
+                }, 
+                {
+                 "height":0,
+                 "id":49,
+                 "name":"northern-cross-roads",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1176,
+                 "y":1096
+                }, 
+                {
+                 "height":0,
+                 "id":50,
+                 "name":"middle-cross-roads",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1176,
+                 "y":1208
+                }, 
+                {
+                 "height":0,
+                 "id":53,
+                 "name":"southern-cross-roads",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1176,
+                 "y":1256
+                }, 
+                {
+                 "height":0,
+                 "id":54,
+                 "name":"eastern-cross-roads",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1352,
+                 "y":1400
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1163,7 +1211,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":49,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",

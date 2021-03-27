@@ -14,6 +14,7 @@ import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId"
 import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
 import {FacilityType} from "@/ig-template/features/world-map/FacilityType";
 import {TiledLayer} from "@/ig-template/tools/tiled/types/layers/TiledLayer";
+import {CrossRoads} from "@/ig-template/features/world-map/towns/CrossRoads";
 
 export class WorldBuilder {
 
@@ -75,7 +76,7 @@ export class WorldBuilder {
             // Only parse points.
             return object.point
         }).forEach(object => {
-            positions[object.name as WorldLocationId] = {x: object.x, y: object.y}
+            positions[object.name as WorldLocationId] = this.globalToTilePosition({x: object.x, y: object.y});
         });
         return positions;
     }
@@ -102,6 +103,10 @@ export class WorldBuilder {
                 ActionId.MineStone,
                 ActionId.MineIron,
             ]),
+            new CrossRoads(WorldLocationId.NorthernCrossRoads, "Northern Crossroads", worldPositions[WorldLocationId.NorthernCrossRoads]),
+            new CrossRoads(WorldLocationId.MiddleCrossRoads, "Middle Crossroads", worldPositions[WorldLocationId.MiddleCrossRoads]),
+            new CrossRoads(WorldLocationId.SouthernCrossRoads, "Southern Crossroads", worldPositions[WorldLocationId.SouthernCrossRoads]),
+            new CrossRoads(WorldLocationId.EasternCrossRoads, "Eastern Crossroads", worldPositions[WorldLocationId.EasternCrossRoads]),
         ];
 
         return new WorldMap(roads, towns);

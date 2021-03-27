@@ -22,8 +22,8 @@ export class Road extends WorldLocation {
     }
 
     getWorldPosition(progress: number): WorldPosition {
-        progress = Math.min(0.999, Math.max(0, progress));
-        const startIndex = Math.floor(progress * this.points.length)
+        progress = Math.min(1, Math.max(0, progress));
+        const startIndex = Math.min(this.points.length - 1, Math.floor(progress * this.points.length))
         return this.points[startIndex];
     }
 }
