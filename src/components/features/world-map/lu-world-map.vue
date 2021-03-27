@@ -145,7 +145,7 @@ export default {
         playerCanvas,
         () => {
           this.tiledWrapper.render();
-          this.tiledWrapper.renderPlayer(-1, -1, this.worldMap.roads, new Array(this.worldMap.roads.length).fill(false));
+          this.tiledWrapper.renderPlayer(this.currentLocation.worldPosition.x, this.currentLocation.worldPosition.y, this.worldMap.roads, new Array(this.worldMap.roads.length).fill(false));
         },
         (clickBox) => {
           const townId = clickBox.properties[0].value;
