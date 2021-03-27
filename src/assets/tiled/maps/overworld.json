@@ -94,7 +94,7 @@
                 {
                  "height":48,
                  "id":1,
-                 "name":"Docks",
+                 "name":"",
                  "properties":[
                         {
                          "name":"id",
@@ -131,7 +131,7 @@
                 {
                  "height":96,
                  "id":17,
-                 "name":"Fisherman",
+                 "name":"",
                  "properties":[
                         {
                          "name":"id",
@@ -168,7 +168,7 @@
                 {
                  "height":96,
                  "id":24,
-                 "name":"Lumberjack",
+                 "name":"",
                  "properties":[
                         {
                          "name":"id",
@@ -185,7 +185,7 @@
                 {
                  "height":158.667,
                  "id":30,
-                 "name":"Market One",
+                 "name":"",
                  "properties":[
                         {
                          "name":"id",
@@ -202,7 +202,7 @@
                 {
                  "height":48,
                  "id":32,
-                 "name":"Castle",
+                 "name":"",
                  "properties":[
                         {
                          "name":"id",
