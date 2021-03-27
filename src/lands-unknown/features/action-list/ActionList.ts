@@ -52,6 +52,13 @@ export class ActionList extends Feature {
             [], [new ItemAmount(ItemId.Wood)], [new Experience(4, SkillId.Woodcutting)]);
     }
 
+    // Facilities
+    get furnace(): SkillAction[] {
+        return [
+            this.smeltIron,
+        ]
+    }
+
     load(): void {
         // Empty
     }

@@ -12,6 +12,7 @@ import {TiledMap} from "@/ig-template/tools/tiled/types/TiledMap";
 import {ObjectProperty} from "@/ig-template/tools/tiled/types/objects/ObjectProperty";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
 import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
+import {FacilityType} from "@/ig-template/features/world-map/FacilityType";
 
 export class WorldBuilder {
 
@@ -63,9 +64,10 @@ export class WorldBuilder {
         const roads = this.parsePaths();
 
         const towns = [
-            new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town, [
-                ActionId.SmeltIron,
-            ]),
+            new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town, [],
+                [
+                    FacilityType.Furnace,
+                ]),
             new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town, [
                 ActionId.Fish,
             ]),
