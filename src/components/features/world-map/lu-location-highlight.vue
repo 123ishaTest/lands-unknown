@@ -1,9 +1,9 @@
 <template>
   <div class="w-64 h-96 border-2 p-4 z-50 bg-gray-500 bg-opacity-50 shadow-xl text-white">
-    <div v-if="location != null" class="flex flex-col justify-between">
+    <div v-if="location != null" class="flex flex-col h-full justify-between">
       <p class="text-center">{{ location.displayName }}</p>
 
-      <div v-if="hasActions" class="flex flex-row items-center justify-between">
+      <div v-if="hasActions" class="flex flex-row items-center">
         <p class="pr-4">Repeat</p>
         <input type="number" class="input-primary w-full" v-model="selectedRepeat"/>
       </div>
@@ -24,7 +24,12 @@
         <lu-facility @performAction="performAction" :facility-type="facility[0]" :actions="facility[1]"></lu-facility>
       </div>
 
-      <button class="btn btn-blue" @click="travel">Travel</button>
+      <div class="mt-auto">
+        <button class="btn btn-green w-full" @click="travel">
+          <span class="fa fa-route"></span>
+          Travel
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +50,8 @@ export default {
   },
   data() {
     return {
-      selectedRepeat: 0
+      selectedRepeat: 0,
+      repeatOptions: [0, 10, 100, Infinity]
     };
   },
   computed: {
