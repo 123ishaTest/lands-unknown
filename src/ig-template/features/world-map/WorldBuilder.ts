@@ -41,7 +41,7 @@ export class WorldBuilder {
         }) as ObjectGroup;
 
 
-        const paths = pathLayer?.objects?.map(object => {
+        return pathLayer?.objects?.map(object => {
             const properties = object.properties as ObjectProperty[];
             const from = this.getPropertyValue(properties, "from")
             const to = this.getPropertyValue(properties, "to")
@@ -56,8 +56,6 @@ export class WorldBuilder {
             }) ?? [];
             return new Road(new RoadLocationIdentifier(id), "Road", new TownLocationIdentifier(from), new TownLocationIdentifier(to), points, baseDuration);
         });
-
-        return paths;
     }
 
     static createWorld(): WorldMap {
@@ -67,6 +65,7 @@ export class WorldBuilder {
             new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town, [],
                 [
                     FacilityType.Furnace,
+                    FacilityType.CookingRange,
                 ]),
             new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town, [
                 ActionId.Fish,

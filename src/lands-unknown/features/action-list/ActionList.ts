@@ -46,6 +46,12 @@ export class ActionList extends Feature {
             [], [new ItemAmount(ItemId.RawFish)], [new Experience(4, SkillId.Fishing)]);
     }
 
+    get cookFish(): SkillAction {
+        return new SkillAction(ActionId.CookFish, "Cook the fish", 3,
+            'fa-fish', this._features.skills, this._features.inventory, this._features.itemList,
+            [new ItemAmount(ItemId.RawFish)], [new ItemAmount(ItemId.CookedFish)], [new Experience(4, SkillId.Cooking)]);
+    }
+
     get cutWood(): SkillAction {
         return new SkillAction(ActionId.CutWood, "Cut Wood", 3,
             'fa-tree', this._features.skills, this._features.inventory, this._features.itemList,
@@ -56,6 +62,12 @@ export class ActionList extends Feature {
     get furnace(): SkillAction[] {
         return [
             this.smeltIron,
+        ]
+    }
+
+    get cookingRange(): SkillAction[] {
+        return [
+            this.cookFish,
         ]
     }
 

@@ -3,4 +3,5 @@ export enum SkillId {
     Fishing,
     Woodcutting,
     Smithing,
+    Cooking,
 }

@@ -1,5 +1,5 @@
 export enum FacilityType {
     Furnace = 'furnace',
-    // CookingRange = 'cookingRange',
+    CookingRange = 'cookingRange',
     // Anvil = 'anvil',
 }
