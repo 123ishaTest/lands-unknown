@@ -9,6 +9,10 @@
         <lu-world-map></lu-world-map>
       </igt-tab>
 
+      <igt-tab name="Skills">
+        <igt-skills></igt-skills>
+      </igt-tab>
+
       <igt-tab name="Inventory">
         <igt-inventory></igt-inventory>
       </igt-tab>
@@ -51,9 +55,11 @@ import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-extern
 import IgtSettings from "@/components/features/settings/igt-settings";
 import IgtInventory from "@/components/features/inventory/igt-inventory";
 import LuWorldMap from "@/components/features/world-map/lu-world-map";
+import IgtSkills from "@/components/features/skills/lu-skills";
 
 export default {
   components: {
+    IgtSkills,
     LuWorldMap,
     IgtInventory,
     IgtSettings,

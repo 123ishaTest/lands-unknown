@@ -26,6 +26,8 @@ export class Adventurer extends Feature {
                     this.removeFirstAction();
                 }
             }
+        }
+        if (this.actionQueue.length > 0) {
             if (this.actionQueue[0].isFinished) {
                 this.removeFirstAction();
             }

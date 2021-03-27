@@ -1,26 +1,47 @@
 <template>
-  <div class="w-64 h-64 border-2 p-4 z-50 bg-gray-500 bg-opacity-50 shadow-xl text-white">
-    <div v-if="location != null" class="flex flex-col justify-between">
-      <p>{{ location.displayName }}</p>
+  <div class="w-64 h-96 border-2 p-4 z-50 bg-gray-500 bg-opacity-50 shadow-xl text-white">
+    <div v-if="location != null" class="flex flex-col h-full justify-between">
+      <p class="text-center">{{ location.displayName }}</p>
 
-      <div v-if="hasActions" class="flex flex-row items-center justify-between">
+      <div v-if="hasActions" class="flex flex-row items-center">
         <p class="pr-4">Repeat</p>
         <input type="number" class="input-primary w-full" v-model="selectedRepeat"/>
       </div>
-      <div :key="action.description" v-for="action in actions" class="flex flex-row flex-wrap">
-        <button class="btn btn-blue" @click="performAction(action)">{{ action.description }}</button>
+      <div class="flex flex-row flex-wrap">
+        <template v-for="action in actions">
+
+          <lu-action-button
+              :key="action.description"
+              @performAction="performAction"
+              :action="action"
+          >
+          </lu-action-button>
+        </template>
       </div>
 
-      <button class="btn btn-blue" @click="travel">Travel</button>
+
+      <div :key="facility[0]" v-for="facility in facilities">
+        <lu-facility @performAction="performAction" :facility-type="facility[0]" :actions="facility[1]"></lu-facility>
+      </div>
+
+      <div class="mt-auto">
+        <button class="btn btn-green w-full" @click="travel">
+          <span class="fa fa-route"></span>
+          Travel
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import {WorldLocation} from "@/ig-template/features/world-map/WorldLocation";
+import LuActionButton from "@/components/features/world-map/lu-action-button";
+import LuFacility from "@/components/features/world-map/lu-facility";
 
 export default {
   name: "lu-location-highlight",
+  components: {LuActionButton, LuFacility},
   props: {
     location: {
       type: WorldLocation,
@@ -29,12 +50,16 @@ export default {
   },
   data() {
     return {
-      selectedRepeat: 0
+      selectedRepeat: 0,
+      repeatOptions: [0, 10, 100, Infinity]
     };
   },
   computed: {
+    facilities() {
+      return Object.entries(this.location.facilities);
+    },
     hasActions() {
-      return this.location.possibleActions.length > 0;
+      return this.location.possibleActions.length > 0 || this.facilities.length > 0;
     },
     actions() {
       return this.location.possibleActions;

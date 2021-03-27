@@ -11,6 +11,8 @@ import {ObjectGroup} from "@/ig-template/tools/tiled/types/layers/ObjectGroup";
 import {TiledMap} from "@/ig-template/tools/tiled/types/TiledMap";
 import {ObjectProperty} from "@/ig-template/tools/tiled/types/objects/ObjectProperty";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
+import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
+import {FacilityType} from "@/ig-template/features/world-map/FacilityType";
 
 export class WorldBuilder {
 
@@ -39,7 +41,7 @@ export class WorldBuilder {
         }) as ObjectGroup;
 
 
-        const paths = pathLayer?.objects?.map(object => {
+        return pathLayer?.objects?.map(object => {
             const properties = object.properties as ObjectProperty[];
             const from = this.getPropertyValue(properties, "from")
             const to = this.getPropertyValue(properties, "to")
@@ -54,20 +56,29 @@ export class WorldBuilder {
             }) ?? [];
             return new Road(new RoadLocationIdentifier(id), "Road", new TownLocationIdentifier(from), new TownLocationIdentifier(to), points, baseDuration);
         });
-
-        return paths;
     }
 
     static createWorld(): WorldMap {
         const roads = this.parsePaths();
 
         const towns = [
-            new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town),
-            new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town, [],
+                [
+                    FacilityType.Furnace,
+                    FacilityType.CookingRange,
+                ]),
+            new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town, [
+                ActionId.Fish,
+            ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town),
-            new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town, [
+                ActionId.CutWood,
+            ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Docks), "Docks", TownTier.Town),
-            new Town(new TownLocationIdentifier(WorldLocationId.Quarry), "Quarry", TownTier.Town),
+            new Town(new TownLocationIdentifier(WorldLocationId.Quarry), "Quarry", TownTier.Town, [
+                ActionId.MineStone,
+                ActionId.MineIron,
+            ]),
         ];
 
         return new WorldMap(roads, towns);
