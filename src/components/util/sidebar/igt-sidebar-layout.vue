@@ -2,10 +2,10 @@
   <div>
     <div class="flex h-screen bg-gray-100 dark:bg-gray-800 font-roboto">
       <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
-           class="fixed z-40 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+           class="fixed z-30 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
 
       <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
-           class="fixed z-50 inset-y-0 left-0 w-60 transition duration-300 transform bg-white dark:bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 shadow-xl">
+           class="fixed z-40 inset-y-0 left-0 w-60 transition duration-300 transform bg-white dark:bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 shadow-xl">
         <div class="flex items-center justify-center mt-2">
           <div class="flex items-center p-2 mx-2">
             <img class="h-12 w-12" :src="require(`@/assets/logo.png`)" alt="logo">
