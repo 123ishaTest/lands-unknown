@@ -17,6 +17,10 @@
         <igt-inventory></igt-inventory>
       </igt-tab>
 
+      <igt-tab name="Key Items">
+        <igt-key-items></igt-key-items>
+      </igt-tab>
+
       <igt-tab name="Achievements">
         <igt-achievements :achievements-feature="game.features.achievements"></igt-achievements>
       </igt-tab>
@@ -56,9 +60,11 @@ import IgtSettings from "@/components/features/settings/igt-settings";
 import IgtInventory from "@/components/features/inventory/igt-inventory";
 import LuWorldMap from "@/components/features/world-map/lu-world-map";
 import IgtSkills from "@/components/features/skills/lu-skills";
+import IgtKeyItems from "@/components/features/key-items/igt-key-items";
 
 export default {
   components: {
+    IgtKeyItems,
     IgtSkills,
     LuWorldMap,
     IgtInventory,

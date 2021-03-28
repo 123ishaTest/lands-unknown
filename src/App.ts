@@ -12,6 +12,7 @@ import {Adventurer} from "@/ig-template/features/adventurer/Adventurer";
 import {WorldBuilder} from "@/ig-template/features/world-map/WorldBuilder";
 import {Skills} from "@/lands-unknown/features/skills/Skills";
 import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
+import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -36,6 +37,7 @@ export class App {
                 codes: new RedeemableCodes(),
                 inventory: new Inventory(),
                 itemList: new ItemList(),
+                keyItems: new KeyItems(),
                 skills: new Skills(),
                 worldMap: WorldBuilder.createWorld(),
                 actionList: new ActionList(),

@@ -10,6 +10,7 @@ import {Adventurer} from "@/ig-template/features/adventurer/Adventurer";
 import {WorldMap} from "@/ig-template/features/world-map/WorldMap";
 import {Skills} from "@/lands-unknown/features/skills/Skills";
 import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
+import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
 
 export interface Features {
     wallet: Wallet;
@@ -17,6 +18,7 @@ export interface Features {
     codes: RedeemableCodes;
     inventory: Inventory;
     itemList: ItemList;
+    keyItems: KeyItems;
     skills: Skills;
     worldMap: WorldMap;
     actionList: ActionList;
