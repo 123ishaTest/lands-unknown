@@ -1,6 +1,5 @@
 import {NpcId} from "@/ig-template/features/npcs/NpcId";
 import {DialogTree} from "@/ig-template/tools/dialog/DialogTree";
-import {Features} from "@/ig-template/Features";
 
 export abstract class Npc {
 
@@ -12,10 +11,5 @@ export abstract class Npc {
     protected constructor(id: NpcId) {
         this.id = id;
     }
-
-    /**
-     * Make sure to override to create the dialog
-     */
-    abstract initialize(features: Features): void;
 
 }

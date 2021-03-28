@@ -1,8 +1,8 @@
 export enum WiseOldWomanDialogId {
     // Dialogs
     Intro,
-    YesBagel,
-    NoBagel,
+    YesFish,
+    NoFish,
     BragAboutCooking,
 
     // Decisions

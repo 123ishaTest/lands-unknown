@@ -11,6 +11,7 @@ import {WorldMap} from "@/ig-template/features/world-map/WorldMap";
 import {Skills} from "@/lands-unknown/features/skills/Skills";
 import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
 import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
+import {Npcs} from "@/ig-template/features/npcs/Npcs";
 
 export interface Features {
     wallet: Wallet;
@@ -19,6 +20,7 @@ export interface Features {
     inventory: Inventory;
     itemList: ItemList;
     keyItems: KeyItems;
+    npcs: Npcs;
     skills: Skills;
     worldMap: WorldMap;
     actionList: ActionList;

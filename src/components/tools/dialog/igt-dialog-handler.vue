@@ -7,7 +7,7 @@
         <button class="btn btn-green" @click="next">Next</button>
       </div>
       <div v-else-if="isDecision">
-        <p>{{decisionDescription.speaker}}: {{decisionDescription.text}}</p>
+        <p>{{ decisionDescription.speaker }}: {{ decisionDescription.text }}</p>
         <ol>
           <li v-for="(option, index) of decisionOptions" :key="option.label">
             <button class="btn btn-green" @click="selectOption(index)" :disabled="!option.canAccess()">
@@ -28,20 +28,22 @@
 </template>
 
 <script>
+import {App} from "@/App.ts";
 import {DialogHandler} from "@/ig-template/tools/dialog/DialogHandler";
-import {WiseOldWoman} from "@/ig-template/features/npcs/WiseOldWoman";
 import {DialogType} from "@/ig-template/tools/dialog/DialogType";
+import {NpcId} from "@/ig-template/features/npcs/NpcId";
 
 export default {
   name: "igt-dialog-handler",
   data() {
     return {
+      npcs: App.game.features.npcs,
       handler: new DialogHandler(),
     }
   },
   methods: {
     talk() {
-      const wiseOldWoman = new WiseOldWoman()
+      const wiseOldWoman = this.npcs.getNpc(NpcId.WiseOldWoman);
       this.handler.start(wiseOldWoman.dialog);
     },
     next() {
