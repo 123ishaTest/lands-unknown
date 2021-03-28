@@ -1,14 +1,13 @@
 import {DialogOption} from "@/ig-template/tools/dialog/DialogOption";
-import {DialogDecisionId} from "@/ig-template/tools/dialog/DialogDecisionId";
 import {DialogText} from "@/ig-template/tools/dialog/DialogText";
 
-export class DialogDecision {
-    id: DialogDecisionId;
+export class DialogDecision<T> {
+    id: T;
     description: DialogText;
-    options: DialogOption[]
+    options: DialogOption<T>[]
 
 
-    constructor(id: DialogDecisionId, description: DialogText, options: DialogOption[]) {
+    constructor(id: T, description: DialogText, options: DialogOption<T>[]) {
         this.id = id;
         this.description = description
         this.options = options;

@@ -7,7 +7,7 @@ export abstract class Npc {
     id: NpcId;
 
     // Override in initialize
-    dialog: DialogTree = {} as unknown as DialogTree;
+    abstract dialog: DialogTree<any> = {} as unknown as DialogTree<any>;
 
     protected constructor(id: NpcId) {
         this.id = id;

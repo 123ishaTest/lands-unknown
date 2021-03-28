@@ -2,33 +2,33 @@ import {Npc} from "@/ig-template/features/npcs/Npc";
 import {NpcId} from "@/ig-template/features/npcs/NpcId";
 import {DialogTree} from "@/ig-template/tools/dialog/DialogTree";
 import {Dialog} from "@/ig-template/tools/dialog/Dialog";
-import {DialogId} from "@/ig-template/tools/dialog/DialogId";
 import {DialogText} from "@/ig-template/tools/dialog/DialogText";
-import {DialogDecisionId} from "@/ig-template/tools/dialog/DialogDecisionId";
 import {DialogOption} from "@/ig-template/tools/dialog/DialogOption";
 import {DialogDecision} from "@/ig-template/tools/dialog/DialogDecision";
 import {Features} from "@/ig-template/Features";
+import {WiseOldWomanDialogId} from "@/ig-template/features/npcs/wise-old-woman/WiseOldWomanDialogId";
 
 export class WiseOldWoman extends Npc {
+    dialog: DialogTree<WiseOldWomanDialogId>;
 
     constructor() {
         super(NpcId.WiseOldWoman)
         this.dialog = new DialogTree(
             [
-                new Dialog(DialogId.WiseOldWomanIntro,
+                new Dialog(WiseOldWomanDialogId.Intro,
                     [
                         new DialogText(NpcId.Player, "Hi"),
                     ],
-                    DialogDecisionId.WiseOldWomanQuestion
+                    WiseOldWomanDialogId.Question
                 ),
-                new Dialog(DialogId.WiseOldWomanYesBagel,
+                new Dialog(WiseOldWomanDialogId.YesBagel,
                     [
                         new DialogText(NpcId.Player, "Yes please"),
                         new DialogText(NpcId.WiseOldWoman, "Here it is", function () {
                             console.log("Here is a bagel")
                         })],
                 ),
-                new Dialog(DialogId.WiseOldWomanNoBagel,
+                new Dialog(WiseOldWomanDialogId.NoBagel,
                     [
                         new DialogText(NpcId.Player, "No thanks, cutting down on carbs"),
                         new DialogText(NpcId.WiseOldWoman, "Are you sure?"),
@@ -37,19 +37,19 @@ export class WiseOldWoman extends Npc {
                         new DialogText(NpcId.Player, "Yes?"),
                         new DialogText(NpcId.WiseOldWoman, "I'll ask one more time?"),
                     ],
-                    DialogDecisionId.WiseOldWomanQuestion,
+                    WiseOldWomanDialogId.Question,
                 ),
             ],
             [
-                new DialogDecision(DialogDecisionId.WiseOldWomanQuestion,
+                new DialogDecision(WiseOldWomanDialogId.Question,
                     new DialogText(NpcId.WiseOldWoman, "Hello young man, would you like a bagel?"),
                     [
-                        new DialogOption("Yes", DialogId.WiseOldWomanYesBagel),
-                        new DialogOption("Yuck no", DialogId.WiseOldWomanNoBagel),
+                        new DialogOption("Yes", WiseOldWomanDialogId.YesBagel),
+                        new DialogOption("Yuck no", WiseOldWomanDialogId.NoBagel),
                         // new DialogOption("I'll make them myself (3 cooking)", DialogId.WiseOldWomanBragAboutCooking, new SkillLevelRequirement(features.skills.cooking, 3)),
                     ])
             ],
-            DialogId.WiseOldWomanIntro
+            WiseOldWomanDialogId.Intro
         );
     }
 

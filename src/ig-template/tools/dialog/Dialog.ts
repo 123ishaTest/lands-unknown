@@ -1,17 +1,15 @@
-import {DialogId} from "@/ig-template/tools/dialog/DialogId";
 import {DialogText} from "@/ig-template/tools/dialog/DialogText";
-import {DialogDecisionId} from "@/ig-template/tools/dialog/DialogDecisionId";
 
-export class Dialog {
-    id: DialogId;
+export class Dialog<T> {
+    id: T;
     dialog: DialogText[];
 
     currentIndex: number = 0;
 
-    destination?: DialogDecisionId;
+    destination?: T;
 
 
-    constructor(id: DialogId, dialog: DialogText[], destination?: DialogDecisionId) {
+    constructor(id: T, dialog: DialogText[], destination?: T) {
         this.id = id;
         this.dialog = dialog;
         this.destination = destination;

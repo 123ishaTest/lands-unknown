@@ -6,5 +6,5 @@ export enum WiseOldWomanDialogId {
     BragAboutCooking,
 
     // Decisions
-    WiseOldWomanQuestion,
+    Question,
 }

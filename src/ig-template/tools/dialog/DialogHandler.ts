@@ -3,14 +3,12 @@ import {DialogType} from "@/ig-template/tools/dialog/DialogType";
 import {DialogDecision} from "@/ig-template/tools/dialog/DialogDecision";
 import {Dialog} from "@/ig-template/tools/dialog/Dialog";
 import {cloneDeep} from "lodash-es";
-import {DialogId} from "@/ig-template/tools/dialog/DialogId";
-import {DialogDecisionId} from "@/ig-template/tools/dialog/DialogDecisionId";
 
-export class DialogHandler {
-    public tree: DialogTree | null;
+export class DialogHandler<T> {
+    public tree: DialogTree<T> | null;
     public type: DialogType;
-    public decision: DialogDecision | null;
-    public dialog: Dialog | null;
+    public decision: DialogDecision<T> | null;
+    public dialog: Dialog<T> | null;
 
 
     constructor() {
@@ -20,7 +18,7 @@ export class DialogHandler {
         this.dialog = null;
     }
 
-    public start(tree: DialogTree) {
+    public start(tree: DialogTree<T>) {
         this.tree = cloneDeep(tree);
         const root = this.tree.getRoot();
 
@@ -61,7 +59,7 @@ export class DialogHandler {
         this.setDialog(this.decision.options[index].reference);
     }
 
-    private setDialog(id: DialogId) {
+    private setDialog(id: T) {
         if (this.tree == null) {
             console.error(`Cannot set dialog to ${id} when tree is null`);
             return;
@@ -72,13 +70,13 @@ export class DialogHandler {
         this.dialog = this.tree.getDialog(id);
     }
 
-    private setRoot(root: DialogDecision) {
+    private setRoot(root: DialogDecision<T>) {
         this.type = DialogType.Decision;
         this.dialog = null;
         this.decision = root;
     }
 
-    private setDecision(id: DialogDecisionId) {
+    private setDecision(id: T) {
         if (this.tree == null) {
             console.error(`Cannot set decision to ${id} when tree is null`);
             return;

@@ -1,13 +1,12 @@
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
-import {DialogId} from "@/ig-template/tools/dialog/DialogId";
 
-export class DialogOption {
+export class DialogOption<T> {
     label: string;
-    reference: DialogId;
+    reference: T;
     requirement: Requirement;
 
-    constructor(label: string, reference: DialogId, requirement: Requirement = new NoRequirement()) {
+    constructor(label: string, reference: T, requirement: Requirement = new NoRequirement()) {
         this.label = label;
         this.reference = reference;
         this.requirement = requirement;
