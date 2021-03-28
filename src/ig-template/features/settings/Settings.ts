@@ -11,6 +11,7 @@ export class Settings extends Feature {
     list: Setting[];
 
     darkMode: BooleanSetting;
+    showPlannedRoads: BooleanSetting;
 
     constructor() {
         super("settings");
@@ -18,6 +19,7 @@ export class Settings extends Feature {
 
         // Empty, will be overwritten in initialize()
         this.darkMode = {} as BooleanSetting;
+        this.showPlannedRoads = this.registerSetting(new BooleanSetting(SettingId.PlannedRoads, "Show Planned Roads", true));
     }
 
     registerSetting<T extends Setting>(setting: T): T {
@@ -29,6 +31,7 @@ export class Settings extends Feature {
 
     initialize() {
         this.darkMode = this.registerSetting(new BooleanSetting(SettingId.DarkMode, "Dark Mode", true));
+        this.showPlannedRoads = this.registerSetting(new BooleanSetting(SettingId.PlannedRoads, "Show Planned Roads", true));
 
         this.registerSetting(
             new MultipleChoiceSetting(SettingId.ExampleMultipleChoiceSetting, "Example setting", [

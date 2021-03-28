@@ -1,6 +1,7 @@
 <template>
   <igt-feature>
     <igt-boolean-setting :setting="darkMode" true-icon="fa-moon" false-icon="fa-sun"></igt-boolean-setting>
+    <igt-boolean-setting :setting="settings.showPlannedRoads" true-icon="fa-eye" false-icon="fa-eye-slash"></igt-boolean-setting>
     <button class="btn btn-red" @click="resetSave">Reset Save</button>
   </igt-feature>
 </template>

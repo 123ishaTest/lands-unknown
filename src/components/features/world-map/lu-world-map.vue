@@ -45,6 +45,7 @@ export default {
 
   data() {
     return {
+      showPlannedRoadsSetting: App.game.features.settings.showPlannedRoads,
       cannotTravelReason: "",
       canTravelToHighLight: false,
       highlightedLocation: null,
@@ -110,14 +111,16 @@ export default {
       let shouldRender = false;
 
       const plannedRoads = []
-
       queue.forEach(action => {
         if (!(action instanceof TravelAction) || action.isFinished) {
           return;
         }
         shouldRender = true;
-        plannedRoads.push(action.getRemainingPoints());
-      })
+        if (this.showPlannedRoadsSetting.value) {
+          plannedRoads.push(action.getRemainingPoints());
+        }
+      });
+
       if (shouldRender) {
         const travelType = this.firstActionIsTravel ? (queue[0].road.travelType) : TravelType.Walk;
         this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, plannedRoads, travelType);
