@@ -1,5 +1,5 @@
 <template>
-  <div class="w-64 h-96 border-2 p-4 z-50 bg-gray-500 bg-opacity-50 shadow-xl text-white">
+  <div class="w-64 h-96 border-2 p-4 z-30 bg-gray-500 bg-opacity-50 shadow-xl text-white">
     <div v-if="location != null" class="flex flex-col h-full justify-between">
       <p class="text-center">{{ location.displayName }}</p>
 
@@ -25,7 +25,7 @@
       </div>
 
       <div class="mt-auto">
-        <button class="btn btn-green w-full" @click="travel">
+        <button class="btn btn-green w-full" @click="travel" :disabled="!canTravel" :title="cannotTravelReason">
           <span class="fa fa-route"></span>
           Travel
         </button>
@@ -43,6 +43,14 @@ export default {
   name: "lu-location-highlight",
   components: {LuActionButton, LuFacility},
   props: {
+    cannotTravelReason: {
+      type: String,
+      required: true,
+    },
+    canTravel: {
+      type: Boolean,
+      required: true,
+    },
     location: {
       type: WorldLocation,
       default: null
@@ -59,10 +67,12 @@ export default {
       return Object.entries(this.location.facilities);
     },
     hasActions() {
-      return this.location.possibleActions.length > 0 || this.facilities.length > 0;
+      return this.actions.length > 0 || this.facilities.length > 0;
     },
     actions() {
-      return this.location.possibleActions;
+      return this.location.possibleActions.filter(action => {
+        return action.canSee();
+      });
     }
   },
   methods: {

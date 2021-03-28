@@ -10,14 +10,14 @@ import {SettingsValue} from "@/ig-template/features/settings/SettingsValueType";
 export class Settings extends Feature {
     list: Setting[];
 
-    darkMode: BooleanSetting;
+    // Empty, will be overwritten in initialize()
+    darkMode: BooleanSetting =  {} as BooleanSetting;
+    showPlannedRoads: BooleanSetting  = {} as BooleanSetting;
 
     constructor() {
         super("settings");
         this.list = [];
 
-        // Empty, will be overwritten in initialize()
-        this.darkMode = {} as BooleanSetting;
     }
 
     registerSetting<T extends Setting>(setting: T): T {
@@ -29,6 +29,7 @@ export class Settings extends Feature {
 
     initialize() {
         this.darkMode = this.registerSetting(new BooleanSetting(SettingId.DarkMode, "Dark Mode", true));
+        this.showPlannedRoads = this.registerSetting(new BooleanSetting(SettingId.PlannedRoads, "Show Planned Roads", true));
 
         this.registerSetting(
             new MultipleChoiceSetting(SettingId.ExampleMultipleChoiceSetting, "Example setting", [

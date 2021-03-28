@@ -23,7 +23,7 @@ export class Dijkstra {
 
     }
 
-    solve(source: WorldLocationIdentifier, target: WorldLocationIdentifier): Road[] | null {
+    solve(source: WorldLocationIdentifier, target: WorldLocationIdentifier, withRequirements: boolean): Road[] | null {
         let Q: WorldLocationIdentifier[] = [];
         const distance: Record<WorldLocationId, number> = {} as Record<WorldLocationId, number>;
         const previous: Record<WorldLocationId, Road | null> = {} as Record<WorldLocationId, Road | null>;
@@ -56,7 +56,7 @@ export class Dijkstra {
             })
 
 
-            const neighbourRoads = this.getNeighbourRoads(u);
+            const neighbourRoads = this.getNeighbourRoads(u, withRequirements);
 
             neighbourRoads.forEach(road => {
                 const v = road.from.equals(u) ? road.to : road.from;
@@ -87,9 +87,11 @@ export class Dijkstra {
         return path.reverse();
     }
 
-    getNeighbourRoads(location: WorldLocationIdentifier): Road[] {
+    getNeighbourRoads(location: WorldLocationIdentifier, withRequirements: boolean): Road[] {
         const res: Road[] = [];
-        this.roads.forEach(road => {
+        this.roads.filter(road => {
+            return withRequirements ? road.requirement.isCompleted : true;
+        }).forEach(road => {
             if ((road.from.equals(location)) || (road.to.equals(location)) && !res.includes(road)) {
                 res.push(road);
             }

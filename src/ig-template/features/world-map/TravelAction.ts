@@ -28,7 +28,15 @@ export class TravelAction extends AbstractAction {
             return this.road.getWorldPosition(1 - this.getProgress().getPercentage());
         } else {
             return this.road.getWorldPosition(this.getProgress().getPercentage());
+        }
+    }
 
+    getRemainingPoints(): WorldPosition[] {
+        const index = Math.floor(this.getProgress().getPercentage() * this.road.points.length);
+        if (this.reverse) {
+            return this.road.points.slice(0, this.road.points.length - index);
+        } else {
+            return this.road.points.slice(index, this.road.points.length);
         }
     }
 

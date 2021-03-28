@@ -70,6 +70,20 @@ export abstract class AbstractAction {
     }
 
     /**
+     * Whether or not it should be displayed
+     */
+    canSee(): boolean {
+        return true;
+    }
+
+    /**
+     * Some actions cannot be performed at the moment, but can already be scheduled (like cooking a fish)
+     */
+    canSchedule(): boolean {
+        return this.requirement.isCompleted;
+    }
+
+    /**
      * Override if more permissions exist.
      */
     canPerform(): boolean {

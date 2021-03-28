@@ -16,6 +16,7 @@ export interface TiledObject {
         valign?: string;
         wrap?: boolean;
     };
+    point?: boolean;
     polyline?: WorldPosition[];
     rotation: number;
     type: string;

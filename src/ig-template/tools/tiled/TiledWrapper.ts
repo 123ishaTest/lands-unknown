@@ -9,7 +9,7 @@ import {ObjectGroup} from "@/ig-template/tools/tiled/types/layers/ObjectGroup";
 import * as TileSets from "@/assets/tiled/tilesets";
 import * as Images from "@/assets/tiled/images";
 import {WorldPosition} from "@/ig-template/tools/tiled/WorldPosition";
-import {Road} from "@/ig-template/features/world-map/roads/Road";
+import {TravelType} from "@/ig-template/features/world-map/roads/TravelType";
 
 /**
  * Wrapper to work with Tiled maps.
@@ -42,6 +42,12 @@ export class TiledWrapper {
     onClickBoxClicked: Function
 
     playerImage: HTMLImageElement;
+
+    boatImage: HTMLImageElement;
+    mineCartImage: HTMLImageElement;
+    readonly TRAVEL_IMAGE_COUNT = 2;
+    travelImagesLoaded = 0;
+
     playerImagedLoaded = false;
 
 
@@ -62,7 +68,23 @@ export class TiledWrapper {
             this.playerImagedLoaded = true;
             this.checkIfReady()
         }
+
         this.playerImage.src = Images.character;
+
+        this.boatImage = new Image();
+        this.boatImage.onload = () => {
+            this.travelImagesLoaded++;
+            this.checkIfReady()
+        }
+        this.boatImage.src = Images.boat;
+
+        this.mineCartImage = new Image();
+        this.mineCartImage.onload = () => {
+            this.travelImagesLoaded++;
+            this.checkIfReady()
+        }
+        this.mineCartImage.src = Images.mineCart;
+
 
         this.tileHeight = this.worldMap.tileheight;
         this.tileWidth = this.worldMap.tilewidth;
@@ -110,22 +132,25 @@ export class TiledWrapper {
         if (!this.playerImagedLoaded) {
             return false;
         }
+        if (this.travelImagesLoaded < this.TRAVEL_IMAGE_COUNT) {
+            return false;
+        }
 
         this.onInitialized();
     }
 
-    renderPlayer(x: number, y: number, roads: Road[], isPlanned: boolean[]) {
+    renderPlayer(x: number, y: number, roads: WorldPosition[][] = [[]], travelType: TravelType = TravelType.Walk) {
         const ctx = this.playerCanvas.getContext("2d") as CanvasRenderingContext2D;
         ctx.clearRect(0, 0, this.playerCanvas.width, this.playerCanvas.height);
 
         // Paths
         ctx.lineWidth = 2;
-        roads.forEach((road, index) => {
-            ctx.strokeStyle = isPlanned[index] ? 'red' : 'black';
+        roads.forEach((worldPositions) => {
+            ctx.strokeStyle = 'red';
 
             ctx.beginPath();
 
-            road.points.forEach(position => {
+            worldPositions.forEach(position => {
                 const x = (position.x + 0.5) * this.tileWidth;
                 const y = (position.y + 0.5) * this.tileHeight;
                 ctx.lineTo(x, y);
@@ -133,12 +158,17 @@ export class TiledWrapper {
             ctx.stroke();
         });
 
-        // Player
-        ctx.drawImage(this.playerImage, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)
-        ctx.beginPath();
-        ctx.strokeStyle = "red";
-        ctx.rect(x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight);
-        ctx.stroke();
+        switch (travelType) {
+            case TravelType.Walk:
+                ctx.drawImage(this.playerImage, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)
+                break;
+            case TravelType.Boat:
+                ctx.drawImage(this.boatImage, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)
+                break;
+            case TravelType.MineCart:
+                ctx.drawImage(this.mineCartImage, x * this.tileWidth, y * this.tileHeight, this.tileWidth, this.tileHeight)
+                break;
+        }
     }
 
     getJsonId(source: string): string {

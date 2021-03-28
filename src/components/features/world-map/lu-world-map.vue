@@ -4,6 +4,8 @@
 
     <div class="flex flex-row">
       <lu-location-highlight
+          :cannot-travel-reason="cannotTravelReason"
+          :can-travel="canTravelToHighLight"
           @travel="travel"
           @action="performAction"
           class="absolute" :location="highlightedLocation">
@@ -35,6 +37,7 @@ import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/Tow
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 import LuActionQueue from "@/components/features/adventurer/lu-action-queue";
 import LuLocationHighlight from "@/components/features/world-map/lu-location-highlight";
+import {TravelType} from "@/ig-template/features/world-map/roads/TravelType";
 
 export default {
   name: "lu-world-map",
@@ -42,6 +45,9 @@ export default {
 
   data() {
     return {
+      showPlannedRoadsSetting: App.game.features.settings.showPlannedRoads,
+      cannotTravelReason: "",
+      canTravelToHighLight: false,
       highlightedLocation: null,
       worldMap: App.game.features.worldMap,
       adventurer: App.game.features.adventurer,
@@ -66,7 +72,7 @@ export default {
       return this.adventurer.actionQueue[0] instanceof TravelAction;
     },
     currentLocation() {
-      return this.worldMap.playerLocation;
+      return this.worldMap.getCurrentLocation();
     },
     showPointer() {
       return this.tiledWrapper && this.tiledWrapper.isHoveringOverClickBox;
@@ -83,35 +89,42 @@ export default {
       this.adventurer.addAction(action, repeat);
     },
     showHighlight(identifier) {
-      const location = this.worldMap.getLocation(identifier)
-      this.highlightedLocation = location;
-      console.log(location);
+      this.highlightedLocation = this.worldMap.getLocation(identifier)
+      this.canTravelToHighLight = this.worldMap.areConnected(this.adventurer.getPlayerLocationAtEndOfQueue(), identifier)
+      this.cannotTravelReason = this.worldMap.getCannotTravelReason(this.adventurer.getPlayerLocationAtEndOfQueue(), identifier)
     },
     updateStackHeight() {
       this.stackHeight = window.innerHeight - 200;
     }
   },
   watch: {
+    currentLocation(newLocation) {
+      this.tiledWrapper.renderPlayer(newLocation.worldPosition.x, newLocation.worldPosition.y);
+    },
     playerPosition(newPosition) {
       // TODO refresh less often
       if (newPosition.x === 0 && newPosition.y === 0) {
         return;
       }
-      const roads = this.worldMap.roads
-      const queue = this.adventurer.actionQueue;
-      const isPlanned = this.worldMap.roads.map(road => {
-        const action = queue.find(action => {
-          if (action instanceof TravelAction) {
-            if (action.road.identifier.equals(road.identifier)) {
-              return true;
-            }
-          }
-          return false
-        })
-        return action != null;
 
-      })
-      this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, roads, isPlanned);
+      const queue = this.adventurer.actionQueue;
+      let shouldRender = false;
+
+      const plannedRoads = []
+      queue.forEach(action => {
+        if (!(action instanceof TravelAction) || action.isFinished) {
+          return;
+        }
+        shouldRender = true;
+        if (this.showPlannedRoadsSetting.value) {
+          plannedRoads.push(action.getRemainingPoints());
+        }
+      });
+
+      if (shouldRender) {
+        const travelType = this.firstActionIsTravel ? (queue[0].road.travelType) : TravelType.Walk;
+        this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, plannedRoads, travelType);
+      }
     }
 
   },
@@ -135,7 +148,7 @@ export default {
         playerCanvas,
         () => {
           this.tiledWrapper.render();
-          this.tiledWrapper.renderPlayer(-1, -1, this.worldMap.roads, new Array(this.worldMap.roads.length).fill(false));
+          this.tiledWrapper.renderPlayer(this.currentLocation.worldPosition.x, this.currentLocation.worldPosition.y);
         },
         (clickBox) => {
           const townId = clickBox.properties[0].value;

@@ -9,7 +9,6 @@
             @performAction="performAction"
             :action="action"
         >
-          {{ action.description }}
         </lu-action-button>
       </template>
 

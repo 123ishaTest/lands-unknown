@@ -16,8 +16,7 @@ export class KeyItems extends Feature {
 
 
     initialize() {
-        this.registerKeyItem(new KeyItem(KeyItemId.Item1, "Item 1", "Grants access to something", "Maybe look over there?", "logo.png"));
-        this.registerKeyItem(new KeyItem(KeyItemId.Item2, "Item 2", "Now you can do something"));
+        this.registerKeyItem(new KeyItem(KeyItemId.BoatTicket, "Boat Ticket", "Provides a way to get to the island", "I heard the King can grant these", "logo.png"));
     }
 
     public registerKeyItem<T extends KeyItem>(keyItem: T): T {
