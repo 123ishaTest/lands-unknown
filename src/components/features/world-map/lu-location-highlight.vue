@@ -25,7 +25,7 @@
       </div>
 
       <div class="mt-auto">
-        <button class="btn btn-green w-full" @click="travel">
+        <button class="btn btn-green w-full" @click="travel" :disabled="!canTravel" :title="cannotTravelReason">
           <span class="fa fa-route"></span>
           Travel
         </button>
@@ -43,6 +43,14 @@ export default {
   name: "lu-location-highlight",
   components: {LuActionButton, LuFacility},
   props: {
+    cannotTravelReason: {
+      type: String,
+      required: true,
+    },
+    canTravel: {
+      type: Boolean,
+      required: true,
+    },
     location: {
       type: WorldLocation,
       default: null

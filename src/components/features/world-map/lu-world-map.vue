@@ -4,6 +4,8 @@
 
     <div class="flex flex-row">
       <lu-location-highlight
+          :cannot-travel-reason="cannotTravelReason"
+          :can-travel="canTravelToHighLight"
           @travel="travel"
           @action="performAction"
           class="absolute" :location="highlightedLocation">
@@ -43,6 +45,8 @@ export default {
 
   data() {
     return {
+      cannotTravelReason: "",
+      canTravelToHighLight: false,
       highlightedLocation: null,
       worldMap: App.game.features.worldMap,
       adventurer: App.game.features.adventurer,
@@ -85,6 +89,8 @@ export default {
     },
     showHighlight(identifier) {
       this.highlightedLocation = this.worldMap.getLocation(identifier)
+      this.canTravelToHighLight = this.worldMap.areConnected(this.adventurer.getPlayerLocationAtEndOfQueue(), identifier)
+      this.cannotTravelReason = this.worldMap.getCannotTravelReason(this.adventurer.getPlayerLocationAtEndOfQueue(), identifier)
     },
     updateStackHeight() {
       this.stackHeight = window.innerHeight - 200;
@@ -92,7 +98,7 @@ export default {
   },
   watch: {
     currentLocation(newLocation) {
-      this.tiledWrapper.renderPlayer(newLocation.worldPosition.x, newLocation.worldPosition.y, this.worldMap.roads, new Array(this.worldMap.roads.length).fill(false));
+      this.tiledWrapper.renderPlayer(newLocation.worldPosition.x, newLocation.worldPosition.y);
     },
     playerPosition(newPosition) {
       // TODO refresh less often
@@ -101,26 +107,20 @@ export default {
       }
 
       const queue = this.adventurer.actionQueue;
-      const roads = this.worldMap.roads
       let shouldRender = false;
-      const isPlanned = this.worldMap.roads.map(road => {
-        const action = queue.find(action => {
-          if (action instanceof TravelAction) {
-            if (action.isFinished) {
-              return false;
-            }
-            if (action.road.identifier.equals(road.identifier)) {
-              shouldRender = true;
-              return true;
-            }
-          }
-          return false
-        })
-        return action != null;
+
+      const plannedRoads = []
+
+      queue.forEach(action => {
+        if (!(action instanceof TravelAction) || action.isFinished) {
+          return;
+        }
+        shouldRender = true;
+        plannedRoads.push(action.getRemainingPoints());
       })
       if (shouldRender) {
         const travelType = this.firstActionIsTravel ? (queue[0].road.travelType) : TravelType.Walk;
-        this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, roads, isPlanned, travelType);
+        this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, plannedRoads, travelType);
       }
     }
 
@@ -145,7 +145,7 @@ export default {
         playerCanvas,
         () => {
           this.tiledWrapper.render();
-          this.tiledWrapper.renderPlayer(this.currentLocation.worldPosition.x, this.currentLocation.worldPosition.y, this.worldMap.roads, new Array(this.worldMap.roads.length).fill(false));
+          this.tiledWrapper.renderPlayer(this.currentLocation.worldPosition.x, this.currentLocation.worldPosition.y);
         },
         (clickBox) => {
           const townId = clickBox.properties[0].value;

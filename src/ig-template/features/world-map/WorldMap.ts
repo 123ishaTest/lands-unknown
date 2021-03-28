@@ -11,6 +11,9 @@ import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
 import {Dijkstra} from "@/ig-template/features/world-map/Dijkstra";
 import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
+import {RoadLocationIdentifier} from "@/ig-template/features/world-map/roads/RoadLocationIdentifier";
+import {HasItemRequirement} from "@/ig-template/features/inventory/HasItemRequirement";
+import {ItemId} from "@/ig-template/features/items/ItemId";
 
 export class WorldMap extends Feature {
     _adventurer: Adventurer = undefined as unknown as Adventurer;
@@ -37,6 +40,9 @@ export class WorldMap extends Feature {
     initialize(features: Features) {
         this._adventurer = features.adventurer;
         this._actionList = features.actionList;
+
+        this.getRoad(WorldLocationId.DocksToIsland).requirement = new HasItemRequirement(ItemId.CookedFish, 1, features.inventory);
+
     }
 
 
@@ -59,7 +65,7 @@ export class WorldMap extends Feature {
             return false;
         }
 
-        const path = this.getPath(startingLocation, target);
+        const path = this.getPath(startingLocation, target, true);
         if (path == null) {
             console.log(`There is no road from ${startingLocation} to ${target}`);
             return false;
@@ -85,6 +91,10 @@ export class WorldMap extends Feature {
         return this.getLocation(new TownLocationIdentifier(id)) as Town;
     }
 
+    getRoad(id: WorldLocationId): Road {
+        return this.getLocation(new RoadLocationIdentifier(id)) as Road;
+    }
+
     getLocation(id: WorldLocationIdentifier) {
         for (const location of this.locations) {
             if (location.identifier.equals(id)) {
@@ -100,12 +110,12 @@ export class WorldMap extends Feature {
     }
 
     areConnected(from: WorldLocationIdentifier, to: WorldLocationIdentifier): boolean {
-        return this.getPath(from, to) !== null;
+        return this.getPath(from, to, true) !== null;
     }
 
-    getPath(from: WorldLocationIdentifier, to: WorldLocationIdentifier): Road[] | null {
+    getPath(from: WorldLocationIdentifier, to: WorldLocationIdentifier, withRequirements: boolean): Road[] | null {
         const dijkstra = new Dijkstra(this.roads);
-        return dijkstra.solve(from, to);
+        return dijkstra.solve(from, to, withRequirements);
 
     }
 
@@ -117,4 +127,17 @@ export class WorldMap extends Feature {
         return {};
     }
 
+    getCannotTravelReason(from: WorldLocationIdentifier, to: WorldLocationIdentifier): string {
+        if (this.areConnected(from, to)) {
+            return "";
+        }
+        const path = this.getPath(from, to, false);
+        const reasons: string[] = [];
+        path?.forEach(road => {
+            if (!road.requirement.isCompleted) {
+                reasons.push(road.requirement.hint);
+            }
+        })
+        return reasons.join("\n");
+    }
 }
