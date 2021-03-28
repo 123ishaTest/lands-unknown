@@ -1,5 +1,5 @@
 <template>
-  <div class="w-64 h-96 border-2 p-4 z-50 bg-gray-500 bg-opacity-50 shadow-xl text-white">
+  <div class="w-64 h-96 border-2 p-4 z-30 bg-gray-500 bg-opacity-50 shadow-xl text-white">
     <div v-if="location != null" class="flex flex-col h-full justify-between">
       <p class="text-center">{{ location.displayName }}</p>
 
