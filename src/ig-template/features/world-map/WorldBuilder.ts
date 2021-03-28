@@ -71,7 +71,6 @@ export class WorldBuilder {
     static parseWorldLocations(): Record<WorldLocationId, WorldPosition> {
         const hitBoxLayer = this.getLayer("Hitboxes") as ObjectGroup;
 
-        // TODO double check
         const positions = {} as Record<WorldLocationId, WorldPosition>
 
         hitBoxLayer?.objects?.filter(object => {
