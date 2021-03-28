@@ -35,6 +35,7 @@ import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/Tow
 import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 import LuActionQueue from "@/components/features/adventurer/lu-action-queue";
 import LuLocationHighlight from "@/components/features/world-map/lu-location-highlight";
+import {TravelType} from "@/ig-template/features/world-map/roads/TravelType";
 
 export default {
   name: "lu-world-map",
@@ -120,7 +121,8 @@ export default {
         return action != null;
       })
       if (shouldRender) {
-        this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, roads, isPlanned);
+        const travelType =  this.firstActionIsTravel ? (queue[0].road.travelType) : TravelType.Walk;
+        this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, roads, isPlanned, travelType);
       }
     }
 

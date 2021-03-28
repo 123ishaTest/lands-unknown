@@ -15,6 +15,7 @@ import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
 import {FacilityType} from "@/ig-template/features/world-map/FacilityType";
 import {TiledLayer} from "@/ig-template/tools/tiled/types/layers/TiledLayer";
 import {CrossRoads} from "@/ig-template/features/world-map/towns/CrossRoads";
+import {TravelType} from "@/ig-template/features/world-map/roads/TravelType";
 
 export class WorldBuilder {
 
@@ -46,6 +47,7 @@ export class WorldBuilder {
             const properties = object.properties as ObjectProperty[];
             const from = this.getPropertyValue(properties, "from")
             const to = this.getPropertyValue(properties, "to")
+            const roadType = this.getPropertyValue(properties, "type") ?? TravelType.Walk;
             const id = `${from}-${to}` as WorldLocationId;
             const baseDuration = this.getPropertyValue(properties, "baseDuration")
 
@@ -55,7 +57,7 @@ export class WorldBuilder {
                     y: position.y + object.y,
                 });
             }) ?? [];
-            return new Road(new RoadLocationIdentifier(id), "Road", new TownLocationIdentifier(from), new TownLocationIdentifier(to), points, baseDuration);
+            return new Road(new RoadLocationIdentifier(id), "Road", new TownLocationIdentifier(from), new TownLocationIdentifier(to), points, baseDuration, roadType);
         });
     }
 
@@ -95,6 +97,9 @@ export class WorldBuilder {
                 ActionId.Fish,
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town, worldPositions[WorldLocationId.Castle]),
+            new Town(new TownLocationIdentifier(WorldLocationId.Island), "Island", TownTier.Town, worldPositions[WorldLocationId.Island], [
+                ActionId.LootIslandChest,
+            ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town, worldPositions[WorldLocationId.Lumberjack], [
                 ActionId.CutWood,
             ]),
