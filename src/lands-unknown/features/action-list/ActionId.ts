@@ -6,4 +6,6 @@ export enum ActionId {
     SmeltIron = 'smeltIron',
     CookFish = "cookFish",
     LootIslandChest = "lootIslandChest",
+
+    BuyBoatTicket = 'buyBoatTicket'
 }

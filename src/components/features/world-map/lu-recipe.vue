@@ -1,15 +1,13 @@
 <template>
-  <span>
-    <span v-if="hasInput">
-    <span :key="itemAmount.id" v-for="itemAmount in input">
-      {{ itemAmount.amount }} {{ itemAmount.id }}
-    </span>
-    -->
+  <div>
+      <span :key="itemAmount.id" v-for="itemAmount in input">
+        {{ itemAmount.amount }} {{ itemAmount.id }}
       </span>
-        <span :key="itemAmount.id" v-for="itemAmount in output">
+    <span v-if="hasInput && hasOutput">--></span>
+    <span :key="itemAmount.id" v-for="itemAmount in output">
       {{ itemAmount.amount }} {{ itemAmount.id }}
     </span>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -30,6 +28,9 @@ export default {
   computed: {
     hasInput() {
       return this.input.length > 0;
+    },
+    hasOutput() {
+      return this.output.length > 0;
     }
   },
 

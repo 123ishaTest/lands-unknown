@@ -96,7 +96,9 @@ export class WorldBuilder {
             new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town, worldPositions[WorldLocationId.FisherMan], [
                 ActionId.Fish,
             ]),
-            new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town, worldPositions[WorldLocationId.Castle]),
+            new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town, worldPositions[WorldLocationId.Castle], [
+                ActionId.BuyBoatTicket,
+            ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Island), "Island", TownTier.Town, worldPositions[WorldLocationId.Island], [
                 ActionId.LootIslandChest,
             ]),

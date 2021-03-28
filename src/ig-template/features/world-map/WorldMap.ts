@@ -12,8 +12,8 @@ import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId"
 import {Dijkstra} from "@/ig-template/features/world-map/Dijkstra";
 import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
 import {RoadLocationIdentifier} from "@/ig-template/features/world-map/roads/RoadLocationIdentifier";
-import {HasItemRequirement} from "@/ig-template/features/inventory/HasItemRequirement";
-import {ItemId} from "@/ig-template/features/items/ItemId";
+import {KeyItemRequirement} from "@/ig-template/features/key-items/KeyItemRequirement";
+import {KeyItemId} from "@/ig-template/features/key-items/KeyItemId";
 
 export class WorldMap extends Feature {
     _adventurer: Adventurer = undefined as unknown as Adventurer;
@@ -41,7 +41,7 @@ export class WorldMap extends Feature {
         this._adventurer = features.adventurer;
         this._actionList = features.actionList;
 
-        this.getRoad(WorldLocationId.DocksToIsland).requirement = new HasItemRequirement(ItemId.CookedFish, 1, features.inventory);
+        this.getRoad(WorldLocationId.DocksToIsland).requirement = new KeyItemRequirement(features.keyItems, KeyItemId.BoatTicket);
 
     }
 
