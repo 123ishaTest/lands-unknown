@@ -1,4 +1,4 @@
-export enum WiseOldWomanDialogId {
+export enum WiseOldWomanDialog {
     // Dialogs
     Intro,
     YesFish,

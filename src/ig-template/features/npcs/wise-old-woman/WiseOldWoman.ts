@@ -4,7 +4,7 @@ import {Dialog} from "@/ig-template/tools/dialog/Dialog";
 import {DialogText} from "@/ig-template/tools/dialog/DialogText";
 import {DialogOption} from "@/ig-template/tools/dialog/DialogOption";
 import {DialogDecision} from "@/ig-template/tools/dialog/DialogDecision";
-import {WiseOldWomanDialogId} from "@/ig-template/features/npcs/wise-old-woman/WiseOldWomanDialogId";
+import {WiseOldWomanDialog} from "@/ig-template/features/npcs/wise-old-woman/WiseOldWomanDialog";
 import {Skills} from "@/lands-unknown/features/skills/Skills";
 import {SkillLevelRequirement} from "@/lands-unknown/features/skills/SkillLevelRequirement";
 import {SaveableNpc} from "@/ig-template/features/npcs/SaveableNpc";
@@ -18,25 +18,25 @@ export class WiseOldWoman extends SaveableNpc {
     _skills: Skills;
     _inventory: Inventory;
     _itemList: ItemList;
-    dialog: DialogTree<WiseOldWomanDialogId>;
+    dialog: DialogTree<WiseOldWomanDialog>;
 
     alreadyGivenFish = false;
 
     constructor(skills: Skills, inventory: Inventory, itemList: ItemList) {
-        super(NpcId.WiseOldWoman, 'wise-old-woman')
+        super(NpcId.WiseOldWoman)
         this._skills = skills;
         this._inventory = inventory;
         this._itemList = itemList;
         this.dialog = new DialogTree(
-            WiseOldWomanDialogId.Intro,
+            WiseOldWomanDialog.Intro,
             [
-                new Dialog(WiseOldWomanDialogId.Intro,
+                new Dialog(WiseOldWomanDialog.Intro,
                     [
                         new DialogText(NpcId.Player, "Hi"),
                     ],
-                    WiseOldWomanDialogId.Question
+                    WiseOldWomanDialog.Question
                 ),
-                new Dialog(WiseOldWomanDialogId.GiveFish,
+                new Dialog(WiseOldWomanDialog.GiveFish,
                     [
                         new DialogText(NpcId.Player, "Yes please"),
                         new DialogText(NpcId.WiseOldWoman, "Here it is", () => {
@@ -44,17 +44,17 @@ export class WiseOldWoman extends SaveableNpc {
                             this.alreadyGivenFish = true;
                         })],
                 ),
-                new Dialog(WiseOldWomanDialogId.AlreadyGivenFish,
+                new Dialog(WiseOldWomanDialog.AlreadyGivenFish,
                     [
                         new DialogText(NpcId.Player, "Oh wow, I would love to get a fish for the first time"),
                         new DialogText(NpcId.WiseOldWoman, "Nice try, I've already given you a fish")],
                 ),
-                new Dialog(WiseOldWomanDialogId.BragAboutCooking,
+                new Dialog(WiseOldWomanDialog.BragAboutCooking,
                     [
                         new DialogText(NpcId.Player, "No thanks, I'm something of a master chef myself"),
                         new DialogText(NpcId.WiseOldWoman, "Pff...")],
                 ),
-                new Dialog(WiseOldWomanDialogId.NoFish,
+                new Dialog(WiseOldWomanDialog.NoFish,
                     [
                         new DialogText(NpcId.Player, "No thanks, I don't like fish"),
                         new DialogText(NpcId.WiseOldWoman, "Are you sure?"),
@@ -63,21 +63,21 @@ export class WiseOldWoman extends SaveableNpc {
                         new DialogText(NpcId.Player, "Yes?"),
                         new DialogText(NpcId.WiseOldWoman, "Hmm... you sure?"),
                     ],
-                    WiseOldWomanDialogId.Question,
+                    WiseOldWomanDialog.Question,
                 ),
             ],
             [
-                new DialogDecision(WiseOldWomanDialogId.Question,
+                new DialogDecision(WiseOldWomanDialog.Question,
                     new DialogText(NpcId.WiseOldWoman, "Hello young man, would you like a Fish?"),
                     [
-                        new DialogOption("Yes", WiseOldWomanDialogId.YesFish),
-                        new DialogOption("Yuck no", WiseOldWomanDialogId.NoFish),
-                        new DialogOption("Pff, I bet I can make them more delicious (3 cooking)", WiseOldWomanDialogId.BragAboutCooking, new SkillLevelRequirement(skills.cooking, 3)),
+                        new DialogOption("Yes", WiseOldWomanDialog.YesFish),
+                        new DialogOption("Yuck no", WiseOldWomanDialog.NoFish),
+                        new DialogOption("Pff, I bet I can make them more delicious (3 cooking)", WiseOldWomanDialog.BragAboutCooking, new SkillLevelRequirement(skills.cooking, 3)),
                     ])
             ],
             [
-                new NpcDecision(WiseOldWomanDialogId.YesFish, () => {
-                    return this.alreadyGivenFish ? WiseOldWomanDialogId.AlreadyGivenFish : WiseOldWomanDialogId.GiveFish;
+                new NpcDecision(WiseOldWomanDialog.YesFish, () => {
+                    return this.alreadyGivenFish ? WiseOldWomanDialog.AlreadyGivenFish : WiseOldWomanDialog.GiveFish;
                 })
             ],
         );

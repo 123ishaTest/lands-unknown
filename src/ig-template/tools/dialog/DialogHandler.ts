@@ -31,8 +31,6 @@ export class DialogHandler<T> {
     }
 
     public next() {
-        console.log(this.dialog);
-
         if (this.dialog == null) {
             console.warn("Could not go next if dialog is null");
             return;

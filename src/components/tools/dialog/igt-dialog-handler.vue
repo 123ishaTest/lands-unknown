@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     talk() {
-      const wiseOldWoman = this.npcs.getNpc(NpcId.WiseOldWoman);
+      const wiseOldWoman = this.npcs.getNpc(NpcId.King);
       this.handler.start(wiseOldWoman.dialog);
     },
     next() {
