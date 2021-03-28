@@ -85,12 +85,6 @@ export class Adventurer extends Feature {
             return;
         }
 
-        // TODO check for locations?
-        // if (!this.getPlayerLocationAtEndOfQueue().equals(action.from)) {
-        //     console.warn(`Cannot schedule action ${action.getScheduleDescription()}, wrong location after queue`);
-        //     return;
-        // }
-
         this.actionQueue.push(action);
     }
 

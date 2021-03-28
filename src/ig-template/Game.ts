@@ -27,11 +27,7 @@ export class Game {
     private gameSpeed = 1;
     private _lastUpdate: number = 0;
 
-    /**
-     * TODO Make sure this key is unique to your game.
-     * Otherwise you might run into loading conflicts when multiple games are hosted on the same domain (such as <username.github.io/game)
-     */
-    private readonly SAVE_KEY = "unique-key-for-your-game";
+    private readonly SAVE_KEY = "123ishatest-lands-unknown";
 
     constructor(features: Features) {
         this.features = features;
