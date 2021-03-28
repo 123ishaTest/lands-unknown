@@ -84,9 +84,7 @@ export default {
       this.adventurer.addAction(action, repeat);
     },
     showHighlight(identifier) {
-      const location = this.worldMap.getLocation(identifier)
-      this.highlightedLocation = location;
-      console.log(location);
+      this.highlightedLocation = this.worldMap.getLocation(identifier)
     },
     updateStackHeight() {
       this.stackHeight = window.innerHeight - 200;
@@ -121,7 +119,7 @@ export default {
         return action != null;
       })
       if (shouldRender) {
-        const travelType =  this.firstActionIsTravel ? (queue[0].road.travelType) : TravelType.Walk;
+        const travelType = this.firstActionIsTravel ? (queue[0].road.travelType) : TravelType.Walk;
         this.tiledWrapper.renderPlayer(newPosition.x, newPosition.y, roads, isPlanned, travelType);
       }
     }

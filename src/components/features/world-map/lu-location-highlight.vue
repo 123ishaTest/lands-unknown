@@ -59,10 +59,12 @@ export default {
       return Object.entries(this.location.facilities);
     },
     hasActions() {
-      return this.location.possibleActions.length > 0 || this.facilities.length > 0;
+      return this.actions.length > 0 || this.facilities.length > 0;
     },
     actions() {
-      return this.location.possibleActions;
+      return this.location.possibleActions.filter(action => {
+        return action.canSee();
+      });
     }
   },
   methods: {
