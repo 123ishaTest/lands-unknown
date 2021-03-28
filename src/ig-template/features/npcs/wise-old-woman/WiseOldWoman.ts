@@ -11,6 +11,7 @@ import {SaveableNpc} from "@/ig-template/features/npcs/SaveableNpc";
 import {NpcSaveData} from "@/ig-template/features/npcs/NpcSaveData";
 import {ItemList} from "@/ig-template/features/items/ItemList";
 import {Inventory} from "@/ig-template/features/inventory/Inventory";
+import {NpcDecision} from "@/ig-template/tools/dialog/NpcDecision";
 
 export class WiseOldWoman extends SaveableNpc {
 
@@ -27,6 +28,7 @@ export class WiseOldWoman extends SaveableNpc {
         this._inventory = inventory;
         this._itemList = itemList;
         this.dialog = new DialogTree(
+            WiseOldWomanDialogId.Intro,
             [
                 new Dialog(WiseOldWomanDialogId.Intro,
                     [
@@ -34,12 +36,18 @@ export class WiseOldWoman extends SaveableNpc {
                     ],
                     WiseOldWomanDialogId.Question
                 ),
-                new Dialog(WiseOldWomanDialogId.YesFish,
+                new Dialog(WiseOldWomanDialogId.GiveFish,
                     [
                         new DialogText(NpcId.Player, "Yes please"),
                         new DialogText(NpcId.WiseOldWoman, "Here it is", () => {
                             this._inventory.gainItem(this._itemList.rawFish);
+                            this.alreadyGivenFish = true;
                         })],
+                ),
+                new Dialog(WiseOldWomanDialogId.AlreadyGivenFish,
+                    [
+                        new DialogText(NpcId.Player, "Oh wow, I would love to get a fish for the first time"),
+                        new DialogText(NpcId.WiseOldWoman, "Nice try, I've already given you a fish")],
                 ),
                 new Dialog(WiseOldWomanDialogId.BragAboutCooking,
                     [
@@ -67,7 +75,11 @@ export class WiseOldWoman extends SaveableNpc {
                         new DialogOption("Pff, I bet I can make them more delicious (3 cooking)", WiseOldWomanDialogId.BragAboutCooking, new SkillLevelRequirement(skills.cooking, 3)),
                     ])
             ],
-            WiseOldWomanDialogId.Intro
+            [
+                new NpcDecision(WiseOldWomanDialogId.YesFish, () => {
+                    return this.alreadyGivenFish ? WiseOldWomanDialogId.AlreadyGivenFish : WiseOldWomanDialogId.GiveFish;
+                })
+            ],
         );
     }
 

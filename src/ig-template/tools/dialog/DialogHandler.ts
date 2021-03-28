@@ -31,11 +31,14 @@ export class DialogHandler<T> {
     }
 
     public next() {
+        console.log(this.dialog);
+
         if (this.dialog == null) {
             console.warn("Could not go next if dialog is null");
             return;
         }
         this.dialog.next();
+
 
         if (this.dialog.isAtEnd()) {
             if (this.dialog.destination == undefined) {
@@ -56,7 +59,15 @@ export class DialogHandler<T> {
             return;
         }
 
-        this.setDialog(this.decision.options[index].reference);
+        const destination = this.decision.options[index].reference;
+        const npcDecision = this.tree?.getNpcDecision(destination);
+
+        if (npcDecision) {
+            const decided = npcDecision.decide();
+            this.setDialog(decided)
+            return;
+        }
+        this.setDialog(destination);
     }
 
     private setDialog(id: T) {
@@ -64,7 +75,11 @@ export class DialogHandler<T> {
             console.error(`Cannot set dialog to ${id} when tree is null`);
             return;
         }
-
+        const newDialog = this.tree.getDialog(id);
+        if (newDialog == null) {
+            console.error(`Could not load dialog with id ${id}`);
+            return;
+        }
         this.type = DialogType.Dialog;
         this.decision = null;
         this.dialog = this.tree.getDialog(id);
