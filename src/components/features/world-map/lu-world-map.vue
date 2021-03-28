@@ -1,7 +1,5 @@
 <template>
   <igt-feature>
-    <span>Location: {{ worldMap.playerLocation }} End: {{ adventurer.getPlayerLocationAtEndOfQueue() }}</span>
-
     <div class="flex flex-row">
       <lu-location-highlight
           :cannot-travel-reason="cannotTravelReason"
