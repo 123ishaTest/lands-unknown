@@ -10,11 +10,11 @@ import {Features} from "@/ig-template/Features";
 import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {DialogQuestStep} from "@/lands-unknown/quests/steps/DialogQuestStep";
 import {KingDialog} from "@/ig-template/features/npcs/king/KingDialog";
-import {InjectionQuestStep} from "@/lands-unknown/quests/steps/InjectionQuestStep";
 import {PermanentlyAddActionInjection} from "@/lands-unknown/quests/injections/PermanentlyAddActionInjection";
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
 import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
+import {CompleteSkillActionQuestStep} from "@/lands-unknown/quests/steps/CompleteSkillActionQuestStep";
 
 export class LumberjackQuest extends Quest {
     before(): void {
@@ -55,8 +55,7 @@ export class LumberjackQuest extends Quest {
                             NpcId.Lumberjack,
                             "Talk about lumberjack quest",
                             new Dialog(LumberjackDialog.QuestExplanation, [
-                                    new DialogText(NpcId.Lumberjack, "Can you please go to the king?"),
-                                    new DialogText(NpcId.Player, "Ok", () => {
+                                    new DialogText(NpcId.Player, "I will try my best", () => {
                                             this.completeStep(QuestStepId.Intro)
                                         }
                                     ),
@@ -111,9 +110,9 @@ export class LumberjackQuest extends Quest {
                         )
                     )
                 ]
-                ), new InjectionQuestStep(QuestStepId.GatherWood, [
+                ), new CompleteSkillActionQuestStep(QuestStepId.GatherWood, ActionId.CutWood, 25, [
                     new PermanentlyAddActionInjection(new TownLocationIdentifier(WorldLocationId.Lumberjack), ActionId.CutWood),
-                ]),
+                ], features.adventurer),
             ],
             new NoRequirement(), features);
     }

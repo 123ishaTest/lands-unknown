@@ -62,6 +62,12 @@ export abstract class Quest implements Saveable {
         this.currentIndex++;
 
         this.currentStep.before(this._features);
+
+        // In case the step wants to mark itself as completed
+        this.currentStep.onStepCompleted.one((step) => {
+            this.completeStep(step.id);
+        })
+
     }
 
     private completeQuest() {
