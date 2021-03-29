@@ -5,7 +5,7 @@
     <div v-if="isDialog" class="flex flex-col items-center justify-between h-full">
       <p class="font-semibold">{{ dialogText ? dialogText.speaker: 'null' }}
       <p>
-      <p class="flex-grow">{{ dialogText ? dialogText.text : 'null' }}</p>
+      <p class="flex-grow text-center">{{ dialogText ? dialogText.text : 'null' }}</p>
       <button class="btn btn-green" @click="next">Next</button>
     </div>
     <div v-else-if="isDecision" class="flex flex-col items-center justify-between">
