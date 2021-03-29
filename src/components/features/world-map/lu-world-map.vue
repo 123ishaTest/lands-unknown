@@ -94,11 +94,11 @@ export default {
       }
       this.$refs.dialogHandler.talk(npc);
     },
-    performAction(action, repeat, location) {
+    performAction(action, amount, location) {
       if (!this.adventurer.getPlayerLocationAtEndOfQueue().equals(location)) {
         this.travel(location);
       }
-      this.adventurer.addAction(action, repeat);
+      this.adventurer.addAction(action, Math.max(0, amount-1));
     },
     showHighlight(identifier) {
       this.highlightedLocation = this.worldMap.getLocation(identifier)

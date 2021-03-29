@@ -4,8 +4,8 @@
       <p class="text-center">{{ location.displayName }}</p>
 
       <div v-if="hasActions" class="flex flex-row items-center">
-        <p class="pr-4">Repeat</p>
-        <input type="number" class="input-primary w-full" v-model="selectedRepeat"/>
+        <p class="pr-4"><span class="fa fa-times"></span></p>
+        <input type="number" min="1" class="input-primary w-full" v-model="selectedAmount"/>
       </div>
       <div class="flex flex-row flex-wrap">
         <template v-for="action in actions">
@@ -73,8 +73,8 @@ export default {
   },
   data() {
     return {
-      selectedRepeat: 0,
-      repeatOptions: [0, 10, 100, Infinity]
+      selectedAmount: 1,
+      amountOptions: [1, 10, 100, Infinity]
     };
   },
   computed: {
@@ -95,8 +95,8 @@ export default {
   },
   methods: {
     performAction(action) {
-      this.$emit('action', action, this.selectedRepeat, this.location.identifier);
-      this.selectedRepeat = 0;
+      this.$emit('action', action, this.selectedAmount, this.location.identifier);
+      this.selectedAmount = 1;
     },
     travel() {
       this.$emit('travel', this.location.identifier);
