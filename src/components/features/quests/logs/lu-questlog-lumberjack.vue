@@ -2,7 +2,7 @@
   <div class="p-4 w-full bg-orange-400 border-2 flex flex-col">
     <p class="text-lg font-semibold text-center">{{ quest.name }}</p>
     <p>I've heard rumors that the lumberjack could use some help...</p>
-    <p v-if="progress >= QuestStepId.Intro">I should talk to the King</p>
+    <p v-if="progress === QuestStepId.AskPermissionFromKing">I should talk to the King</p>
     <p v-if="progress > QuestStepId.AskPermissionFromKing" class="line-through">I have talked to the king</p>
   </div>
 

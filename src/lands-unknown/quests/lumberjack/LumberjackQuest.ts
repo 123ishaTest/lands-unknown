@@ -10,6 +10,11 @@ import {Features} from "@/ig-template/Features";
 import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {DialogQuestStep} from "@/lands-unknown/quests/steps/DialogQuestStep";
 import {KingDialog} from "@/ig-template/features/npcs/king/KingDialog";
+import {InjectionQuestStep} from "@/lands-unknown/quests/steps/InjectionQuestStep";
+import {PermanentlyAddActionInjection} from "@/lands-unknown/quests/injections/PermanentlyAddActionInjection";
+import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
+import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
+import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
 
 export class LumberjackQuest extends Quest {
     before(): void {
@@ -74,7 +79,31 @@ export class LumberjackQuest extends Quest {
                             )
                         )
                     ]
-                )
+                ), new DialogQuestStep(QuestStepId.BackToLumberjack, [
+                    new DialogInjection<KingDialog>(
+                        NpcId.Lumberjack,
+                        "I've talked to the king",
+                        new Dialog(KingDialog.AskWoodCuttingPermission, [
+                                new DialogText(NpcId.Player, "The King said it's okay"),
+                                new DialogText(NpcId.Lumberjack, "Great! Let's start chopping"),
+                                new DialogText(NpcId.Player, "Ehm..."),
+                                new DialogText(NpcId.Player, "Chop Chop?"),
+                                new DialogText(NpcId.Lumberjack, "You do know how to chop wood don't you?"),
+                                new DialogText(NpcId.Player, "Yes!"),
+                                new DialogText(NpcId.Lumberjack, "..."),
+                                new DialogText(NpcId.Player, "No...", () => {
+                                        this.completeStep(QuestStepId.BackToLumberjack)
+                                    }
+                                ),
+                                new DialogText(NpcId.Lumberjack, "It's easy, just press the 'Chop Wood' button!"),
+                                new DialogText(NpcId.Lumberjack, "I see, thanks"),
+                            ]
+                        )
+                    )
+                ]
+                ), new InjectionQuestStep(QuestStepId.GatherWood, [
+                    new PermanentlyAddActionInjection(new TownLocationIdentifier(WorldLocationId.Lumberjack), ActionId.CutWood),
+                ]),
             ],
             new NoRequirement(), features);
     }

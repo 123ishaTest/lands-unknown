@@ -1,7 +1,7 @@
 import {QuestId} from "@/lands-unknown/quests/QuestId";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {Saveable} from "@/ig-template/tools/saving/Saveable";
-import {QuestStep} from "@/lands-unknown/quests/QuestStep";
+import {AbstractQuestStep} from "@/lands-unknown/quests/AbstractQuestStep";
 import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {QuestSaveData} from "@/lands-unknown/quests/QuestSaveData";
 import {QuestStatus} from "@/lands-unknown/quests/QuestStatus";
@@ -14,13 +14,13 @@ export abstract class Quest implements Saveable {
     name: string;
     requirement: Requirement;
 
-    steps: QuestStep[];
+    steps: AbstractQuestStep[];
     currentIndex: number = -1;
     isStarted: boolean = false;
 
     saveKey: string;
 
-    protected constructor(id: QuestId, name: string, steps: QuestStep[], requirement: Requirement, features: Features) {
+    protected constructor(id: QuestId, name: string, steps: AbstractQuestStep[], requirement: Requirement, features: Features) {
         this._features = features;
         this.id = id;
         this.name = name;
@@ -46,6 +46,7 @@ export abstract class Quest implements Saveable {
             console.warn(`Cannot complete step ${id} if we're currently at ${this.currentStep.id}`);
             return;
         }
+        console.log(`Completing step ${id}`)
         this.nextStep();
     }
 

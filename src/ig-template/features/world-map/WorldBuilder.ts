@@ -105,7 +105,7 @@ export class WorldBuilder {
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town, worldPositions[WorldLocationId.Lumberjack],
                 [
-                    ActionId.CutWood,
+                    // ActionId.CutWood,
                 ],
                 [
                     NpcId.Lumberjack,

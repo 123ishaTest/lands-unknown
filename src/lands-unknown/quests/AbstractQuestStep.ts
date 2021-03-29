@@ -1,7 +1,7 @@
 import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {Features} from "@/ig-template/Features";
 
-export abstract class QuestStep {
+export abstract class AbstractQuestStep {
     id: QuestStepId;
 
     protected constructor(id: QuestStepId) {

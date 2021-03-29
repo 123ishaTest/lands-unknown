@@ -1,7 +1,7 @@
-import {QuestStep} from "@/lands-unknown/quests/QuestStep";
+import {AbstractQuestStep} from "@/lands-unknown/quests/AbstractQuestStep";
 import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 
-export class CustomQuestStep extends QuestStep {
+export class CustomQuestStep extends AbstractQuestStep {
     beforeFunc: () => void;
     afterFunc: () => void;
 
