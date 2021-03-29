@@ -39,6 +39,7 @@ export class DialogHandler<T> {
 
 
         if (this.dialog.isAtEnd()) {
+            this.dialog.currentIndex = 0;
             this.goToDestination(this.dialog.destination);
         }
     }
