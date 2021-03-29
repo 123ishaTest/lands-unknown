@@ -33,7 +33,7 @@ export class WorldMap extends Feature {
 
         this.locations = [...roads, ...towns];
 
-        this.playerLocation = new TownLocationIdentifier(WorldLocationId.FisherMan);
+        this.playerLocation = new TownLocationIdentifier(WorldLocationId.Lumberjack);
     }
 
 

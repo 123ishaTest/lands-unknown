@@ -20,7 +20,7 @@ export class DialogHandler<T> {
 
     public start(tree: DialogTree<T>) {
         this.tree = cloneDeep(tree);
-        const root = this.tree.getRoot();
+        const root = this.tree.root;
 
         // If we only have 1 option we can skip the root
         if (root.options.length === 1) {

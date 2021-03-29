@@ -42,6 +42,7 @@ export abstract class Quest implements Saveable {
     abstract completion(): void
 
     completeStep(id: QuestStepId) {
+        console.log(`completing step ${id}`)
         if (this.currentStep.id !== id) {
             console.warn(`Cannot complete step ${id} if we're currently at ${this.currentStep.id}`);
         }
@@ -49,9 +50,24 @@ export abstract class Quest implements Saveable {
     }
 
     private nextStep() {
-        this.currentStep.after(this._features);
+        if (this.currentStep) {
+            console.log("after");
+            this.currentStep.after(this._features);
+        }
+
+        if (this.currentIndex == this.steps.length - 1) {
+            this.completeQuest();
+            return;
+        }
         this.currentIndex++;
+
         this.currentStep.before(this._features);
+    }
+
+    private completeQuest() {
+        console.log("quest completed!")
+        this.completion();
+        // this._onCompleted.dispatch(this);
     }
 
     start() {
@@ -59,6 +75,7 @@ export abstract class Quest implements Saveable {
             console.warn(`Cannot start quest ${this.id}`);
             return;
         }
+        console.log("quest started!");
         this.isStarted = true;
         this.nextStep();
     }
