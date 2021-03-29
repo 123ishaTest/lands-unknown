@@ -20,7 +20,7 @@ export class DialogQuestStep<T> extends QuestStep {
 
     after(features: Features): void {
         this.dialogInjections.forEach(injection => {
-            injection.inject(features);
+            injection.eject(features);
         })
     }
 
