@@ -16,7 +16,7 @@ export class Npcs extends Feature {
 
     initialize(features: Features) {
         this.registerNpc(new WiseOldWoman(features.skills, features.inventory, features.itemList));
-        this.registerNpc(new King( features.inventory, features.keyItems));
+        this.registerNpc(new King(features.inventory, features.keyItems));
     }
 
     registerNpc<T extends Npc>(npc: T): T {
@@ -31,8 +31,11 @@ export class Npcs extends Feature {
     }
 
     load(data: NpcsSaveData): void {
-        data.npcs.forEach(npc => {
-            (this.getNpc(npc.id) as SaveableNpc)?.load(npc.data)
+        data.npcs.forEach(npcData => {
+            const npc = this.getNpc(npcData.id);
+            if (npc instanceof SaveableNpc) {
+                npc.load(npcData);
+            }
         })
     }
 
