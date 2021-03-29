@@ -8,8 +8,12 @@ export enum KingDialog {
     AlreadyHasBoatTicket,
     TryToBuyBoatTicket,
     BoatTicketBought,
+
     // Questions
     IntroQuestion,
     BuyBoatTicketQuestion,
 
+    // Quest
+    // TODO try to extract to own file
+    AskWoodCuttingPermission,
 }
