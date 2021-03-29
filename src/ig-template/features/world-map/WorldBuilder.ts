@@ -97,16 +97,20 @@ export class WorldBuilder {
             new Town(new TownLocationIdentifier(WorldLocationId.FisherMan), "Fisherman", TownTier.Town, worldPositions[WorldLocationId.FisherMan], [
                 ActionId.Fish,
             ]),
-            new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town, worldPositions[WorldLocationId.Castle], [
-            ],[
+            new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town, worldPositions[WorldLocationId.Castle], [], [
                 NpcId.King,
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Island), "Island", TownTier.Town, worldPositions[WorldLocationId.Island], [
                 ActionId.LootIslandChest,
             ]),
-            new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town, worldPositions[WorldLocationId.Lumberjack], [
-                ActionId.CutWood,
-            ]),
+            new Town(new TownLocationIdentifier(WorldLocationId.Lumberjack), "Lumberjack", TownTier.Town, worldPositions[WorldLocationId.Lumberjack],
+                [
+                    ActionId.CutWood,
+                ],
+                [
+                    NpcId.Lumberjack,
+                ]
+            ),
             new Town(new TownLocationIdentifier(WorldLocationId.Docks), "Docks", TownTier.Town, worldPositions[WorldLocationId.Docks]),
             new Town(new TownLocationIdentifier(WorldLocationId.Quarry), "Quarry", TownTier.Town, worldPositions[WorldLocationId.Quarry], [
                 ActionId.MineStone,
