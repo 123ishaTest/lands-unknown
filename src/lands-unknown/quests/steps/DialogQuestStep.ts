@@ -5,20 +5,23 @@ import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 
 export class DialogQuestStep<T> extends QuestStep {
 
-    dialogInjection: DialogInjection<T>
+    dialogInjections: DialogInjection<T>[]
 
-    constructor(id: QuestStepId, dialogInjection: DialogInjection<T>) {
+    constructor(id: QuestStepId, dialogInjections: DialogInjection<T>[]) {
         super(id);
-        this.dialogInjection = dialogInjection;
+        this.dialogInjections = dialogInjections;
     }
 
     before(features: Features): void {
-        this.dialogInjection.inject(features)
-
+        this.dialogInjections.forEach(injection => {
+            injection.inject(features);
+        })
     }
 
     after(features: Features): void {
-        this.dialogInjection.eject(features)
+        this.dialogInjections.forEach(injection => {
+            injection.inject(features);
+        })
     }
 
 
