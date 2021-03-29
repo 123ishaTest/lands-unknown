@@ -22,8 +22,18 @@ export class LumberjackQuest extends Quest {
             NpcId.Lumberjack,
             "I need something to do",
             new Dialog(LumberjackDialog.QuestIntro, [
-                    new DialogText(NpcId.Player, "Give quest"),
-                    new DialogText(NpcId.Lumberjack, "Ok", () => {
+                    new DialogText(NpcId.Player, "Hello Lumberjack, are you ok?"),
+                    new DialogText(NpcId.Lumberjack, "I'm a Lumberjack and I'm okay!"),
+                    new DialogText(NpcId.Player, "I can see that..."),
+                    new DialogText(NpcId.Lumberjack, "But to be honest, I could use some help"),
+                    new DialogText(NpcId.Lumberjack, "My companion recently went home to visit his sick mother"),
+                    new DialogText(NpcId.Lumberjack, "And now I'm 25 wood short of my monthly goal"),
+                    new DialogText(NpcId.Lumberjack, "The King will be furious"),
+                    new DialogText(NpcId.Player, "Maybe I can help?"),
+                    new DialogText(NpcId.Lumberjack, "You can!"),
+                    new DialogText(NpcId.Lumberjack, "But you need permissions from the King to chop wood here"),
+                    new DialogText(NpcId.Player, "Alright, I'll go and ask him"),
+                    new DialogText(NpcId.Lumberjack, "He might be grumpy, so good luck!", () => {
                         this.start();
                         introInjection.eject(this._features);
                     }),
