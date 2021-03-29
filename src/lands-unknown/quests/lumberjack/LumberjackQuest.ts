@@ -111,7 +111,8 @@ export class LumberjackQuest extends Quest {
                                     }
                                 ),
                                 new DialogText(NpcId.Lumberjack, "It's easy, just press the 'Chop Wood' button!"),
-                                new DialogText(NpcId.Lumberjack, "I see, thanks"),
+                                new DialogText(NpcId.Player, "I see, thanks"),
+                                new DialogText(NpcId.Lumberjack, "Talk to me again when you've chopped 25 wood!"),
                             ]
                         )
                     )
@@ -159,7 +160,6 @@ export class LumberjackQuest extends Quest {
                                 return LumberjackDialog.NotEnoughWood;
                             }
                             features.inventory.loseItemAmount(cost.id, cost.amount);
-                            features.keyItems.gainKeyItem(KeyItemId.BoatTicket);
                             return LumberjackDialog.HasEnoughWood
                         }))
                 ]),
