@@ -1,3 +1,7 @@
 export enum LumberjackDialog {
-    Intro
+    Intro,
+
+
+    // TODO try to extract to own file
+    QuestIntro,
 }

@@ -7,6 +7,7 @@ import {LumberjackQuest} from "@/lands-unknown/quests/lumberjack/LumberjackQuest
 export class Quests extends Feature {
 
     list: Quest[] = [];
+
     constructor() {
         super('quests');
     }
@@ -15,8 +16,14 @@ export class Quests extends Feature {
     initialize(features: Features) {
         super.initialize(features);
         this.list = [
-            new LumberjackQuest(),
+            new LumberjackQuest(features),
         ]
+    }
+
+    start() {
+        this.list.forEach(quest => {
+            quest.before();
+        })
     }
 
     load(data: SaveData): void {

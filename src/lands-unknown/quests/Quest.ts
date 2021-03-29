@@ -5,8 +5,11 @@ import {QuestStep} from "@/lands-unknown/quests/QuestStep";
 import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {QuestSaveData} from "@/lands-unknown/quests/QuestSaveData";
 import {QuestStatus} from "@/lands-unknown/quests/QuestStatus";
+import {Features} from "@/ig-template/Features";
 
 export abstract class Quest implements Saveable {
+    _features: Features;
+
     id: QuestId;
     description: string;
     requirement: Requirement;
@@ -17,7 +20,8 @@ export abstract class Quest implements Saveable {
 
     saveKey: string;
 
-    protected constructor(id: QuestId, description: string, steps: QuestStep[], requirement: Requirement) {
+    protected constructor(id: QuestId, description: string, steps: QuestStep[], requirement: Requirement, features: Features) {
+        this._features = features;
         this.id = id;
         this.description = description;
         this.steps = steps;
@@ -25,6 +29,17 @@ export abstract class Quest implements Saveable {
 
         this.saveKey = id;
     }
+
+    /**
+     * Run before this quest is even active.
+     * Use to inject starting dialog.
+     */
+    abstract before(): void;
+
+    /**
+     * This method will only run once. You can give rewards in here.
+     */
+    abstract completion(): void
 
     completeStep(id: QuestStepId) {
         if (this.currentStep.id !== id) {
@@ -34,7 +49,9 @@ export abstract class Quest implements Saveable {
     }
 
     private nextStep() {
+        this.currentStep.after(this._features);
         this.currentIndex++;
+        this.currentStep.before(this._features);
     }
 
     start() {
