@@ -4,8 +4,6 @@ import {Dialog} from "@/ig-template/tools/dialog/Dialog";
 import {DialogText} from "@/ig-template/tools/dialog/DialogText";
 import {DialogOption} from "@/ig-template/tools/dialog/DialogOption";
 import {DialogDecision} from "@/ig-template/tools/dialog/DialogDecision";
-import {SaveableNpc} from "@/ig-template/features/npcs/SaveableNpc";
-import {NpcSaveData} from "@/ig-template/features/npcs/NpcSaveData";
 import {Inventory} from "@/ig-template/features/inventory/Inventory";
 import {NpcDecision} from "@/ig-template/tools/dialog/NpcDecision";
 import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
@@ -13,8 +11,9 @@ import {KingDialog} from "@/ig-template/features/npcs/king/KingDialog";
 import {ItemId} from "@/ig-template/features/items/ItemId";
 import {ItemAmount} from "@/ig-template/features/items/ItemAmount";
 import {KeyItemId} from "@/ig-template/features/key-items/KeyItemId";
+import {Npc} from "@/ig-template/features/npcs/Npc";
 
-export class King extends SaveableNpc {
+export class King extends Npc {
     _inventory: Inventory;
     _keyItems: KeyItems;
     dialog: DialogTree<KingDialog>;
@@ -99,27 +98,16 @@ export class King extends SaveableNpc {
                     const cost = new ItemAmount(ItemId.Wood, 100);
                     if (!this._inventory.hasItemAmount(cost)) {
                         return KingDialog.DontBuyBoatTicket;
-                    } else {
-                        this._inventory.loseItemAmount(cost.id, cost.amount);
-                        this._keyItems.gainKeyItem(KeyItemId.BoatTicket);
-                        return KingDialog.BoatTicketBought
                     }
+                    if (this._keyItems.hasKeyItem(KeyItemId.BoatTicket)) {
+                        return KingDialog.AlreadyHasBoatTicket;
+                    }
+                    this._inventory.loseItemAmount(cost.id, cost.amount);
+                    this._keyItems.gainKeyItem(KeyItemId.BoatTicket);
+                    return KingDialog.BoatTicketBought
                 })
 
             ]
         );
-    }
-
-    save(): NpcSaveData {
-        return {
-            id: this.id,
-            data: {
-                alreadyGivenFish: this.alreadyGivenFish,
-            }
-        }
-    }
-
-    load(data: NpcSaveData): void {
-        this.alreadyGivenFish = data.data.alreadyGivenFish ?? this.alreadyGivenFish;
     }
 }
