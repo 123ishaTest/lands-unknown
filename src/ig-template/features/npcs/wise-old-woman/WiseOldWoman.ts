@@ -23,7 +23,7 @@ export class WiseOldWoman extends SaveableNpc {
     alreadyGivenFish = false;
 
     constructor(skills: Skills, inventory: Inventory, itemList: ItemList) {
-        super(NpcId.WiseOldWoman)
+        super(NpcId.WiseOldWoman);
         this._skills = skills;
         this._inventory = inventory;
         this._itemList = itemList;

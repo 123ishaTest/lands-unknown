@@ -88,6 +88,7 @@ export class WorldBuilder {
 
         const towns = [
             new Town(new TownLocationIdentifier(WorldLocationId.Market), "Market", TownTier.Town, worldPositions[WorldLocationId.Market], [],
+                [],
                 [
                     FacilityType.Furnace,
                     FacilityType.CookingRange,
@@ -96,7 +97,6 @@ export class WorldBuilder {
                 ActionId.Fish,
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town, worldPositions[WorldLocationId.Castle], [
-                ActionId.BuyBoatTicket,
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Island), "Island", TownTier.Town, worldPositions[WorldLocationId.Island], [
                 ActionId.LootIslandChest,
