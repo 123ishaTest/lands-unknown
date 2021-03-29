@@ -18,6 +18,7 @@ export abstract class Quest implements Saveable {
     steps: AbstractQuestStep[];
     currentIndex: number = -1;
     isStarted: boolean = false;
+    isCompleted: boolean = false;
 
     saveKey: string;
 
@@ -79,7 +80,7 @@ export abstract class Quest implements Saveable {
     }
 
     private completeQuest() {
-        console.log("quest completed!")
+        this.isCompleted = true;
         this.completion();
         this._onQuestCompleted.dispatch(this);
     }
@@ -102,7 +103,10 @@ export abstract class Quest implements Saveable {
         if (!this.isStarted) {
             return QuestStatus.NotStarted;
         }
-        return this.currentIndex < this.steps.length - 1 ? QuestStatus.Started : QuestStatus.Finished;
+        if (this.isCompleted) {
+            return QuestStatus.Finished;
+        }
+        return QuestStatus.Started;
     }
 
     load(data: QuestSaveData): void {
