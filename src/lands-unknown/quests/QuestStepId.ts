@@ -3,5 +3,6 @@ export enum QuestStepId {
     AskPermissionFromKing,
     BackToLumberjack,
     GatherWood,
-    Completed,
+    WoodGathered,
+    GetBoatTicketFromKing,
 }

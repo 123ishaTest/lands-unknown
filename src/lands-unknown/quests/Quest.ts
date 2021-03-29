@@ -6,6 +6,7 @@ import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {QuestSaveData} from "@/lands-unknown/quests/QuestSaveData";
 import {QuestStatus} from "@/lands-unknown/quests/QuestStatus";
 import {Features} from "@/ig-template/Features";
+import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 
 export abstract class Quest implements Saveable {
     _features: Features;
@@ -19,6 +20,13 @@ export abstract class Quest implements Saveable {
     isStarted: boolean = false;
 
     saveKey: string;
+
+    protected _onQuestCompleted = new SimpleEventDispatcher<Quest>();
+
+    public get onQuestCompleted(): ISimpleEvent<Quest> {
+        return this._onQuestCompleted.asEvent();
+    }
+
 
     protected constructor(id: QuestId, name: string, steps: AbstractQuestStep[], requirement: Requirement, features: Features) {
         this._features = features;
@@ -73,7 +81,7 @@ export abstract class Quest implements Saveable {
     private completeQuest() {
         console.log("quest completed!")
         this.completion();
-        // this._onCompleted.dispatch(this);
+        this._onQuestCompleted.dispatch(this);
     }
 
     start() {
