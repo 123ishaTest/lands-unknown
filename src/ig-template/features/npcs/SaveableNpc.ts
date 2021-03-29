@@ -10,8 +10,8 @@ export abstract class SaveableNpc extends Npc implements Saveable {
 
     saveKey: string;
 
-    protected constructor(id: NpcId) {
-        super(id);
+    protected constructor(id: NpcId, name: string) {
+        super(id, name);
         this.saveKey = id;
     }
 

@@ -24,6 +24,17 @@
         <lu-facility @performAction="performAction" :facility-type="facility[0]" :actions="facility[1]"></lu-facility>
       </div>
 
+      <div v-if="hasNpcs">
+        <div>Npcs</div>
+        <hr>
+        <div class="flex flex-row flex-wrap">
+          <button class="btn btn-blue" v-for="npc in npcs" :key="npc.id"
+                  @click="talk(npc)">
+            {{ npc.name }}
+          </button>
+        </div>
+      </div>
+
       <div class="mt-auto">
         <button class="btn btn-green w-full" @click="travel" :disabled="!canTravel" :title="cannotTravelReason">
           <span class="fa fa-route"></span>
@@ -43,6 +54,10 @@ export default {
   name: "lu-location-highlight",
   components: {LuActionButton, LuFacility},
   props: {
+    npcs: {
+      type: Array,
+      requires: true,
+    },
     cannotTravelReason: {
       type: String,
       required: true,
@@ -69,6 +84,9 @@ export default {
     hasActions() {
       return this.actions.length > 0 || this.facilities.length > 0;
     },
+    hasNpcs() {
+      return this.npcs.length > 0;
+    },
     actions() {
       return this.location.possibleActions.filter(action => {
         return action.canSee();
@@ -82,6 +100,9 @@ export default {
     },
     travel() {
       this.$emit('travel', this.location.identifier);
+    },
+    talk(npc) {
+      this.$emit('talk', npc);
     }
   },
 

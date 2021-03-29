@@ -16,6 +16,7 @@ import {FacilityType} from "@/ig-template/features/world-map/FacilityType";
 import {TiledLayer} from "@/ig-template/tools/tiled/types/layers/TiledLayer";
 import {CrossRoads} from "@/ig-template/features/world-map/towns/CrossRoads";
 import {TravelType} from "@/ig-template/features/world-map/roads/TravelType";
+import {NpcId} from "@/ig-template/features/npcs/NpcId";
 
 export class WorldBuilder {
 
@@ -97,6 +98,8 @@ export class WorldBuilder {
                 ActionId.Fish,
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Castle), "Castle", TownTier.Town, worldPositions[WorldLocationId.Castle], [
+            ],[
+                NpcId.King,
             ]),
             new Town(new TownLocationIdentifier(WorldLocationId.Island), "Island", TownTier.Town, worldPositions[WorldLocationId.Island], [
                 ActionId.LootIslandChest,

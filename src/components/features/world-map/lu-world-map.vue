@@ -1,14 +1,18 @@
 <template>
   <igt-feature>
-    <div class="flex flex-row">
+    <div class="flex flex-row relative">
       <lu-location-highlight
           :cannot-travel-reason="cannotTravelReason"
           :can-travel="canTravelToHighLight"
+          :npcs="highlightedNpcs"
+          @talk="talk"
           @travel="travel"
           @action="performAction"
           class="absolute" :location="highlightedLocation">
 
       </lu-location-highlight>
+
+      <igt-dialog-handler class="absolute bottom-0" v-if="selectedNpc" :npc="selectedNpc"></igt-dialog-handler>
 
       <div id="canvas-stack" class="w-full relative"
            :style="'height:' + stackHeight + 'px;'">
@@ -36,10 +40,11 @@ import {TravelAction} from "@/ig-template/features/world-map/TravelAction";
 import LuActionQueue from "@/components/features/adventurer/lu-action-queue";
 import LuLocationHighlight from "@/components/features/world-map/lu-location-highlight";
 import {TravelType} from "@/ig-template/features/world-map/roads/TravelType";
+import IgtDialogHandler from "@/components/tools/dialog/igt-dialog-handler";
 
 export default {
   name: "lu-world-map",
-  components: {LuLocationHighlight, LuActionQueue, IgtFeature},
+  components: {IgtDialogHandler, LuLocationHighlight, LuActionQueue, IgtFeature},
 
   data() {
     return {
@@ -47,6 +52,9 @@ export default {
       cannotTravelReason: "",
       canTravelToHighLight: false,
       highlightedLocation: null,
+      highlightedNpcs: [],
+      selectedNpc: null,
+      npcs: App.game.features.npcs,
       worldMap: App.game.features.worldMap,
       adventurer: App.game.features.adventurer,
       tiledWrapper: null,
@@ -80,6 +88,13 @@ export default {
     travel(identifier) {
       this.worldMap.moveToLocation(identifier);
     },
+    talk(npc) {
+      if (!this.worldMap.playerLocation.equals(this.highlightedLocation.identifier)) {
+        this.travel(this.highlightedLocation.identifier);
+        return;
+      }
+      this.selectedNpc = npc;
+    },
     performAction(action, repeat, location) {
       if (!this.adventurer.getPlayerLocationAtEndOfQueue().equals(location)) {
         this.travel(location);
@@ -88,6 +103,9 @@ export default {
     },
     showHighlight(identifier) {
       this.highlightedLocation = this.worldMap.getLocation(identifier)
+      this.highlightedNpcs = this.highlightedLocation.npcs.map(id => {
+        return this.npcs.getNpc(id)
+      })
       this.canTravelToHighLight = this.worldMap.areConnected(this.adventurer.getPlayerLocationAtEndOfQueue(), identifier)
       this.cannotTravelReason = this.worldMap.getCannotTravelReason(this.adventurer.getPlayerLocationAtEndOfQueue(), identifier)
     },

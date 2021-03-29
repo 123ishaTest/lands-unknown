@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-1/2 h-48 border-2 p-4 z-30 bg-gray-500 bg-opacity-50 shadow-xl text-white">
     <div v-if="hasHandler">
 
       <div v-if="isDialog">
@@ -22,30 +22,29 @@
       Start talking
     </div>
     <br>
-    <button class="btn btn-blue" @click="talk">Talk to the Wise Old Woman</button>
 
   </div>
 </template>
 
 <script>
-import {App} from "@/App.ts";
 import {DialogHandler} from "@/ig-template/tools/dialog/DialogHandler";
 import {DialogType} from "@/ig-template/tools/dialog/DialogType";
-import {NpcId} from "@/ig-template/features/npcs/NpcId";
+import {Npc} from "@/ig-template/features/npcs/Npc";
 
 export default {
   name: "igt-dialog-handler",
   data() {
     return {
-      npcs: App.game.features.npcs,
       handler: new DialogHandler(),
     }
   },
-  methods: {
-    talk() {
-      const wiseOldWoman = this.npcs.getNpc(NpcId.King);
-      this.handler.start(wiseOldWoman.dialog);
+  props: {
+    npc: {
+      type: Npc,
+      required: true,
     },
+  },
+  methods: {
     next() {
       this.handler.next();
     },
@@ -78,6 +77,10 @@ export default {
     isDialog() {
       return this.handler.type === DialogType.Dialog;
     }
+  },
+  mounted() {
+    this.handler.start(this.npc.dialog);
+
   }
 }
 </script>

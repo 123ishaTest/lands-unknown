@@ -22,7 +22,7 @@ export class King extends SaveableNpc {
     alreadyGivenFish = false;
 
     constructor(inventory: Inventory, keyItems: KeyItems) {
-        super(NpcId.King)
+        super(NpcId.King, "King")
         this._inventory = inventory;
         this._keyItems = keyItems;
         this.dialog = new DialogTree(

@@ -13,10 +13,6 @@
         <igt-skills></igt-skills>
       </igt-tab>
 
-      <igt-tab name="Dialog">
-        <igt-dialog-handler></igt-dialog-handler>
-      </igt-tab>
-
       <igt-tab name="Inventory">
         <igt-inventory></igt-inventory>
       </igt-tab>
@@ -65,11 +61,9 @@ import IgtInventory from "@/components/features/inventory/igt-inventory";
 import LuWorldMap from "@/components/features/world-map/lu-world-map";
 import IgtSkills from "@/components/features/skills/lu-skills";
 import IgtKeyItems from "@/components/features/key-items/igt-key-items";
-import IgtDialogHandler from "@/components/tools/dialog/igt-dialog-handler";
 
 export default {
   components: {
-    IgtDialogHandler,
     IgtKeyItems,
     IgtSkills,
     LuWorldMap,
