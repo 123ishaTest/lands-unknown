@@ -7,6 +7,7 @@ import {WiseOldWoman} from "@/ig-template/features/npcs/wise-old-woman/WiseOldWo
 import {Features} from "@/ig-template/Features";
 import {King} from "@/ig-template/features/npcs/king/King";
 import {Lumberjack} from "@/ig-template/features/npcs/lumberjack/Lumberjack";
+import {Captain} from "@/ig-template/features/npcs/captain/Captain";
 
 export class Npcs extends Feature {
     npcs: Npc[] = []
@@ -19,6 +20,7 @@ export class Npcs extends Feature {
         this.registerNpc(new WiseOldWoman(features.skills, features.inventory, features.itemList));
         this.registerNpc(new King(features.inventory, features.keyItems));
         this.registerNpc(new Lumberjack());
+        this.registerNpc(new Captain());
     }
 
     registerNpc<T extends Npc>(npc: T): T {

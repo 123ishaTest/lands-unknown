@@ -111,7 +111,8 @@ export class WorldBuilder {
                     NpcId.Lumberjack,
                 ]
             ),
-            new Town(new TownLocationIdentifier(WorldLocationId.Docks), "Docks", TownTier.Town, worldPositions[WorldLocationId.Docks]),
+            new Town(new TownLocationIdentifier(WorldLocationId.Docks), "Docks", TownTier.Town, worldPositions[WorldLocationId.Docks], [],
+                [NpcId.Captain]),
             new Town(new TownLocationIdentifier(WorldLocationId.Quarry), "Quarry", TownTier.Town, worldPositions[WorldLocationId.Quarry], [
                 ActionId.MineStone,
                 ActionId.MineIron,

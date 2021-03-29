@@ -3,4 +3,5 @@ export enum NpcId {
     WiseOldWoman = "wise-old-woman",
     Lumberjack = 'lumberjack',
     King = 'king',
+    Captain = 'fisherman',
 }

@@ -18,8 +18,6 @@ export class King extends Npc {
     _keyItems: KeyItems;
     dialog: DialogTree<KingDialog>;
 
-    alreadyGivenFish = false;
-
     constructor(inventory: Inventory, keyItems: KeyItems) {
         super(NpcId.King, "King")
         this._inventory = inventory;
