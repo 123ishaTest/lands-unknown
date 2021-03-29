@@ -186,8 +186,12 @@ export default {
     })
     this.tiledWrapper.playerCanvas.parentElement.addEventListener('wheel', this.playerPanZoom.zoomWithWheel)
 
-    this.worldPanZoom.zoom(1);
-
+    setTimeout(() => {
+      this.worldPanZoom.pan(-770, -800);
+    })
+    setTimeout(() => {
+      this.playerPanZoom.pan(-770, -800);
+    })
   }
 }
 </script>
