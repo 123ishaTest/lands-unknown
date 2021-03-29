@@ -20,7 +20,7 @@ export class Npcs extends Feature {
         this.registerNpc(new WiseOldWoman(features.skills, features.inventory, features.itemList));
         this.registerNpc(new King(features.inventory, features.keyItems));
         this.registerNpc(new Lumberjack());
-        this.registerNpc(new Captain());
+        this.registerNpc(new Captain(features.keyItems));
     }
 
     registerNpc<T extends Npc>(npc: T): T {
