@@ -1,27 +1,26 @@
 <template>
   <div v-if="inConversation" class="w-1/2 h-48 border-2 p-4 z-30 bg-gray-500 bg-opacity-50 shadow-xl text-white">
-    <div v-if="hasHandler">
 
-      <div v-if="isDialog">
-        <p>{{ dialogText.speaker }}: {{ dialogText.text }}</p>
-        <button class="btn btn-green" @click="next">Next</button>
-      </div>
-      <div v-else-if="isDecision">
-        <p>{{ decisionDescription.speaker }}: {{ decisionDescription.text }}</p>
-        <ol>
-          <li v-for="(option, index) of decisionOptions" :key="option.label">
-            <button class="btn btn-green" @click="selectOption(index)" :disabled="!option.canAccess()">
-              <span v-if="!option.canAccess()"> <s> {{ option.label }}</s></span>
-              <span v-else> {{ option.label }}</span>
-            </button>
-          </li>
-        </ol>
-      </div>
+
+    <div v-if="isDialog" class="flex flex-col items-center justify-between h-full">
+      <p class="font-semibold">{{ dialogText.speaker }}
+      <p>
+      <p class="flex-grow">{{ dialogText.text }}</p>
+      <button class="btn btn-green" @click="next">Next</button>
     </div>
-    <div v-else>
-      Start talking
+    <div v-else-if="isDecision" class="flex flex-col items-center justify-between">
+      <p class="font-semibold">{{ decisionDescription.speaker }}
+      <p>
+      <p>{{ decisionDescription.text }}</p>
+      <ol>
+        <li v-for="(option, index) of decisionOptions" :key="option.label">
+          <button class="btn btn-green w-full" @click="selectOption(index)" :disabled="!option.canAccess()">
+            <span v-if="!option.canAccess()"> <s> {{ option.label }}</s></span>
+            <span v-else> {{ option.label }}</span>
+          </button>
+        </li>
+      </ol>
     </div>
-    <br>
 
   </div>
 </template>
