@@ -25,6 +25,19 @@ export default {
       return this.quests.getQuest(QuestId.Lumberjack);
     }
   },
+  mounted() {
+    this.quests.onQuestCompleted.subscribe(quest => {
+      this.$notify(
+          {
+            title: `Quest completed!`,
+            text: quest.name,
+            type: "success",
+            group: "top-left",
+          },
+          6000
+      );
+    })
+  }
 }
 </script>
 
