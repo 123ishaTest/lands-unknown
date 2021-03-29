@@ -6,9 +6,4 @@ export enum KingDialog {
 
     // Questions
     IntroQuestion,
-    BuyBoatTicketQuestion,
-
-    // Quest
-    // TODO try to extract to own file
-    AskWoodCuttingPermission,
 }

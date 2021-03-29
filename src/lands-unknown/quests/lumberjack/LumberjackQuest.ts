@@ -1,13 +1,11 @@
 import {Quest} from "@/lands-unknown/quests/Quest";
 import {QuestId} from "@/lands-unknown/quests/QuestId";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
-import {LumberjackDialog} from "@/ig-template/features/npcs/lumberjack/LumberjackDialog";
 import {NpcId} from "@/ig-template/features/npcs/NpcId";
 import {Dialog} from "@/ig-template/tools/dialog/Dialog";
 import {DialogText} from "@/ig-template/tools/dialog/DialogText";
 import {Features} from "@/ig-template/Features";
 import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
-import {KingDialog} from "@/ig-template/features/npcs/king/KingDialog";
 import {PermanentlyAddActionInjection} from "@/lands-unknown/quests/injections/PermanentlyAddActionInjection";
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
@@ -21,13 +19,15 @@ import {ItemId} from "@/ig-template/features/items/ItemId";
 import {KeyItemId} from "@/ig-template/features/key-items/KeyItemId";
 import {DialogRootInjection} from "@/lands-unknown/quests/injections/DialogRootInjection";
 import {DialogInjection} from "@/lands-unknown/quests/injections/DialogInjection";
+import {LumberjackQuestKingDialog} from "@/lands-unknown/quests/lumberjack/LumberjackQuestKingDialog";
+import {LumberjackQuestLumberjackDialog} from "@/lands-unknown/quests/lumberjack/LumberjackQuestLumberjackDialog";
 
 export class LumberjackQuest extends Quest {
     before(): void {
         const introInjection = new DialogRootInjection(
             NpcId.Lumberjack,
             "I need something to do",
-            new Dialog(LumberjackDialog.QuestIntro, [
+            new Dialog(LumberjackQuestLumberjackDialog.QuestIntro, [
                     new DialogText(NpcId.Player, "Hello Lumberjack, are you ok?"),
                     new DialogText(NpcId.Lumberjack, "I'm a Lumberjack and I'm okay!"),
                     new DialogText(NpcId.Player, "I can see that..."),
@@ -44,7 +44,7 @@ export class LumberjackQuest extends Quest {
                         introInjection.eject(this._features);
                     }),
                 ],
-                LumberjackDialog.QuestExplanation
+                LumberjackQuestLumberjackDialog.QuestExplanation
             )
         );
         introInjection.inject(this._features);
@@ -60,7 +60,7 @@ export class LumberjackQuest extends Quest {
                         new DialogRootInjection(
                             NpcId.Lumberjack,
                             "Talk about lumberjack quest",
-                            new Dialog(LumberjackDialog.QuestExplanation, [
+                            new Dialog(LumberjackQuestLumberjackDialog.QuestExplanation, [
                                     new DialogText(NpcId.Player, "I will try my best", () => {
                                             this.completeStep(QuestStepId.Intro)
                                         }
@@ -71,10 +71,10 @@ export class LumberjackQuest extends Quest {
                     ]
                 ),
                 new InjectionQuestStep(QuestStepId.AskPermissionFromKing, [
-                        new DialogRootInjection<KingDialog>(
+                        new DialogRootInjection(
                             NpcId.King,
                             "That's a nice looking forest you got there",
-                            new Dialog(KingDialog.AskWoodCuttingPermission, [
+                            new Dialog(LumberjackQuestKingDialog.AskWoodCuttingPermission, [
                                     new DialogText(NpcId.Player, "Hi, I want to help the lumberjack?"),
                                     new DialogText(NpcId.King, "What do you need from me?"),
                                     new DialogText(NpcId.Player, "Well I need to cut some trees in the forest"),
@@ -98,7 +98,7 @@ export class LumberjackQuest extends Quest {
                     new DialogRootInjection(
                         NpcId.Lumberjack,
                         "I've talked to the king",
-                        new Dialog(LumberjackDialog.WoodcuttingExplanation, [
+                        new Dialog(LumberjackQuestLumberjackDialog.WoodcuttingExplanation, [
                                 new DialogText(NpcId.Player, "The King said it's okay"),
                                 new DialogText(NpcId.Lumberjack, "Great! Let's start chopping"),
                                 new DialogText(NpcId.Player, "Ehm..."),
@@ -124,16 +124,16 @@ export class LumberjackQuest extends Quest {
                     new DialogRootInjection(
                         NpcId.Lumberjack,
                         "I've gathered 25 wood",
-                        new Dialog(LumberjackDialog.WoodGathered, [
+                        new Dialog(LumberjackQuestLumberjackDialog.WoodGathered, [
                                 new DialogText(NpcId.Player, "I did it, I chopped 25 wood!"),
                                 new DialogText(NpcId.Lumberjack, "Thanks, I'll take that from you now!"),
                             ],
-                            LumberjackDialog.HasEnoughWoodCheck
+                            LumberjackQuestLumberjackDialog.HasEnoughWoodCheck
                         )
                     ),
                     new DialogInjection(
                         NpcId.Lumberjack,
-                        new Dialog(LumberjackDialog.NotEnoughWood, [
+                        new Dialog(LumberjackQuestLumberjackDialog.NotEnoughWood, [
                                 new DialogText(NpcId.Lumberjack, "Are you trying to scam me? You don't have 25 wood!"),
                                 new DialogText(NpcId.Player, "I must have lost it somewhere"),
                                 new DialogText(NpcId.Lumberjack, "Well you better go and find it..."),
@@ -142,7 +142,7 @@ export class LumberjackQuest extends Quest {
                     ),
                     new DialogInjection(
                         NpcId.Lumberjack,
-                        new Dialog(LumberjackDialog.HasEnoughWood, [
+                        new Dialog(LumberjackQuestLumberjackDialog.HasEnoughWood, [
                                 new DialogText(NpcId.Player, "Sure", () => {
                                     this.completeStep(QuestStepId.WoodGathered)
                                 }),
@@ -154,20 +154,20 @@ export class LumberjackQuest extends Quest {
                         )
                     ),
                     new DialogNpcDecisionInjection(NpcId.Lumberjack,
-                        new NpcDecision(LumberjackDialog.HasEnoughWoodCheck, () => {
+                        new NpcDecision(LumberjackQuestLumberjackDialog.HasEnoughWoodCheck, () => {
                             const cost = new ItemAmount(ItemId.Wood, 25);
                             if (!features.inventory.hasItemAmount(cost)) {
-                                return LumberjackDialog.NotEnoughWood;
+                                return LumberjackQuestLumberjackDialog.NotEnoughWood;
                             }
                             features.inventory.loseItemAmount(cost.id, cost.amount);
-                            return LumberjackDialog.HasEnoughWood
+                            return LumberjackQuestLumberjackDialog.HasEnoughWood
                         }))
                 ]),
                 new InjectionQuestStep(QuestStepId.GetBoatTicketFromKing, [
-                        new DialogRootInjection<KingDialog>(
+                        new DialogRootInjection(
                             NpcId.King,
                             "I've helped the Lumberjack",
-                            new Dialog(KingDialog.AskWoodCuttingPermission, [
+                            new Dialog(LumberjackQuestKingDialog.ClaimReward, [
                                     new DialogText(NpcId.King, "So...?"),
                                     new DialogText(NpcId.Player, "So... I was hoping I could get a reward"),
                                     new DialogText(NpcId.King, "Shouldn't the Lumberjack reward you if you helped him"),
