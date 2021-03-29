@@ -200,7 +200,7 @@
                  "y":976
                 }, 
                 {
-                 "height":48,
+                 "height":144,
                  "id":32,
                  "name":"",
                  "properties":[
@@ -212,9 +212,9 @@
                  "rotation":0,
                  "type":"town",
                  "visible":true,
-                 "width":96,
-                 "x":1152,
-                 "y":1472
+                 "width":124,
+                 "x":1136,
+                 "y":1344
                 }, 
                 {
                  "height":80,

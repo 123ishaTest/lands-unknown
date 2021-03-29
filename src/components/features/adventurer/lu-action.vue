@@ -4,7 +4,7 @@
       <div class="flex flex-row items-center justify-between">
         <span class="fa text-center" :class="action.icon"></span>
         <span class="text-xs p-2">{{ action.description }}
-              <span v-if="action.repeat > 0">({{ action.repeat }})</span>
+              <span v-if="action.repeat > 0">({{ action.repeat + 1 }})</span>
         </span>
         <span class="fa fa-times text-red-400 cursor-pointer" @click="cancel"></span>
 
