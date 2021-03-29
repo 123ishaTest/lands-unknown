@@ -9,6 +9,10 @@
         <lu-world-map></lu-world-map>
       </igt-tab>
 
+      <igt-tab name="Quests">
+        <lu-quests></lu-quests>
+      </igt-tab>
+
       <igt-tab name="Skills">
         <igt-skills></igt-skills>
       </igt-tab>
@@ -61,9 +65,11 @@ import IgtInventory from "@/components/features/inventory/igt-inventory";
 import LuWorldMap from "@/components/features/world-map/lu-world-map";
 import IgtSkills from "@/components/features/skills/lu-skills";
 import IgtKeyItems from "@/components/features/key-items/igt-key-items";
+import LuQuests from "@/components/features/quests/lu-quests";
 
 export default {
   components: {
+    LuQuests,
     IgtKeyItems,
     IgtSkills,
     LuWorldMap,

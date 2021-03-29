@@ -14,6 +14,7 @@ import {Skills} from "@/lands-unknown/features/skills/Skills";
 import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
 import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
 import {Npcs} from "@/ig-template/features/npcs/Npcs";
+import {Quests} from "@/lands-unknown/quests/Quests";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -38,6 +39,7 @@ export class App {
                 codes: new RedeemableCodes(),
                 inventory: new Inventory(),
                 itemList: new ItemList(),
+                quests: new Quests(),
                 keyItems: new KeyItems(),
                 npcs: new Npcs(),
                 skills: new Skills(),
