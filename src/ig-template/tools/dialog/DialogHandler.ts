@@ -2,7 +2,6 @@ import {DialogTree} from "@/ig-template/tools/dialog/DialogTree";
 import {DialogType} from "@/ig-template/tools/dialog/DialogType";
 import {DialogDecision} from "@/ig-template/tools/dialog/DialogDecision";
 import {Dialog} from "@/ig-template/tools/dialog/Dialog";
-import {cloneDeep} from "lodash-es";
 
 export class DialogHandler<T> {
     public tree: DialogTree<T> | null;
@@ -19,7 +18,8 @@ export class DialogHandler<T> {
     }
 
     public start(tree: DialogTree<T>) {
-        this.tree = cloneDeep(tree);
+        tree.reset();
+        this.tree = tree;
         const root = this.tree.root;
 
         // If we only have 1 option we can skip the root

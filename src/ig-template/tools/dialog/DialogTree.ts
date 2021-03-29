@@ -21,6 +21,11 @@ export class DialogTree<T> {
         this.root = new DialogDecision<T>('root' as unknown as T, new DialogText(NpcId.Player, "What do you want to talk about?"), [new DialogOption<T>("Talk about something else", this.firstDialog)]);
     }
 
+    reset(): void {
+        this.dialog.forEach(dialog => {
+            dialog.currentIndex = 0;
+        })
+    }
 
     getDialog(id: T) {
         return this.dialog.find(value => value.id === id) ?? null;

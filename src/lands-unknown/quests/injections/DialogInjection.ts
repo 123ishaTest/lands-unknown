@@ -19,7 +19,6 @@ export class DialogInjection<T> extends AbstractInjection {
     }
 
     inject(features: Features) {
-        console.log("injecting dialog")
         const npc = features.npcs.getNpc(this.npcId);
         npc.dialog.root.options.unshift(new DialogOption<T>(this.rootLabel, this.dialog.id));
         npc.dialog.dialog.push(this.dialog);
@@ -27,7 +26,6 @@ export class DialogInjection<T> extends AbstractInjection {
     }
 
     eject(features: Features): void {
-        console.log("ejecting dialog")
         const npc = features.npcs.getNpc(this.npcId);
 
         const index = npc.dialog.dialog.indexOf(this.dialog);

@@ -17,18 +17,20 @@ export class LumberjackQuest extends Quest {
             NpcId.Lumberjack,
             "I need something to do",
             new Dialog(LumberjackDialog.QuestIntro, [
-                new DialogText(NpcId.Player, "Give quest"),
-                new DialogText(NpcId.Lumberjack, "Ok", () => {
-                    this.start();
-                    introInjection.eject(this._features);
-                }),
-            ])
+                    new DialogText(NpcId.Player, "Give quest"),
+                    new DialogText(NpcId.Lumberjack, "Ok", () => {
+                        this.start();
+                        introInjection.eject(this._features);
+                    }),
+                ],
+                LumberjackDialog.QuestExplanation
+            )
         );
         introInjection.inject(this._features);
     }
 
     completion(): void {
-        console.log("Quest completed!!!");
+        console.log("Quest completed");
     }
 
     constructor(features: Features) {

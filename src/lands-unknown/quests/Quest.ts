@@ -42,7 +42,6 @@ export abstract class Quest implements Saveable {
     abstract completion(): void
 
     completeStep(id: QuestStepId) {
-        console.log(`completing step ${id}`)
         if (this.currentStep.id !== id) {
             console.warn(`Cannot complete step ${id} if we're currently at ${this.currentStep.id}`);
         }
@@ -51,7 +50,6 @@ export abstract class Quest implements Saveable {
 
     private nextStep() {
         if (this.currentStep) {
-            console.log("after");
             this.currentStep.after(this._features);
         }
 
