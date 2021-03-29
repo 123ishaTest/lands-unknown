@@ -12,7 +12,7 @@
 
       </lu-location-highlight>
 
-      <igt-dialog-handler class="absolute bottom-0" v-if="selectedNpc" :npc="selectedNpc"></igt-dialog-handler>
+      <igt-dialog-handler ref="dialogHandler" class="absolute bottom-0"></igt-dialog-handler>
 
       <div id="canvas-stack" class="w-full relative"
            :style="'height:' + stackHeight + 'px;'">
@@ -53,7 +53,6 @@ export default {
       canTravelToHighLight: false,
       highlightedLocation: null,
       highlightedNpcs: [],
-      selectedNpc: null,
       npcs: App.game.features.npcs,
       worldMap: App.game.features.worldMap,
       adventurer: App.game.features.adventurer,
@@ -93,7 +92,7 @@ export default {
         this.travel(this.highlightedLocation.identifier);
         return;
       }
-      this.selectedNpc = npc;
+      this.$refs.dialogHandler.talk(npc);
     },
     performAction(action, repeat, location) {
       if (!this.adventurer.getPlayerLocationAtEndOfQueue().equals(location)) {

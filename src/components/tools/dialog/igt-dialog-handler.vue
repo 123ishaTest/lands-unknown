@@ -1,5 +1,5 @@
 <template>
-  <div class="w-1/2 h-48 border-2 p-4 z-30 bg-gray-500 bg-opacity-50 shadow-xl text-white">
+  <div v-if="inConversation" class="w-1/2 h-48 border-2 p-4 z-30 bg-gray-500 bg-opacity-50 shadow-xl text-white">
     <div v-if="hasHandler">
 
       <div v-if="isDialog">
@@ -29,22 +29,21 @@
 <script>
 import {DialogHandler} from "@/ig-template/tools/dialog/DialogHandler";
 import {DialogType} from "@/ig-template/tools/dialog/DialogType";
-import {Npc} from "@/ig-template/features/npcs/Npc";
 
 export default {
   name: "igt-dialog-handler",
   data() {
     return {
       handler: new DialogHandler(),
+      npc: null
     }
   },
-  props: {
-    npc: {
-      type: Npc,
-      required: true,
-    },
-  },
+  props: {},
   methods: {
+    talk(npc) {
+      this.npc = npc;
+      this.handler.start(this.npc.dialog);
+    },
     next() {
       this.handler.next();
     },
@@ -53,6 +52,9 @@ export default {
     }
   },
   computed: {
+    inConversation() {
+      return this.handler != null && (this.handler.dialog != null || this.handler.decision != null);
+    },
     hasHandler() {
       return this.handler != null;
     },
@@ -78,10 +80,6 @@ export default {
       return this.handler.type === DialogType.Dialog;
     }
   },
-  mounted() {
-    this.handler.start(this.npc.dialog);
-
-  }
 }
 </script>
 
