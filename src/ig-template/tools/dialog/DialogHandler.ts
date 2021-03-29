@@ -24,7 +24,7 @@ export class DialogHandler<T> {
 
         // If we only have 1 option we can skip the root
         if (root.options.length === 1) {
-            this.setDialog(root.options[0].reference);
+            this.goToDestination(root.options[0].reference);
         } else {
             this.setRoot(root);
         }
@@ -39,11 +39,7 @@ export class DialogHandler<T> {
 
 
         if (this.dialog.isAtEnd()) {
-            if (this.dialog.destination == undefined) {
-                this.end();
-            } else {
-                this.setDecision(this.dialog.destination)
-            }
+            this.goToDestination(this.dialog.destination);
         }
     }
 
@@ -58,29 +54,48 @@ export class DialogHandler<T> {
         }
 
         const destination = this.decision.options[index].reference;
+
+        this.goToDestination(destination);
+    }
+
+    private goToDestination(destination: T | undefined) {
+        if (destination == undefined) {
+            this.end();
+            return;
+        }
+
+        // Check if it's an NPC decision
         const npcDecision = this.tree?.getNpcDecision(destination);
 
         if (npcDecision) {
             const decided = npcDecision.decide();
-            this.setDialog(decided)
+            this.goToDestination(decided)
             return;
         }
-        this.setDialog(destination);
+
+        // Or a dialog
+        const dialog = this.tree?.getDialog(destination);
+        if (dialog) {
+            this.setDialog(dialog);
+            return;
+        }
+
+        // Or a player decision
+        const decision = this.tree?.getDecision(destination);
+        if (decision) {
+            this.setDecision(decision)
+            return;
+        }
+
+        console.error(`Could not transition to id ${destination}. Is it implemented?`)
+
     }
 
-    private setDialog(id: T) {
-        if (this.tree == null) {
-            console.error(`Cannot set dialog to ${id} when tree is null`);
-            return;
-        }
-        const newDialog = this.tree.getDialog(id);
-        if (newDialog == null) {
-            console.error(`Could not load dialog with id ${id}`);
-            return;
-        }
+    private setDialog(dialog: Dialog<T>) {
+
         this.type = DialogType.Dialog;
         this.decision = null;
-        this.dialog = this.tree.getDialog(id);
+        this.dialog = dialog;
     }
 
     private setRoot(root: DialogDecision<T>) {
@@ -89,14 +104,9 @@ export class DialogHandler<T> {
         this.decision = root;
     }
 
-    private setDecision(id: T) {
-        if (this.tree == null) {
-            console.error(`Cannot set decision to ${id} when tree is null`);
-            return;
-        }
-
+    private setDecision(decision: DialogDecision<T>) {
         this.dialog = null;
-        this.decision = this.tree.getDecision(id);
+        this.decision = decision
         this.type = DialogType.Decision;
     }
 
