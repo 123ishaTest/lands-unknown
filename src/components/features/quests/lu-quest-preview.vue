@@ -1,9 +1,6 @@
 <template>
-  <div class="w-full h-48 bg-gray-400 border-2 flex flex-col">
-    <p>{{quest.id}}</p>
-    <p>{{quest.description}}</p>
-    <p>Status: {{status}}</p>
-    <button class="btn btn-green" @click="startQuest">Start</button>
+  <div class="p-4 border-2 no-select" :class="color">
+    <p class="text-gray-800">{{ quest.name }}</p>
   </div>
 
 
@@ -11,23 +8,31 @@
 
 <script>
 import {Quest} from "@/lands-unknown/quests/Quest";
+import {QuestStatus} from "@/lands-unknown/quests/QuestStatus";
 
 export default {
   name: "lu-quest-preview",
   props: {
     quest: {
       type: Quest,
-      required:true,
+      required: true,
     },
   },
   computed: {
+    color() {
+      switch (this.status) {
+        case QuestStatus.NotStarted:
+          return 'bg-red-500 hover:bg-red-400';
+        case QuestStatus.Started:
+          return 'bg-yellow-500 hover:bg-yellow-400';
+        case QuestStatus.Finished:
+          return 'bg-green-500 hover:bg-green-400';
+        default:
+          return 'bg-gray-500 hover:bg-gray-400';
+      }
+    },
     status() {
       return this.quest.status;
-    }
-  },
-  methods: {
-    startQuest() {
-      this.quest.start();
     }
   },
 }

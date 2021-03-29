@@ -11,7 +11,7 @@ export abstract class Quest implements Saveable {
     _features: Features;
 
     id: QuestId;
-    description: string;
+    name: string;
     requirement: Requirement;
 
     steps: QuestStep[];
@@ -20,10 +20,10 @@ export abstract class Quest implements Saveable {
 
     saveKey: string;
 
-    protected constructor(id: QuestId, description: string, steps: QuestStep[], requirement: Requirement, features: Features) {
+    protected constructor(id: QuestId, name: string, steps: QuestStep[], requirement: Requirement, features: Features) {
         this._features = features;
         this.id = id;
-        this.description = description;
+        this.name = name;
         this.steps = steps;
         this.requirement = requirement;
 
@@ -86,7 +86,7 @@ export abstract class Quest implements Saveable {
         if (!this.isStarted) {
             return QuestStatus.NotStarted;
         }
-        return this.currentIndex < this.steps.length ? QuestStatus.Started : QuestStatus.Finished;
+        return this.currentIndex < this.steps.length - 1 ? QuestStatus.Started : QuestStatus.Finished;
     }
 
     load(data: QuestSaveData): void {

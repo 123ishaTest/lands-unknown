@@ -3,6 +3,7 @@ import {SaveData} from "@/ig-template/tools/saving/SaveData";
 import {Quest} from "@/lands-unknown/quests/Quest";
 import {Features} from "@/ig-template/Features";
 import {LumberjackQuest} from "@/lands-unknown/quests/lumberjack/LumberjackQuest";
+import {QuestId} from "@/lands-unknown/quests/QuestId";
 
 export class Quests extends Feature {
 
@@ -12,6 +13,11 @@ export class Quests extends Feature {
         super('quests');
     }
 
+    getQuest(id: QuestId) {
+        return this.list.find(quest => {
+            return quest.id === id;
+        })
+    }
 
     initialize(features: Features) {
         super.initialize(features);

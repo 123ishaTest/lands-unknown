@@ -34,7 +34,7 @@ export class LumberjackQuest extends Quest {
     }
 
     constructor(features: Features) {
-        super(QuestId.Lumberjack, "Can you help the lumberjack cut 100 logs?", [
+        super(QuestId.Lumberjack, "Out of the woodworks", [
                 new DialogQuestStep(QuestStepId.Intro, [
                         new DialogInjection<LumberjackDialog>(
                             NpcId.Lumberjack,
