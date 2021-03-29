@@ -9,8 +9,6 @@ import {Experience} from "@/lands-unknown/features/skills/Experience";
 import {SkillId} from "@/lands-unknown/features/skills/SkillId";
 import {SkillLevelRequirement} from "@/lands-unknown/features/skills/SkillLevelRequirement";
 import {RecipeAction} from "@/ig-template/tools/actions/RecipeAction";
-import {BuyKeyItemAction} from "@/ig-template/features/key-items/BuyKeyItemAction";
-import {KeyItemId} from "@/ig-template/features/key-items/KeyItemId";
 
 export class ActionList extends Feature {
     _features = undefined as unknown as Features
@@ -63,11 +61,6 @@ export class ActionList extends Feature {
 
     get lootIslandChest(): RecipeAction {
         return new RecipeAction("Loot chest", 10, [new ItemAmount(ItemId.IronBar)], [new ItemAmount(ItemId.MoneyPouch)], this._features.inventory, this._features.itemList)
-    }
-
-    get buyBoatTicket(): BuyKeyItemAction {
-        return new BuyKeyItemAction("Buy Boat Ticket", 2, [new ItemAmount(ItemId.IronBar, 100)],
-            KeyItemId.BoatTicket, this._features.keyItems, this._features.inventory, this._features.itemList);
     }
 
     // Facilities
