@@ -21,7 +21,9 @@ export class Captain extends Npc {
                         new DialogText(NpcId.Player, "Do you know how I can get to the island?"),
                         new DialogText(NpcId.Captain, "I can only let you through if you have a Boat Ticket"),
                         new DialogText(NpcId.Player, "Where can I get one?"),
-                        new DialogText(NpcId.Captain, "Only the king can give you one, now scram"),
+                        new DialogText(NpcId.Captain, "I heard the King only gives them to worthy adventurers"),
+                        new DialogText(NpcId.Captain, "Maybe if you help out some of the citizens, he will deem you worthy"),
+                        new DialogText(NpcId.Player, "I see, thanks!"),
                     ],
                 ),
             ]
