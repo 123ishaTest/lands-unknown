@@ -30,6 +30,18 @@ export class DialogHandler<T> {
         }
     }
 
+    /**
+     * Skip to the end of the current dialog
+     */
+    public goToEnd() {
+        if (this.dialog == null) {
+            return;
+        }
+        while (this.dialog) {
+            this.next();
+        }
+    }
+
     public next() {
         if (this.dialog == null) {
             console.warn("Could not go next if dialog is null");
