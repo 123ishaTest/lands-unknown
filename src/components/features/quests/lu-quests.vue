@@ -37,6 +37,20 @@ export default {
           6000
       );
     })
+
+    this.quests.list.forEach(quest => {
+      quest.onQuestStarted.subscribe(quest => {
+        this.$notify(
+            {
+              title: `Quest started!`,
+              text: quest.name,
+              type: "success",
+              group: "top-left",
+            },
+            6000
+        );
+      })
+    })
   }
 }
 </script>

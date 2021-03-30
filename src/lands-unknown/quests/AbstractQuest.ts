@@ -22,9 +22,14 @@ export abstract class AbstractQuest implements Saveable {
     saveKey: string;
 
     protected _onQuestCompleted = new SimpleEventDispatcher<AbstractQuest>();
+    protected _onQuestStarted = new SimpleEventDispatcher<AbstractQuest>();
 
     public get onQuestCompleted(): ISimpleEvent<AbstractQuest> {
         return this._onQuestCompleted.asEvent();
+    }
+
+    public get onQuestStarted(): ISimpleEvent<AbstractQuest> {
+        return this._onQuestStarted.asEvent();
     }
 
 
@@ -54,7 +59,6 @@ export abstract class AbstractQuest implements Saveable {
             console.warn(`Cannot complete step ${id} if we're currently at ${this.currentStep.id}`);
             return;
         }
-        console.log(`Completing step ${id}`)
         this.nextStep();
     }
 
@@ -84,13 +88,16 @@ export abstract class AbstractQuest implements Saveable {
         this._onQuestCompleted.dispatch(this);
     }
 
-    start() {
+    start(notify: boolean = true) {
         if (!this.requirement.isCompleted || this.isStarted) {
             console.warn(`Cannot start quest ${this.id}`);
             return;
         }
-        console.log("quest started!");
         this.isStarted = true;
+
+        if (notify) {
+            this._onQuestStarted.dispatch(this);
+        }
         this.nextStep();
     }
 
@@ -109,7 +116,7 @@ export abstract class AbstractQuest implements Saveable {
     }
 
     load(data: QuestSaveData): void {
-        this.start();
+        this.start(false);
         for (let i = 0; i < data.currentIndex; i++) {
             this.completeStep(i);
         }
