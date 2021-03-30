@@ -2,7 +2,6 @@ import {DialogTree} from "@/ig-template/tools/dialog/DialogTree";
 import {DialogType} from "@/ig-template/tools/dialog/DialogType";
 import {DialogDecision} from "@/ig-template/tools/dialog/DialogDecision";
 import {Dialog} from "@/ig-template/tools/dialog/Dialog";
-import {cloneDeep} from "lodash-es";
 
 export class DialogHandler<T> {
     public tree: DialogTree<T> | null;
@@ -19,14 +18,27 @@ export class DialogHandler<T> {
     }
 
     public start(tree: DialogTree<T>) {
-        this.tree = cloneDeep(tree);
-        const root = this.tree.getRoot();
+        tree.reset();
+        this.tree = tree;
+        const root = this.tree.root;
 
         // If we only have 1 option we can skip the root
         if (root.options.length === 1) {
             this.goToDestination(root.options[0].reference);
         } else {
             this.setRoot(root);
+        }
+    }
+
+    /**
+     * Skip to the end of the current dialog
+     */
+    public goToEnd() {
+        if (this.dialog == null) {
+            return;
+        }
+        while (this.dialog) {
+            this.next();
         }
     }
 
@@ -39,6 +51,7 @@ export class DialogHandler<T> {
 
 
         if (this.dialog.isAtEnd()) {
+            this.dialog.currentIndex = 0;
             this.goToDestination(this.dialog.destination);
         }
     }
@@ -92,7 +105,6 @@ export class DialogHandler<T> {
     }
 
     private setDialog(dialog: Dialog<T>) {
-
         this.type = DialogType.Dialog;
         this.decision = null;
         this.dialog = dialog;

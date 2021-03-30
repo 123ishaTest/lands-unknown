@@ -54,7 +54,7 @@ export class ActionList extends Feature {
     }
 
     get cutWood(): SkillAction {
-        return new SkillAction(ActionId.CutWood, "Cut Wood", 3,
+        return new SkillAction(ActionId.CutWood, "Chop Wood", 3,
             'fa-tree', this._features.skills, this._features.inventory, this._features.itemList,
             [], [new ItemAmount(ItemId.Wood)], [new Experience(4, SkillId.Woodcutting)]);
     }

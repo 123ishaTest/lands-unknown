@@ -6,6 +6,7 @@ import {WorldLocationIdentifier} from "@/ig-template/features/world-map/WorldLoc
 import {WorldMap} from "@/ig-template/features/world-map/WorldMap";
 import {Features} from "@/ig-template/Features";
 import {clone} from "lodash-es";
+import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 
 export class Adventurer extends Feature {
     _worldMap: WorldMap = {} as unknown as WorldMap;
@@ -13,6 +14,11 @@ export class Adventurer extends Feature {
     actionQueue: AbstractAction[] = [];
     maxActions: number = 10;
 
+    private _onActionCompletion = new SimpleEventDispatcher<AbstractAction>();
+
+    public get onActionCompletion(): ISimpleEvent<AbstractAction> {
+        return this._onActionCompletion.asEvent();
+    }
 
     constructor() {
         super('adventurer');
@@ -69,7 +75,11 @@ export class Adventurer extends Feature {
     }
 
     addAction(a: AbstractAction, repeat: number = -1) {
+        // Unfortunately we cannot clone deep as we would lose features
         const action = clone(a);
+
+        // Reset events to avoid cloning issues
+        action.resetEvents();
 
         if (repeat !== -1) {
             action.repeat = repeat;
@@ -84,6 +94,13 @@ export class Adventurer extends Feature {
             console.log(`You already have ${this.maxActions} actions scheduled.`);
             return;
         }
+
+        const sub = action.onCompletion.subscribe((action) => {
+            this._onActionCompletion.dispatch(action);
+        })
+        action.onFinished.one(() => {
+            sub();
+        })
 
         this.actionQueue.push(action);
     }

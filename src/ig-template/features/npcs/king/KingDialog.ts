@@ -1,15 +1,9 @@
 export enum KingDialog {
     // Dialogs
     Intro,
+    Goodbye,
     AskAboutCrown,
 
-    BuyBoatTicket,
-    DontBuyBoatTicket,
-    AlreadyHasBoatTicket,
-    TryToBuyBoatTicket,
-    BoatTicketBought,
     // Questions
     IntroQuestion,
-    BuyBoatTicketQuestion,
-
 }

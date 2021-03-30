@@ -33,7 +33,7 @@ export class WorldMap extends Feature {
 
         this.locations = [...roads, ...towns];
 
-        this.playerLocation = new TownLocationIdentifier(WorldLocationId.FisherMan);
+        this.playerLocation = new TownLocationIdentifier(WorldLocationId.Lumberjack);
     }
 
 
@@ -42,9 +42,7 @@ export class WorldMap extends Feature {
         this._actionList = features.actionList;
 
         this.getRoad(WorldLocationId.DocksToIsland).requirement = new KeyItemRequirement(features.keyItems, KeyItemId.BoatTicket);
-
     }
-
 
     start() {
         this.locations.forEach(location => {

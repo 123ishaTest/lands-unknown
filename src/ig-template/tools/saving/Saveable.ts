@@ -7,3 +7,7 @@ export interface Saveable {
 
     load(data: SaveData): void;
 }
+
+export function isSaveable(arg: any): arg is Saveable {
+    return arg && arg.saveKey && typeof(arg.saveKey) == 'string';
+}

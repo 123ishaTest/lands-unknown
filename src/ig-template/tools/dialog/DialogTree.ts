@@ -9,6 +9,7 @@ export class DialogTree<T> {
     dialog: Dialog<T>[];
     playerDecisions: DialogDecision<T>[];
     npcDecisions: NpcDecision<T>[];
+    root: DialogDecision<T>;
     private readonly firstDialog: T;
 
     constructor(firstDialog: T, dialog: Dialog<T>[], decisions: DialogDecision<T>[] = [], npcDecisions: NpcDecision<T>[] = []) {
@@ -16,11 +17,14 @@ export class DialogTree<T> {
         this.dialog = dialog;
         this.playerDecisions = decisions;
         this.npcDecisions = npcDecisions;
+
+        this.root = new DialogDecision<T>('root' as unknown as T, new DialogText(NpcId.Player, "What do you want to talk about?"), [new DialogOption<T>("Talk about something else", this.firstDialog)]);
     }
 
-
-    getRoot(): DialogDecision<T> {
-        return new DialogDecision<T>('root' as unknown as T, new DialogText(NpcId.Player, "Intro text?"), [new DialogOption<T>("Talk about something else", this.firstDialog)]);
+    reset(): void {
+        this.dialog.forEach(dialog => {
+            dialog.currentIndex = 0;
+        })
     }
 
     getDialog(id: T) {

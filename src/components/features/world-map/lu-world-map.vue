@@ -85,6 +85,7 @@ export default {
   },
   methods: {
     travel(identifier) {
+      this.$refs.dialogHandler.clear();
       this.worldMap.moveToLocation(identifier);
     },
     talk(npc) {
@@ -98,7 +99,7 @@ export default {
       if (!this.adventurer.getPlayerLocationAtEndOfQueue().equals(location)) {
         this.travel(location);
       }
-      this.adventurer.addAction(action, Math.max(0, amount-1));
+      this.adventurer.addAction(action, Math.max(0, amount - 1));
     },
     showHighlight(identifier) {
       this.highlightedLocation = this.worldMap.getLocation(identifier)
@@ -114,6 +115,7 @@ export default {
   },
   watch: {
     currentLocation(newLocation) {
+      this.$refs.dialogHandler.clear();
       this.tiledWrapper.renderPlayer(newLocation.worldPosition.x, newLocation.worldPosition.y);
     },
     playerPosition(newPosition) {

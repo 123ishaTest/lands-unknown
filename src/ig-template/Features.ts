@@ -12,6 +12,7 @@ import {Skills} from "@/lands-unknown/features/skills/Skills";
 import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
 import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
 import {Npcs} from "@/ig-template/features/npcs/Npcs";
+import {Quests} from "@/lands-unknown/quests/Quests";
 
 export interface Features {
     wallet: Wallet;
@@ -19,6 +20,7 @@ export interface Features {
     codes: RedeemableCodes;
     inventory: Inventory;
     itemList: ItemList;
+    quests: Quests;
     keyItems: KeyItems;
     npcs: Npcs;
     skills: Skills;

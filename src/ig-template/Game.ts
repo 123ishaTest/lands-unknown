@@ -80,6 +80,16 @@ export class Game {
     }
 
     /**
+     * Force update all features for testing purposes
+     */
+    public forceUpdate(delta: number): void {
+        for (const feature of this.featureList) {
+            feature.update(delta)
+        }
+        this.save();
+    }
+
+    /**
      * Update all features
      */
     public update(): void {
