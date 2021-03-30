@@ -5,7 +5,6 @@ import {NpcId} from "@/ig-template/features/npcs/NpcId";
 import {Dialog} from "@/ig-template/tools/dialog/Dialog";
 import {DialogText} from "@/ig-template/tools/dialog/DialogText";
 import {Features} from "@/ig-template/Features";
-import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {PermanentlyAddActionInjection} from "@/lands-unknown/quests/injections/PermanentlyAddActionInjection";
 import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
@@ -21,6 +20,7 @@ import {DialogRootInjection} from "@/lands-unknown/quests/injections/DialogRootI
 import {DialogInjection} from "@/lands-unknown/quests/injections/DialogInjection";
 import {LumberjackQuestKingDialog} from "@/lands-unknown/quests/lumberjack/LumberjackQuestKingDialog";
 import {LumberjackQuestLumberjackDialog} from "@/lands-unknown/quests/lumberjack/LumberjackQuestLumberjackDialog";
+import {LumberjackQuestStepId} from "@/lands-unknown/quests/lumberjack/LumberjackQuestStepId";
 
 export class LumberjackQuest extends AbstractQuest {
     before(): void {
@@ -56,13 +56,13 @@ export class LumberjackQuest extends AbstractQuest {
 
     constructor(features: Features) {
         super(QuestId.Lumberjack, "Out of the woodworks", [
-                new InjectionQuestStep(QuestStepId.Intro, [
+                new InjectionQuestStep(LumberjackQuestStepId.Intro, [
                         new DialogRootInjection(
                             NpcId.Lumberjack,
                             "Talk about lumberjack quest",
                             new Dialog(LumberjackQuestLumberjackDialog.QuestExplanation, [
                                     new DialogText(NpcId.Player, "I will try my best", () => {
-                                            this.completeStep(QuestStepId.Intro)
+                                            this.completeStep(LumberjackQuestStepId.Intro)
                                         }
                                     ),
                                 ]
@@ -70,7 +70,7 @@ export class LumberjackQuest extends AbstractQuest {
                         )
                     ]
                 ),
-                new InjectionQuestStep(QuestStepId.AskPermissionFromKing, [
+                new InjectionQuestStep(LumberjackQuestStepId.AskPermissionFromKing, [
                         new DialogRootInjection(
                             NpcId.King,
                             "That's a nice looking forest you got there",
@@ -87,14 +87,14 @@ export class LumberjackQuest extends AbstractQuest {
                                     new DialogText(NpcId.Player, "..."),
                                     new DialogText(NpcId.King, "Fine"),
                                     new DialogText(NpcId.Player, "Thanks...", () => {
-                                            this.completeStep(QuestStepId.AskPermissionFromKing)
+                                            this.completeStep(LumberjackQuestStepId.AskPermissionFromKing)
                                         }
                                     ),
                                 ]
                             )
                         )
                     ]
-                ), new InjectionQuestStep(QuestStepId.BackToLumberjack, [
+                ), new InjectionQuestStep(LumberjackQuestStepId.BackToLumberjack, [
                     new DialogRootInjection(
                         NpcId.Lumberjack,
                         "I've talked to the king",
@@ -107,7 +107,7 @@ export class LumberjackQuest extends AbstractQuest {
                                 new DialogText(NpcId.Player, "Yes!"),
                                 new DialogText(NpcId.Lumberjack, "..."),
                                 new DialogText(NpcId.Player, "No...", () => {
-                                        this.completeStep(QuestStepId.BackToLumberjack)
+                                        this.completeStep(LumberjackQuestStepId.BackToLumberjack)
                                     }
                                 ),
                                 new DialogText(NpcId.Lumberjack, "It's easy, just press the 'Chop Wood' button!"),
@@ -117,10 +117,10 @@ export class LumberjackQuest extends AbstractQuest {
                         )
                     )
                 ]
-                ), new CompleteSkillActionQuestStep(QuestStepId.GatherWood, ActionId.CutWood, 25, [
+                ), new CompleteSkillActionQuestStep(LumberjackQuestStepId.GatherWood, ActionId.CutWood, 25, [
                     new PermanentlyAddActionInjection(new TownLocationIdentifier(WorldLocationId.Lumberjack), ActionId.CutWood),
                 ], features.adventurer),
-                new InjectionQuestStep(QuestStepId.WoodGathered, [
+                new InjectionQuestStep(LumberjackQuestStepId.WoodGathered, [
                     new DialogRootInjection(
                         NpcId.Lumberjack,
                         "I've gathered 25 wood",
@@ -144,7 +144,7 @@ export class LumberjackQuest extends AbstractQuest {
                         NpcId.Lumberjack,
                         new Dialog(LumberjackQuestLumberjackDialog.HasEnoughWood, [
                                 new DialogText(NpcId.Player, "Sure", () => {
-                                    this.completeStep(QuestStepId.WoodGathered)
+                                    this.completeStep(LumberjackQuestStepId.WoodGathered)
                                 }),
                                 new DialogText(NpcId.Player, "Can I get a reward?"),
                                 new DialogText(NpcId.Lumberjack, "I don't have anything to give you"),
@@ -163,7 +163,7 @@ export class LumberjackQuest extends AbstractQuest {
                             return LumberjackQuestLumberjackDialog.HasEnoughWood
                         }))
                 ]),
-                new InjectionQuestStep(QuestStepId.GetBoatTicketFromKing, [
+                new InjectionQuestStep(LumberjackQuestStepId.GetBoatTicketFromKing, [
                         new DialogRootInjection(
                             NpcId.King,
                             "I've helped the Lumberjack",
@@ -181,7 +181,7 @@ export class LumberjackQuest extends AbstractQuest {
                                     new DialogText(NpcId.Player, "Deal"),
                                     new DialogText(NpcId.King, "Here, you can have this boat ticket, it grants access to a small island to the east"),
                                     new DialogText(NpcId.Player, "Wow, thanks...", () => {
-                                            this.completeStep(QuestStepId.GetBoatTicketFromKing)
+                                            this.completeStep(LumberjackQuestStepId.GetBoatTicketFromKing)
                                         }
                                     ),
                                 ]

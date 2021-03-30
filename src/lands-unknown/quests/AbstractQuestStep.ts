@@ -1,13 +1,12 @@
-import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {Features} from "@/ig-template/Features";
 import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 
 export abstract class AbstractQuestStep {
-    id: QuestStepId;
+    id: number;
 
     protected _onStepCompleted = new SimpleEventDispatcher<AbstractQuestStep>();
 
-    protected constructor(id: QuestStepId) {
+    protected constructor(id: number) {
         this.id = id;
     }
 

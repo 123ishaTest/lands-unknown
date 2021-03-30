@@ -2,7 +2,6 @@ import {QuestId} from "@/lands-unknown/quests/QuestId";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {Saveable} from "@/ig-template/tools/saving/Saveable";
 import {AbstractQuestStep} from "@/lands-unknown/quests/AbstractQuestStep";
-import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {QuestSaveData} from "@/lands-unknown/quests/QuestSaveData";
 import {QuestStatus} from "@/lands-unknown/quests/QuestStatus";
 import {Features} from "@/ig-template/Features";
@@ -50,7 +49,7 @@ export abstract class AbstractQuest implements Saveable {
      */
     abstract completion(): void
 
-    completeStep(id: QuestStepId) {
+    completeStep(id: number) {
         if (this.currentStep.id !== id) {
             console.warn(`Cannot complete step ${id} if we're currently at ${this.currentStep.id}`);
             return;

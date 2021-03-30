@@ -1,4 +1,4 @@
-export enum QuestStepId {
+export enum LumberjackQuestStepId {
     Intro,
     AskPermissionFromKing,
     BackToLumberjack,

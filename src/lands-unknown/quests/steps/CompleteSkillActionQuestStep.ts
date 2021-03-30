@@ -1,7 +1,6 @@
 import {InjectionQuestStep} from "@/lands-unknown/quests/steps/InjectionQuestStep";
 import {Adventurer} from "@/ig-template/features/adventurer/Adventurer";
 import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
-import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {AbstractInjection} from "@/lands-unknown/quests/injections/AbstractInjection";
 import {Features} from "@/ig-template/Features";
 import {SkillAction} from "@/lands-unknown/features/skills/SkillAction";
@@ -19,7 +18,7 @@ export class CompleteSkillActionQuestStep extends InjectionQuestStep {
 
     unsubscribe: () => void;
 
-    constructor(id: QuestStepId, actionId: ActionId, target: number, injections: AbstractInjection[], adventurer: Adventurer,) {
+    constructor(id: number, actionId: ActionId, target: number, injections: AbstractInjection[], adventurer: Adventurer,) {
         super(id, injections);
         this.actionId = actionId;
         this.target = target;

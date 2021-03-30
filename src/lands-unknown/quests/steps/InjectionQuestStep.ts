@@ -1,12 +1,11 @@
 import {AbstractQuestStep} from "@/lands-unknown/quests/AbstractQuestStep";
 import {AbstractInjection} from "@/lands-unknown/quests/injections/AbstractInjection";
 import {Features} from "@/ig-template/Features";
-import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 
 export class InjectionQuestStep extends AbstractQuestStep {
     injections: AbstractInjection[];
 
-    constructor(id: QuestStepId, injections: AbstractInjection[]) {
+    constructor(id: number, injections: AbstractInjection[]) {
         super(id);
         this.injections = injections;
     }
