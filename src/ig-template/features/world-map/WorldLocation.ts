@@ -39,7 +39,7 @@ export abstract class WorldLocation {
 
     initializeActions(actionList: ActionList) {
         // Concat in case actions are added in another way (like injected by quests)
-        this.possibleActions.concat(this._possibleActions.map(id => {
+        this.possibleActions = this.possibleActions.concat(this._possibleActions.map(id => {
             return actionList[id];
         }));
         this._facilities.forEach(type => {
