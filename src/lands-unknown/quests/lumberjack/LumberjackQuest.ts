@@ -6,7 +6,6 @@ import {Dialog} from "@/ig-template/tools/dialog/Dialog";
 import {DialogText} from "@/ig-template/tools/dialog/DialogText";
 import {Features} from "@/ig-template/Features";
 import {PermanentlyAddActionInjection} from "@/lands-unknown/quests/injections/PermanentlyAddActionInjection";
-import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 import {WorldLocationId} from "@/ig-template/features/world-map/WorldLocationId";
 import {ActionId} from "@/lands-unknown/features/action-list/ActionId";
 import {CompleteSkillActionQuestStep} from "@/lands-unknown/quests/steps/CompleteSkillActionQuestStep";
@@ -21,6 +20,7 @@ import {DialogInjection} from "@/lands-unknown/quests/injections/DialogInjection
 import {LumberjackQuestKingDialog} from "@/lands-unknown/quests/lumberjack/LumberjackQuestKingDialog";
 import {LumberjackQuestLumberjackDialog} from "@/lands-unknown/quests/lumberjack/LumberjackQuestLumberjackDialog";
 import {LumberjackQuestStepId} from "@/lands-unknown/quests/lumberjack/LumberjackQuestStepId";
+import {TownLocationIdentifier} from "@/ig-template/features/world-map/towns/TownLocationIdentifier";
 
 export class LumberjackQuest extends AbstractQuest {
     before(): void {

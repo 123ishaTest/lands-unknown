@@ -22,7 +22,6 @@ export class PermanentlyAddActionInjection extends AbstractInjection {
             console.warn(`Could not inject action into location with id ${this.location}`);
             return;
         }
-        console.log("adding action")
         location.possibleActions.push(features.actionList[this.actionId]);
     }
 
