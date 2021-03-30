@@ -93,7 +93,6 @@ export class DialogHandler<T> {
     }
 
     private setDialog(dialog: Dialog<T>) {
-
         this.type = DialogType.Dialog;
         this.decision = null;
         this.dialog = dialog;

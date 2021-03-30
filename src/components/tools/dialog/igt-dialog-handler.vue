@@ -43,6 +43,9 @@ export default {
       this.npc = npc;
       this.handler.start(this.npc.dialog);
     },
+    clear() {
+      this.handler.end()
+    },
     next() {
       this.handler.next();
     },

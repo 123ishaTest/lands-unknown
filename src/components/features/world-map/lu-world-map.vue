@@ -85,6 +85,7 @@ export default {
   },
   methods: {
     travel(identifier) {
+      this.$refs.dialogHandler.clear();
       this.worldMap.moveToLocation(identifier);
     },
     talk(npc) {
