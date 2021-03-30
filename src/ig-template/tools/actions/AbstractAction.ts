@@ -51,6 +51,7 @@ export abstract class AbstractAction {
             console.warn("Cannot complete action that is already finished");
             return;
         }
+
         this._onCompletion.dispatch(this);
         const canRepeat: boolean = this.gainReward();
         if (canRepeat && this.repeat > 0) {
@@ -115,6 +116,11 @@ export abstract class AbstractAction {
     stop() {
         this.currentProgress = 0;
         this.isStarted = false;
+    }
+
+    resetEvents() {
+        this._onCompletion = new SimpleEventDispatcher<AbstractAction>();
+        this._onFinished = new SimpleEventDispatcher<AbstractAction>();
     }
 
     /**

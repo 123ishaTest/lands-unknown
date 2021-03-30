@@ -75,7 +75,11 @@ export class Adventurer extends Feature {
     }
 
     addAction(a: AbstractAction, repeat: number = -1) {
+        // Unfortunately we cannot clone deep as we would lose features
         const action = clone(a);
+
+        // Reset events to avoid cloning issues
+        action.resetEvents();
 
         if (repeat !== -1) {
             action.repeat = repeat;
@@ -94,9 +98,8 @@ export class Adventurer extends Feature {
         const sub = action.onCompletion.subscribe((action) => {
             this._onActionCompletion.dispatch(action);
         })
-        const sub2 = action.onFinished.subscribe(() => {
+        action.onFinished.one(() => {
             sub();
-            sub2();
         })
 
         this.actionQueue.push(action);
