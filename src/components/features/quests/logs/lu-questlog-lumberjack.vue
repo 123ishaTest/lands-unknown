@@ -9,6 +9,7 @@
         permission to chop wood</p>
       <p v-if="progress === QuestStepId.BackToLumberjack">I'm sure the Lumberjack will be glad to hear this news.</p>
       <p v-if="progress === QuestStepId.GatherWood">I can Chop Wood by clicking the button near the Lumberjack</p>
+      <p v-if="progress === QuestStepId.GatherWood">I have chopped {{gatheringProgress}} Wood</p>
       <p v-if="progress > QuestStepId.GatherWood" class="line-through">I have successfully chopped 25 wood, and I'm not
         even exhausted.</p>
       <p v-if="progress === QuestStepId.WoodGathered">I should probably let the Lumberjack know...</p>
@@ -41,6 +42,11 @@ export default {
     }
   },
   computed: {
+    gatheringProgress() {
+      return this.quest.steps.find(quest => {
+        return quest.id === QuestStepId.GatherWood
+      }).getProgress();
+    },
     progress() {
       if (this.quest.isCompleted) {
         return Infinity;

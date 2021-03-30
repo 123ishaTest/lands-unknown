@@ -5,6 +5,7 @@ import {QuestStepId} from "@/lands-unknown/quests/QuestStepId";
 import {AbstractInjection} from "@/lands-unknown/quests/injections/AbstractInjection";
 import {Features} from "@/ig-template/Features";
 import {SkillAction} from "@/lands-unknown/features/skills/SkillAction";
+import {Progress} from "@/ig-template/tools/requirements/Progress";
 
 /**
  * Subscribes to the adventurers actionQueue and counts how often the actionId is completed
@@ -28,6 +29,9 @@ export class CompleteSkillActionQuestStep extends InjectionQuestStep {
         };
     }
 
+    getProgress() {
+        return new Progress(this.actual, this.target);
+    }
 
     before(features: Features) {
         this.unsubscribe = this._adventurer.onActionCompletion.subscribe(action => {
