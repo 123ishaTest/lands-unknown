@@ -458,7 +458,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -510,7 +510,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -622,7 +622,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -682,7 +682,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -778,7 +778,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -890,7 +890,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -966,7 +966,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -1078,7 +1078,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -1122,7 +1122,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -1214,7 +1214,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -1298,7 +1298,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
@@ -1454,7 +1454,7 @@
                         {
                          "name":"baseDuration",
                          "type":"float",
-                         "value":1
+                         "value":0.4
                         }, 
                         {
                          "name":"from",
