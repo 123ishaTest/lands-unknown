@@ -1,4 +1,4 @@
-import {Quest} from "@/lands-unknown/quests/Quest";
+import {AbstractQuest} from "@/lands-unknown/quests/AbstractQuest";
 import {QuestId} from "@/lands-unknown/quests/QuestId";
 import {NoRequirement} from "@/ig-template/tools/requirements/NoRequirement";
 import {NpcId} from "@/ig-template/features/npcs/NpcId";
@@ -22,7 +22,7 @@ import {DialogInjection} from "@/lands-unknown/quests/injections/DialogInjection
 import {LumberjackQuestKingDialog} from "@/lands-unknown/quests/lumberjack/LumberjackQuestKingDialog";
 import {LumberjackQuestLumberjackDialog} from "@/lands-unknown/quests/lumberjack/LumberjackQuestLumberjackDialog";
 
-export class LumberjackQuest extends Quest {
+export class LumberjackQuest extends AbstractQuest {
     before(): void {
         const introInjection = new DialogRootInjection(
             NpcId.Lumberjack,

@@ -1,6 +1,6 @@
 import {Feature} from "@/ig-template/features/Feature";
 import {SaveData} from "@/ig-template/tools/saving/SaveData";
-import {Quest} from "@/lands-unknown/quests/Quest";
+import {AbstractQuest} from "@/lands-unknown/quests/AbstractQuest";
 import {Features} from "@/ig-template/Features";
 import {LumberjackQuest} from "@/lands-unknown/quests/lumberjack/LumberjackQuest";
 import {QuestId} from "@/lands-unknown/quests/QuestId";
@@ -8,11 +8,11 @@ import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 
 export class Quests extends Feature {
 
-    list: Quest[] = [];
+    list: AbstractQuest[] = [];
 
-    protected _onQuestCompleted = new SimpleEventDispatcher<Quest>();
+    protected _onQuestCompleted = new SimpleEventDispatcher<AbstractQuest>();
 
-    public get onQuestCompleted(): ISimpleEvent<Quest> {
+    public get onQuestCompleted(): ISimpleEvent<AbstractQuest> {
         return this._onQuestCompleted.asEvent();
     }
 

@@ -8,7 +8,7 @@ import {QuestStatus} from "@/lands-unknown/quests/QuestStatus";
 import {Features} from "@/ig-template/Features";
 import {ISimpleEvent, SimpleEventDispatcher} from "strongly-typed-events";
 
-export abstract class Quest implements Saveable {
+export abstract class AbstractQuest implements Saveable {
     _features: Features;
 
     id: QuestId;
@@ -22,9 +22,9 @@ export abstract class Quest implements Saveable {
 
     saveKey: string;
 
-    protected _onQuestCompleted = new SimpleEventDispatcher<Quest>();
+    protected _onQuestCompleted = new SimpleEventDispatcher<AbstractQuest>();
 
-    public get onQuestCompleted(): ISimpleEvent<Quest> {
+    public get onQuestCompleted(): ISimpleEvent<AbstractQuest> {
         return this._onQuestCompleted.asEvent();
     }
 

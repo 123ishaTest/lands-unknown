@@ -7,14 +7,14 @@
 </template>
 
 <script>
-import {Quest} from "@/lands-unknown/quests/Quest";
+import {AbstractQuest} from "@/lands-unknown/quests/AbstractQuest";
 import {QuestStatus} from "@/lands-unknown/quests/QuestStatus";
 
 export default {
   name: "lu-quest-preview",
   props: {
     quest: {
-      type: Quest,
+      type: AbstractQuest,
       required: true,
     },
   },
