@@ -1,6 +1,6 @@
 import {QuestId} from "@/lands-unknown/quests/QuestId";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
-import {Saveable} from "@/ig-template/tools/saving/Saveable";
+import {isSaveable, Saveable} from "@/ig-template/tools/saving/Saveable";
 import {AbstractQuestStep} from "@/lands-unknown/quests/AbstractQuestStep";
 import {QuestSaveData} from "@/lands-unknown/quests/QuestSaveData";
 import {QuestStatus} from "@/lands-unknown/quests/QuestStatus";
@@ -109,14 +109,33 @@ export abstract class AbstractQuest implements Saveable {
     }
 
     load(data: QuestSaveData): void {
-        this.currentIndex = data.currentIndex;
+        this.start();
+        for (let i = 0; i < data.currentIndex; i++) {
+            this.completeStep(i);
+        }
+
+        data.steps?.forEach(stepData => {
+            const step = this.steps[stepData.step];
+
+            if (isSaveable(step)) {
+                step.load(stepData.data);
+            }
+        })
     }
 
-    // TODO save id of step so changing the amount of steps doesn't mess anything up.
     save(): QuestSaveData {
         return {
             id: this.id,
             currentIndex: this.currentIndex,
+            steps: this.steps.flatMap(step => {
+                if (isSaveable(step)) {
+                    return [{
+                        step: step.id,
+                        data: step.save(),
+                    }]
+                }
+                return [];
+            })
         };
     }
 }

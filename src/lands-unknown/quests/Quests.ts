@@ -51,10 +51,7 @@ export class Quests extends Feature {
         data.list?.forEach(questData => {
             const quest = this.getQuest(questData.id)
             if (quest) {
-                quest.start();
-                for (let i = 0; i < questData.currentIndex; i++) {
-                    quest.completeStep(i);
-                }
+                quest.load(questData)
             }
         })
     }
@@ -64,10 +61,7 @@ export class Quests extends Feature {
             list: this.list.filter(quest => {
                 return quest.isStarted;
             }).map(quest => {
-                return {
-                    id: quest.id,
-                    currentIndex: quest.currentIndex
-                }
+                return quest.save();
             })
         };
     }
