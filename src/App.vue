@@ -1,7 +1,7 @@
 <template>
   <div :class="{'dark': darkMode}">
     <igt-notifications></igt-notifications>
-    <igt-sidebar>
+    <igt-sidebar title="Lands Unknown">
 
       <igt-sidebar-category name="Features"></igt-sidebar-category>
 

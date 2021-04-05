@@ -41,7 +41,7 @@ export class Wallet extends Feature {
      * Gain the specified currency and apply the global multiplier
      */
     public gainCurrency(currency: Currency): void {
-        currency.multiply(this.getCurrencyMultiplier(currency.type));
+        currency.amount *= this.getCurrencyMultiplier(currency.type);
 
         if (!currency.isValid() || !this.supportsCurrencyType(currency.type)) {
             console.warn(`Could not add currency ${currency.toString()}`);
@@ -166,11 +166,11 @@ export class Wallet extends Feature {
     }
 
     public get money(): number {
-        return this._currencies.Money;
+        return this._currencies.money;
     }
 
     public set money(value: number) {
-        this._currencies.Money = value;
+        this._currencies.money = value;
     }
 
 

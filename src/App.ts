@@ -15,6 +15,7 @@ import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
 import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
 import {Npcs} from "@/ig-template/features/npcs/Npcs";
 import {Quests} from "@/lands-unknown/quests/Quests";
+import {LootTables} from "@/ig-template/features/loot-tables/LootTables";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -46,6 +47,7 @@ export class App {
                 worldMap: WorldBuilder.createWorld(),
                 actionList: new ActionList(),
                 adventurer: new Adventurer(),
+                lootTables: new LootTables(),
                 specialEvents: new SpecialEvents(),
                 statistics: new Statistics(),
                 achievements: new Achievements(),

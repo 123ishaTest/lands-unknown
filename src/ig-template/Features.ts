@@ -13,6 +13,7 @@ import {ActionList} from "@/lands-unknown/features/action-list/ActionList";
 import {KeyItems} from "@/ig-template/features/key-items/KeyItems";
 import {Npcs} from "@/ig-template/features/npcs/Npcs";
 import {Quests} from "@/lands-unknown/quests/Quests";
+import {LootTables} from "@/ig-template/features/loot-tables/LootTables";
 
 export interface Features {
     wallet: Wallet;
@@ -27,6 +28,7 @@ export interface Features {
     worldMap: WorldMap;
     actionList: ActionList;
     adventurer: Adventurer;
+    lootTables: LootTables;
     specialEvents: SpecialEvents;
     statistics: Statistics;
     achievements: Achievements;
